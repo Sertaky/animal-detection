@@ -245,6 +245,7 @@ class YoloDetectionDataset(Dataset[tuple[Any, DetectionTarget]]):
             "image_id": torch.tensor(index, dtype=torch.int64),
             "image_path": str(image_path),
             "original_size": torch.tensor([height, width], dtype=torch.int64),
+            "size": torch.tensor([height, width], dtype=torch.int64),
         }
         if self.transforms is not None:
             image, target = self.transforms(image, target)

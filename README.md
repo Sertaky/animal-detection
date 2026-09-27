@@ -78,3 +78,29 @@ Install and run the development tests with:
 python -m pip install -r requirements-dev.txt --extra-index-url https://download.pytorch.org/whl/cu130
 pytest -q
 ```
+
+## Model-Facing Targets and Detection Transforms
+
+Raw dataset labels remain unchanged at 0–19. Torchvision detector targets reserve
+label 0 for background and use foreground labels 1–20; this shift is performed
+explicitly by `adapt_target_for_torchvision`, never by `YoloDetectionDataset`.
+The adapter also adds `area` and `iscrowd` without mutating the dataset target.
+
+Paired transforms operate jointly on each image and target. Horizontal flips mirror
+pixel `xyxy` coordinates, while resize scales both coordinate axes and updates the
+current size metadata. The initial train preset uses 640×640 resize, a 50% horizontal
+flip, and tensor conversion. The evaluation preset uses only 640×640 resize and
+tensor conversion. No ImageNet normalization is applied because torchvision
+detection models generally normalize inputs internally.
+
+Verify the transform geometry numerically:
+
+```powershell
+python scripts/check_detection_transforms.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8"
+```
+
+Generate transformed samples for visual review before training:
+
+```powershell
+python scripts/visualize_transformed_samples.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split train --num-samples 8 --seed 42
+```
