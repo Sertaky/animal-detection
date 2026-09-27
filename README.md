@@ -49,3 +49,32 @@ python scripts/inspect_dataset.py --dataset-root "G:\animal-detection\Multi-Clas
 ```powershell
 python scripts/visualize_annotations.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split train --num-samples 8 --seed 42
 ```
+
+## PyTorch Dataset Layer
+
+`YoloDetectionDataset` reads the immutable YOLO annotations and converts normalized
+`class_id cx cy width height` boxes in memory to pixel `x1 y1 x2 y2` coordinates.
+Raw labels remain class IDs 0–19 at this stage; a future torchvision model adapter
+must explicitly handle any background-label offset instead of changing the dataset
+silently.
+
+The dataset supports zero-object samples and detection transforms with an
+`image, target` call signature. `detection_collate_fn` keeps images and targets as
+sequences so samples with different object counts can share a DataLoader batch.
+
+The cow and wolf samples identified by the audit have empty label files despite
+visibly containing animals. They intentionally remain empty targets until a
+separate annotation-override mechanism is designed; the raw labels are not edited.
+
+Run a short DataLoader check with:
+
+```powershell
+python scripts/check_dataloader.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split train --batch-size 4 --num-workers 0
+```
+
+Install and run the development tests with:
+
+```powershell
+python -m pip install -r requirements-dev.txt --extra-index-url https://download.pytorch.org/whl/cu130
+pytest -q
+```
