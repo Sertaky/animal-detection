@@ -1,0 +1,6 @@
+torch==2.14.0+cu130
+torchvision==0.29.0+cu130
+Pillow==12.3.0
+numpy==2.5.2
+matplotlib==3.11.2
+PyYAML==6.0.3

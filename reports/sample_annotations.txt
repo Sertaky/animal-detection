@@ -1,0 +1,86 @@
+REPRESENTATIVE YOLO ANNOTATIONS
+===============================
+
+Split: train
+Image: buffalo-1-_jpg.rf.51d6a1b2c76c6a43e4e03e2363f3c5ca.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.534375 0.56171875 0.734375 0.86796875
+Class: 0 -> Buffalo
+Pixel xyxy: 107.000, 81.750, 577.000, 637.250
+
+Split: train
+Image: buffalo-101-_jpg.rf.7f7ae7b96466f69b839fae5f4349be62.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.46015625 0.47578125 0.6921875 0.94609375
+Class: 0 -> Buffalo
+Pixel xyxy: 73.000, 1.750, 516.000, 607.250
+
+Split: train
+Image: buffalo-102-_jpg.rf.1cfb7d5384bba37f1349565b69433530.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.46640625 0.5359375 0.61640625 0.73671875
+Class: 0 -> Buffalo
+Pixel xyxy: 101.250, 107.250, 495.750, 578.750
+
+Split: train
+Image: buffalo-103-_jpg.rf.100ab07777ba45d1a245551899eecdff.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.49140625 0.53125 0.86171875 0.9375
+Class: 0 -> Buffalo
+Pixel xyxy: 38.750, 40.000, 590.250, 640.000
+
+Split: train
+Image: buffalo-105-_jpg.rf.247ac948097d4827575d8a4cc80bd345.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.49921875 0.496875 0.97109375 0.96640625
+Class: 0 -> Buffalo
+Pixel xyxy: 8.750, 8.750, 630.250, 627.250
+
+Split: train
+Image: buffalo-106-_jpg.rf.fa58b53b678065cd73f1ded11c55df68.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.39921875 0.54609375 0.77265625 0.72109375
+Class: 0 -> Buffalo
+Pixel xyxy: 8.250, 118.750, 502.750, 580.250
+
+Split: train
+Image: buffalo-107-_jpg.rf.25717705249b7ac060f6efa6c92cf116.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.45078125 0.52421875 0.88828125 0.88828125
+Class: 0 -> Buffalo
+Pixel xyxy: 4.250, 51.250, 572.750, 619.750
+
+Split: train
+Image: buffalo-108-_jpg.rf.33543feb9a69d1051fe7c1542ea3e97b.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.52578125 0.5078125 0.77421875 0.6453125
+Class: 0 -> Buffalo
+Pixel xyxy: 88.750, 118.500, 584.250, 531.500
+
+Split: train
+Image: buffalo-109-_jpg.rf.23c320253b50d14be9bd2dfca1a2aeac.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.5515625 0.5046875 0.34375 0.6296875
+Class: 0 -> Buffalo
+Pixel xyxy: 243.000, 121.500, 463.000, 524.500
+
+Split: train
+Image: buffalo-109-_jpg.rf.23c320253b50d14be9bd2dfca1a2aeac.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.26015625 0.5234375 0.31484375 0.421875
+Class: 0 -> Buffalo
+Pixel xyxy: 65.750, 200.000, 267.250, 470.000
+
+Split: train
+Image: buffalo-11-_jpg.rf.074432aa13ab862461e49723882f7e71.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.5 0.5125 0.79453125 0.81953125
+Class: 0 -> Buffalo
+Pixel xyxy: 65.750, 65.750, 574.250, 590.250
+
+Split: train
+Image: buffalo-112-_jpg.rf.68842b4683001b003c5d3081d1e6e0de.jpg
+Dimensions: 640 x 640
+Raw YOLO: 0 0.471875 0.5 0.94375 0.996875
+Class: 0 -> Buffalo
+Pixel xyxy: 0.000, 1.000, 604.000, 639.000

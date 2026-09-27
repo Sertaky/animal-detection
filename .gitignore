@@ -1,0 +1,49 @@
+/Multi-Class Animal Detection.v1-yolov8/
+/data/processed/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Environments and secrets
+.venv/
+venv/
+env/
+.conda/
+.env
+.env.*
+
+# Generated training artifacts
+checkpoints/
+*.pt
+*.pth
+runs/
+outputs/
+logs/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.tmp
+~$*
+
+# Downloaded archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar

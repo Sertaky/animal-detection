@@ -1,0 +1,41 @@
+DATASET AUDIT
+=============
+Dataset root: G:\animal-detection\Multi-Class Animal Detection.v1-yolov8
+Detected format: YOLO normalized cxcywh
+Classes: declared=20, names=20, discovered=20
+Images: total=2000, train=1400, valid=300, test=300
+Objects: 2689
+Objects per class:
+  0 (Buffalo): 132
+  1 (Camel): 142
+  2 (Cat): 117
+  3 (Cheetah): 146
+  4 (Cow): 125
+  5 (Deer): 115
+  6 (Dog): 126
+  7 (Elephant): 146
+  8 (Goat): 146
+  9 (Gorilla): 118
+  10 (Hippo): 145
+  11 (Horse): 134
+  12 (Lion): 112
+  13 (Monkeys): 134
+  14 (Panda): 132
+  15 (Rat): 147
+  16 (Rhino): 137
+  17 (Tiger): 106
+  18 (Wolf): 103
+  19 (Zebra): 226
+Objects/image: min=0.0, max=21.0, mean=1.3445, median=1.0
+Resolutions: unique=1, most_common=('640x640', 2000), all_640x640=True
+Malformed rows: 0; invalid boxes: 0; outside after conversion: 0
+Missing labels: 0; orphan labels: 0; empty labels: 2
+Unreadable/corrupt images: 0; duplicate annotation rows: 0
+Cross-split duplicate filenames: 0; cross-split exact-content groups: 0
+
+Diagnostic box definitions:
+  Tiny: normalized area < 0.001
+  Very large: normalized area > 0.5
+  Touching boundary: pixel edge within 1 px of image boundary
+
+Note: declared YAML paths are resolved literally relative to data.yaml; see JSON for actual path checks.

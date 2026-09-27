@@ -1,0 +1,502 @@
+{
+  "generated_at_utc": "2026-09-27T21:53:36.464609+00:00",
+  "dataset_root": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8",
+  "annotation_format": {
+    "detected": "YOLO normalized cxcywh",
+    "confirmed": true,
+    "evidence": {
+      "data_yaml_present": true,
+      "names_declared": true,
+      "split_image_directories": 3,
+      "split_label_directories": 3,
+      "label_text_files": 2000
+    }
+  },
+  "structure": {
+    "top_level_entries": [
+      "data.yaml",
+      "test",
+      "train",
+      "valid"
+    ],
+    "extension_counts": {
+      ".jpg": 2000,
+      ".txt": 2000,
+      ".yaml": 1
+    },
+    "splits_present": {
+      "train": true,
+      "valid": true,
+      "test": true
+    }
+  },
+  "data_yaml": {
+    "path": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\data.yaml",
+    "train": "../train/images",
+    "val": "../valid/images",
+    "test": "../test/images",
+    "nc": 20,
+    "names": {
+      "0": "Buffalo",
+      "1": "Camel",
+      "2": "Cat",
+      "3": "Cheetah",
+      "4": "Cow",
+      "5": "Deer",
+      "6": "Dog",
+      "7": "Elephant",
+      "8": "Goat",
+      "9": "Gorilla",
+      "10": "Hippo",
+      "11": "Horse",
+      "12": "Lion",
+      "13": "Monkeys",
+      "14": "Panda",
+      "15": "Rat",
+      "16": "Rhino",
+      "17": "Tiger",
+      "18": "Wolf",
+      "19": "Zebra"
+    },
+    "number_of_names": 20,
+    "declared_paths": {
+      "train": {
+        "yaml_key": "train",
+        "declared": "../train/images",
+        "resolved_from_yaml": "G:\\animal-detection\\train\\images",
+        "resolved_exists": false,
+        "actual_detected": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images",
+        "actual_exists": true
+      },
+      "valid": {
+        "yaml_key": "val",
+        "declared": "../valid/images",
+        "resolved_from_yaml": "G:\\animal-detection\\valid\\images",
+        "resolved_exists": false,
+        "actual_detected": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images",
+        "actual_exists": true
+      },
+      "test": {
+        "yaml_key": "test",
+        "declared": "../test/images",
+        "resolved_from_yaml": "G:\\animal-detection\\test\\images",
+        "resolved_exists": false,
+        "actual_detected": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\test\\images",
+        "actual_exists": true
+      }
+    },
+    "declared_count_matches_names": true,
+    "declared_count_matches_discovered": true
+  },
+  "images": {
+    "total": 2000,
+    "per_split": {
+      "train": 1400,
+      "valid": 300,
+      "test": 300
+    },
+    "extensions": {
+      ".jpg": 2000
+    },
+    "resolution_counts": {
+      "640x640": 2000
+    },
+    "unique_resolutions": 1,
+    "most_common_resolution": [
+      "640x640",
+      2000
+    ],
+    "min_width": 640,
+    "max_width": 640,
+    "min_height": 640,
+    "max_height": 640,
+    "all_640x640": true,
+    "unreadable_or_corrupt": []
+  },
+  "annotations": {
+    "label_files": 2000,
+    "malformed_rows": [],
+    "invalid_boxes": [],
+    "boxes_outside_image_after_conversion": [],
+    "duplicate_rows": [],
+    "empty_label_files": [
+      "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\cow-19-_jpg.rf.79ab2f17459bf2b455ba932f730a35d2.txt",
+      "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\labels\\wolf-109-_jpg.rf.a384d38588191d796589048d6cb38e97.txt"
+    ],
+    "missing_label_files": [],
+    "orphan_label_files": []
+  },
+  "objects": {
+    "total": 2689,
+    "discovered_class_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "discovered_class_count": 20,
+    "objects_per_class": {
+      "0": 132,
+      "1": 142,
+      "2": 117,
+      "3": 146,
+      "4": 125,
+      "5": 115,
+      "6": 126,
+      "7": 146,
+      "8": 146,
+      "9": 118,
+      "10": 145,
+      "11": 134,
+      "12": 112,
+      "13": 134,
+      "14": 132,
+      "15": 147,
+      "16": 137,
+      "17": 106,
+      "18": 103,
+      "19": 226
+    },
+    "images_per_class": {
+      "0": 100,
+      "1": 100,
+      "2": 100,
+      "3": 100,
+      "4": 99,
+      "5": 100,
+      "6": 100,
+      "7": 100,
+      "8": 100,
+      "9": 100,
+      "10": 100,
+      "11": 100,
+      "12": 100,
+      "13": 100,
+      "14": 100,
+      "15": 100,
+      "16": 100,
+      "17": 100,
+      "18": 99,
+      "19": 100
+    },
+    "images_with_zero_objects": 2,
+    "images_with_one_object": 1613,
+    "images_with_multiple_objects": 385,
+    "objects_per_image": {
+      "count": 2000,
+      "min": 0.0,
+      "max": 21.0,
+      "mean": 1.3445,
+      "median": 1.0
+    }
+  },
+  "bounding_boxes": {
+    "definitions": {
+      "tiny": "normalized area < 0.001",
+      "very_large": "normalized area > 0.5",
+      "touching_boundary": "pixel edge within 1 px of an image boundary"
+    },
+    "normalized_width": {
+      "count": 2689,
+      "min": 0.05546875,
+      "max": 1.0,
+      "mean": 0.5554719458906657,
+      "median": 0.54921875
+    },
+    "normalized_height": {
+      "count": 2689,
+      "min": 0.059375,
+      "max": 1.0,
+      "mean": 0.6649776868724433,
+      "median": 0.7140625
+    },
+    "normalized_area": {
+      "count": 2689,
+      "min": 0.0058343505859375,
+      "max": 1.0,
+      "mean": 0.4150029446228413,
+      "median": 0.386942138671875
+    },
+    "pixel_width": {
+      "count": 2689,
+      "min": 35.5,
+      "max": 640.0,
+      "mean": 355.50204537002605,
+      "median": 351.5
+    },
+    "pixel_height": {
+      "count": 2689,
+      "min": 38.0,
+      "max": 640.0,
+      "mean": 425.5857195983637,
+      "median": 457.0
+    },
+    "pixel_area": {
+      "count": 2689,
+      "min": 2389.75,
+      "max": 409600.0,
+      "mean": 169985.2061175158,
+      "median": 158491.5
+    },
+    "tiny_boxes": 0,
+    "very_large_boxes": 1048,
+    "touching_boundary": 911
+  },
+  "splits": {
+    "train": {
+      "images": 1400,
+      "labels": 1400,
+      "objects": 1889,
+      "objects_per_class": {
+        "0": 91,
+        "1": 100,
+        "2": 84,
+        "3": 103,
+        "4": 89,
+        "5": 83,
+        "6": 83,
+        "7": 103,
+        "8": 101,
+        "9": 84,
+        "10": 102,
+        "11": 89,
+        "12": 81,
+        "13": 91,
+        "14": 81,
+        "15": 117,
+        "16": 98,
+        "17": 75,
+        "18": 74,
+        "19": 160
+      },
+      "images_per_class": {
+        "0": 70,
+        "1": 70,
+        "2": 70,
+        "3": 70,
+        "4": 69,
+        "5": 70,
+        "6": 70,
+        "7": 70,
+        "8": 70,
+        "9": 70,
+        "10": 70,
+        "11": 70,
+        "12": 70,
+        "13": 70,
+        "14": 70,
+        "15": 70,
+        "16": 70,
+        "17": 70,
+        "18": 70,
+        "19": 70
+      },
+      "class_distribution_percent": {
+        "0": 4.817363684489147,
+        "1": 5.293806246691371,
+        "2": 4.4467972472207515,
+        "3": 5.452620434092112,
+        "4": 4.71148755955532,
+        "5": 4.393859184753838,
+        "6": 4.393859184753838,
+        "7": 5.452620434092112,
+        "8": 5.346744309158285,
+        "9": 4.4467972472207515,
+        "10": 5.3996823716251985,
+        "11": 4.71148755955532,
+        "12": 4.287983059820011,
+        "13": 4.817363684489147,
+        "14": 4.287983059820011,
+        "15": 6.193753308628904,
+        "16": 5.187930121757543,
+        "17": 3.9703546850185285,
+        "18": 3.9174166225516145,
+        "19": 8.470089994706195
+      },
+      "objects_per_image": {
+        "count": 1400,
+        "min": 0.0,
+        "max": 21.0,
+        "mean": 1.3492857142857142,
+        "median": 1.0
+      }
+    },
+    "valid": {
+      "images": 300,
+      "labels": 300,
+      "objects": 412,
+      "objects_per_class": {
+        "0": 23,
+        "1": 20,
+        "2": 17,
+        "3": 25,
+        "4": 17,
+        "5": 15,
+        "6": 17,
+        "7": 23,
+        "8": 22,
+        "9": 17,
+        "10": 23,
+        "11": 20,
+        "12": 15,
+        "13": 19,
+        "14": 36,
+        "15": 15,
+        "16": 19,
+        "17": 16,
+        "18": 14,
+        "19": 39
+      },
+      "images_per_class": {
+        "0": 15,
+        "1": 15,
+        "2": 15,
+        "3": 15,
+        "4": 15,
+        "5": 15,
+        "6": 15,
+        "7": 15,
+        "8": 15,
+        "9": 15,
+        "10": 15,
+        "11": 15,
+        "12": 15,
+        "13": 15,
+        "14": 15,
+        "15": 15,
+        "16": 15,
+        "17": 15,
+        "18": 14,
+        "19": 15
+      },
+      "class_distribution_percent": {
+        "0": 5.58252427184466,
+        "1": 4.854368932038835,
+        "2": 4.12621359223301,
+        "3": 6.067961165048544,
+        "4": 4.12621359223301,
+        "5": 3.6407766990291264,
+        "6": 4.12621359223301,
+        "7": 5.58252427184466,
+        "8": 5.339805825242719,
+        "9": 4.12621359223301,
+        "10": 5.58252427184466,
+        "11": 4.854368932038835,
+        "12": 3.6407766990291264,
+        "13": 4.611650485436893,
+        "14": 8.737864077669903,
+        "15": 3.6407766990291264,
+        "16": 4.611650485436893,
+        "17": 3.883495145631068,
+        "18": 3.3980582524271843,
+        "19": 9.466019417475728
+      },
+      "objects_per_image": {
+        "count": 300,
+        "min": 0.0,
+        "max": 17.0,
+        "mean": 1.3733333333333333,
+        "median": 1.0
+      }
+    },
+    "test": {
+      "images": 300,
+      "labels": 300,
+      "objects": 388,
+      "objects_per_class": {
+        "0": 18,
+        "1": 22,
+        "2": 16,
+        "3": 18,
+        "4": 19,
+        "5": 17,
+        "6": 26,
+        "7": 20,
+        "8": 23,
+        "9": 17,
+        "10": 20,
+        "11": 25,
+        "12": 16,
+        "13": 24,
+        "14": 15,
+        "15": 15,
+        "16": 20,
+        "17": 15,
+        "18": 15,
+        "19": 27
+      },
+      "images_per_class": {
+        "0": 15,
+        "1": 15,
+        "2": 15,
+        "3": 15,
+        "4": 15,
+        "5": 15,
+        "6": 15,
+        "7": 15,
+        "8": 15,
+        "9": 15,
+        "10": 15,
+        "11": 15,
+        "12": 15,
+        "13": 15,
+        "14": 15,
+        "15": 15,
+        "16": 15,
+        "17": 15,
+        "18": 15,
+        "19": 15
+      },
+      "class_distribution_percent": {
+        "0": 4.639175257731959,
+        "1": 5.670103092783505,
+        "2": 4.123711340206185,
+        "3": 4.639175257731959,
+        "4": 4.896907216494846,
+        "5": 4.381443298969073,
+        "6": 6.701030927835052,
+        "7": 5.154639175257732,
+        "8": 5.927835051546392,
+        "9": 4.381443298969073,
+        "10": 5.154639175257732,
+        "11": 6.443298969072165,
+        "12": 4.123711340206185,
+        "13": 6.185567010309279,
+        "14": 3.865979381443299,
+        "15": 3.865979381443299,
+        "16": 5.154639175257732,
+        "17": 3.865979381443299,
+        "18": 3.865979381443299,
+        "19": 6.958762886597938
+      },
+      "objects_per_image": {
+        "count": 300,
+        "min": 1.0,
+        "max": 7.0,
+        "mean": 1.2933333333333332,
+        "median": 1.0
+      }
+    }
+  },
+  "cross_split_checks": {
+    "identical_image_paths": [],
+    "duplicate_filenames": {},
+    "exact_duplicate_image_content": []
+  }
+}

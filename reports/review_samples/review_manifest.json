@@ -1,0 +1,129 @@
+{
+  "dataset_root": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8",
+  "definitions": {
+    "large_box": "normalized area > 0.5",
+    "boundary_box": "box edge within 1 pixel of image boundary"
+  },
+  "images": [
+    {
+      "category": "large_box",
+      "output": "G:\\animal-detection\\reports\\review_samples\\large_box_01_train_cat-22-_jpg.rf.8a110709e6de0e1da58b492a70f3b2cb.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\cat-22-_jpg.rf.8a110709e6de0e1da58b492a70f3b2cb.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\cat-22-_jpg.rf.8a110709e6de0e1da58b492a70f3b2cb.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "large_box",
+      "output": "G:\\animal-detection\\reports\\review_samples\\large_box_02_test_Elephant-13-_jpeg.rf.94584f74c05165c2528ed4ec0ef91e6d.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\test\\images\\Elephant-13-_jpeg.rf.94584f74c05165c2528ed4ec0ef91e6d.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\test\\labels\\Elephant-13-_jpeg.rf.94584f74c05165c2528ed4ec0ef91e6d.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "large_box",
+      "output": "G:\\animal-detection\\reports\\review_samples\\large_box_03_train_images-17-_jpeg_jpg.rf.00a9c0afcf6eeb4eab2f1371494b3442.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\images-17-_jpeg_jpg.rf.00a9c0afcf6eeb4eab2f1371494b3442.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\images-17-_jpeg_jpg.rf.00a9c0afcf6eeb4eab2f1371494b3442.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "large_box",
+      "output": "G:\\animal-detection\\reports\\review_samples\\large_box_04_train_hippo-170-_jpeg.rf.e8fd355689f978b1765b13082360f968.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\hippo-170-_jpeg.rf.e8fd355689f978b1765b13082360f968.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\hippo-170-_jpeg.rf.e8fd355689f978b1765b13082360f968.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "boundary_box",
+      "output": "G:\\animal-detection\\reports\\review_samples\\boundary_box_01_test_dog-4-_png.rf.1c4b63ab10b9314f3853be8d91219aed.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\test\\images\\dog-4-_png.rf.1c4b63ab10b9314f3853be8d91219aed.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\test\\labels\\dog-4-_png.rf.1c4b63ab10b9314f3853be8d91219aed.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "boundary_box",
+      "output": "G:\\animal-detection\\reports\\review_samples\\boundary_box_02_train_dog-5-_jpeg.rf.77caa7b659f9336b24422e3624333067.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\dog-5-_jpeg.rf.77caa7b659f9336b24422e3624333067.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\dog-5-_jpeg.rf.77caa7b659f9336b24422e3624333067.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "boundary_box",
+      "output": "G:\\animal-detection\\reports\\review_samples\\boundary_box_03_valid_cow-62-_jpg.rf.2becbd06b7a85216ee931a56a9f7b072.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\cow-62-_jpg.rf.2becbd06b7a85216ee931a56a9f7b072.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\labels\\cow-62-_jpg.rf.2becbd06b7a85216ee931a56a9f7b072.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "boundary_box",
+      "output": "G:\\animal-detection\\reports\\review_samples\\boundary_box_04_valid_rat-13-_jpg.rf.f95850ab105a31156d205e06331787e5.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\rat-13-_jpg.rf.f95850ab105a31156d205e06331787e5.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\labels\\rat-13-_jpg.rf.f95850ab105a31156d205e06331787e5.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "zebra",
+      "output": "G:\\animal-detection\\reports\\review_samples\\zebra_01_train_Zebra-Valid-326-_jpeg.rf.805269f734039b4ed0c8368f220658a5.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Zebra-Valid-326-_jpeg.rf.805269f734039b4ed0c8368f220658a5.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\Zebra-Valid-326-_jpeg.rf.805269f734039b4ed0c8368f220658a5.txt",
+      "objects": 2,
+      "highlighted_objects": 2
+    },
+    {
+      "category": "zebra",
+      "output": "G:\\animal-detection\\reports\\review_samples\\zebra_02_train_Zebra-Valid-346-_jpeg.rf.f6a48a08b9cfa675a53e3bba92bc6dab.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Zebra-Valid-346-_jpeg.rf.f6a48a08b9cfa675a53e3bba92bc6dab.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\Zebra-Valid-346-_jpeg.rf.f6a48a08b9cfa675a53e3bba92bc6dab.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "zebra",
+      "output": "G:\\animal-detection\\reports\\review_samples\\zebra_03_train_Zebra-Valid-353-_jpeg.rf.070144c401dbd870a39c2cb519c7e0de.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Zebra-Valid-353-_jpeg.rf.070144c401dbd870a39c2cb519c7e0de.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\Zebra-Valid-353-_jpeg.rf.070144c401dbd870a39c2cb519c7e0de.txt",
+      "objects": 1,
+      "highlighted_objects": 1
+    },
+    {
+      "category": "zebra",
+      "output": "G:\\animal-detection\\reports\\review_samples\\zebra_04_valid_Zebra-Valid-307-_jpeg.rf.00a6fc90e2e8435e0e5edafa7e53116f.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\Zebra-Valid-307-_jpeg.rf.00a6fc90e2e8435e0e5edafa7e53116f.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\labels\\Zebra-Valid-307-_jpeg.rf.00a6fc90e2e8435e0e5edafa7e53116f.txt",
+      "objects": 2,
+      "highlighted_objects": 2
+    },
+    {
+      "category": "empty_label",
+      "output": "G:\\animal-detection\\reports\\review_samples\\empty_label_01_train_cow-19-_jpg.rf.79ab2f17459bf2b455ba932f730a35d2.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\cow-19-_jpg.rf.79ab2f17459bf2b455ba932f730a35d2.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\cow-19-_jpg.rf.79ab2f17459bf2b455ba932f730a35d2.txt",
+      "objects": 0,
+      "highlighted_objects": 0
+    },
+    {
+      "category": "empty_label",
+      "output": "G:\\animal-detection\\reports\\review_samples\\empty_label_02_valid_wolf-109-_jpg.rf.a384d38588191d796589048d6cb38e97.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\wolf-109-_jpg.rf.a384d38588191d796589048d6cb38e97.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\labels\\wolf-109-_jpg.rf.a384d38588191d796589048d6cb38e97.txt",
+      "objects": 0,
+      "highlighted_objects": 0
+    },
+    {
+      "category": "multi_object",
+      "output": "G:\\animal-detection\\reports\\review_samples\\multi_object_01_train_rat-38-_jpg.rf.445d47cfa6520071db240711501f1cf4.jpg",
+      "source_image": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\rat-38-_jpg.rf.445d47cfa6520071db240711501f1cf4.jpg",
+      "source_label": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\labels\\rat-38-_jpg.rf.445d47cfa6520071db240711501f1cf4.txt",
+      "objects": 21,
+      "highlighted_objects": 21
+    }
+  ]
+}

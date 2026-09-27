@@ -1,0 +1,11 @@
+Multi-Class Animal Detection.v1-yolov8/
+  data.yaml
+  train/
+    images/  (1400 files)
+    labels/  (1400 files)
+  valid/
+    images/  (300 files)
+    labels/  (300 files)
+  test/
+    images/  (300 files)
+    labels/  (300 files)
