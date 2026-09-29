@@ -15,6 +15,29 @@ MODEL_BACKGROUND_LABEL = 0
 MODEL_LABEL_MIN = 1
 MODEL_LABEL_MAX = 20
 
+ANIMAL_CLASS_NAMES = (
+    "Buffalo",
+    "Camel",
+    "Cat",
+    "Cheetah",
+    "Cow",
+    "Deer",
+    "Dog",
+    "Elephant",
+    "Goat",
+    "Gorilla",
+    "Hippo",
+    "Horse",
+    "Lion",
+    "Monkeys",
+    "Panda",
+    "Rat",
+    "Rhino",
+    "Tiger",
+    "Wolf",
+    "Zebra",
+)
+
 _INTEGER_DTYPES = {
     torch.uint8,
     torch.int8,

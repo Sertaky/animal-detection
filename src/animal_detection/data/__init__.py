@@ -3,7 +3,7 @@
 from .collate import detection_collate_fn
 from .label_mapping import dataset_label_to_model_label, model_label_to_dataset_label
 from .presets import get_eval_transforms, get_train_transforms
-from .target_adapter import adapt_target_for_torchvision
+from .target_adapter import TorchvisionDetectionDataset, adapt_target_for_torchvision
 from .transforms import Compose, RandomHorizontalFlip, Resize, ToTensor
 from .validation import (
     TargetValidationError,
@@ -19,6 +19,7 @@ __all__ = [
     "Resize",
     "TargetValidationError",
     "ToTensor",
+    "TorchvisionDetectionDataset",
     "YoloDetectionDataset",
     "adapt_target_for_torchvision",
     "dataset_label_to_model_label",

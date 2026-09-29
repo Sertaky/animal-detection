@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
+from typing import Any
 
 import torch
 from torch import Tensor
+from torch.utils.data import Dataset
 
 from .label_mapping import dataset_label_to_model_label
 from .yolo_detection_dataset import DetectionTarget
@@ -48,3 +50,17 @@ def adapt_target_for_torchvision(
         (adapted_boxes.shape[0],), dtype=torch.int64, device=adapted_boxes.device
     )
     return adapted
+
+
+class TorchvisionDetectionDataset(Dataset):
+    """Wrap a detection dataset and explicitly adapt each target for torchvision."""
+
+    def __init__(self, dataset: Dataset) -> None:
+        self.dataset = dataset
+
+    def __len__(self) -> int:
+        return len(self.dataset)  # type: ignore[arg-type]
+
+    def __getitem__(self, index: int) -> tuple[Any, DetectionTarget]:
+        image, target = self.dataset[index]
+        return image, adapt_target_for_torchvision(target)

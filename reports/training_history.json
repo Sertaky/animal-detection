@@ -1,0 +1,24 @@
+[
+  {
+    "epoch": 1,
+    "train_total_loss": 1.5592191368341446,
+    "train_loss_classifier": 1.3290050476789474,
+    "train_loss_box_reg": 0.2253815345466137,
+    "train_loss_objectness": 0.003498553601502863,
+    "train_loss_rpn_box_reg": 0.0013340017612790689,
+    "validation_map": 0.0,
+    "validation_map_50": 0.0,
+    "validation_map_75": 0.0,
+    "validation_mar_100": 0.0,
+    "learning_rate": 0.005,
+    "epoch_runtime_seconds": 2.822666399879381,
+    "training_runtime_seconds": 1.8577623998280615,
+    "validation_runtime_seconds": 0.9584075000602752,
+    "gpu_peak_allocated_mib": 665.29248046875,
+    "gpu_peak_reserved_mib": 740.0,
+    "train_batches": 4,
+    "train_samples": 4,
+    "validation_batches": 8,
+    "validation_images": 8
+  }
+]

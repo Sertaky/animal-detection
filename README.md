@@ -121,3 +121,24 @@ FP32 baseline for the 4 GB RTX 3050; this is not a final training configuration.
 ```powershell
 python scripts/check_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --batch-size 1 --num-workers 0
 ```
+
+## Training and Validation
+
+The reusable engine optimizes only on the `train` split and computes COCO-style
+detection metrics only on the `valid` split. The `test` split remains untouched and
+is not used for model selection. Validation tracks mAP@0.50:0.95, mAP@0.50,
+mAP@0.75, mean recall, and class-wise AP where available through TorchMetrics.
+
+The best-checkpoint criterion is validation mAP@0.50:0.95. Individual Faster R-CNN
+losses, total loss, learning rate, runtime, and peak CUDA memory are written to
+`reports/training_history.json`. The best checkpoint is written to
+`checkpoints/faster_rcnn_best.pt`, which remains outside Git tracking. The initial
+run is only a short pipeline-validation experiment, not final training or model
+selection.
+
+```powershell
+python scripts/train_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --epochs 1 --batch-size 1 --num-workers 0
+```
+
+For an explicitly bounded pipeline check, use `--max-train-batches` and
+`--max-val-batches`; these limits are recorded in the experiment configuration.

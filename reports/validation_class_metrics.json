@@ -1,0 +1,61 @@
+{
+  "epoch": 1,
+  "metrics": [
+    {
+      "model_label": 1,
+      "dataset_label": 0,
+      "class_name": "Buffalo",
+      "ap": 0.0,
+      "ar_100": 0.0
+    },
+    {
+      "model_label": 3,
+      "dataset_label": 2,
+      "class_name": "Cat",
+      "ap": 0.0,
+      "ar_100": 0.0
+    },
+    {
+      "model_label": 6,
+      "dataset_label": 5,
+      "class_name": "Deer",
+      "ap": 0.0,
+      "ar_100": 0.0
+    },
+    {
+      "model_label": 7,
+      "dataset_label": 6,
+      "class_name": "Dog",
+      "ap": 0.0,
+      "ar_100": 0.0
+    },
+    {
+      "model_label": 10,
+      "dataset_label": 9,
+      "class_name": "Gorilla",
+      "ap": 0.0,
+      "ar_100": 0.0
+    },
+    {
+      "model_label": 15,
+      "dataset_label": 14,
+      "class_name": "Panda",
+      "ap": 0.0,
+      "ar_100": 0.0
+    },
+    {
+      "model_label": 18,
+      "dataset_label": 17,
+      "class_name": "Tiger",
+      "ap": 0.0,
+      "ar_100": 0.0
+    },
+    {
+      "model_label": 20,
+      "dataset_label": 19,
+      "class_name": "Zebra",
+      "ap": 0.0,
+      "ar_100": 0.0
+    }
+  ]
+}
