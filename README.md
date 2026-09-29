@@ -104,3 +104,20 @@ Generate transformed samples for visual review before training:
 ```powershell
 python scripts/visualize_transformed_samples.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split train --num-samples 8 --seed 42
 ```
+
+## Faster R-CNN Integration
+
+The current detector integration uses torchvision Faster R-CNN with a ResNet50-FPN
+backbone. COCO detector weights initialize the pretrained network, after which the
+final predictor is replaced with 21 outputs: background label 0 plus 20 animal
+foreground classes. Dataset labels 0–19 are explicitly adapted to model labels
+1–20 before the forward pass.
+
+This milestone performs only one smoke-test optimization step and one inference
+pass. It is not a trainer, no checkpoint is saved, and no accuracy or performance
+results exist yet. The default smoke resolution is 512×512 to provide a conservative
+FP32 baseline for the 4 GB RTX 3050; this is not a final training configuration.
+
+```powershell
+python scripts/check_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --batch-size 1 --num-workers 0
+```
