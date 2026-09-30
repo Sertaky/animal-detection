@@ -1,0 +1,17 @@
+{
+  "status": "confirmed_missing_annotation",
+  "samples": [
+    {
+      "split": "train",
+      "image_filename": "cow-19-_jpg.rf.79ab2f17459bf2b455ba932f730a35d2.jpg",
+      "reason": "Visible animal but missing bounding-box annotation.",
+      "status": "excluded_from_training_and_validation"
+    },
+    {
+      "split": "valid",
+      "image_filename": "wolf-109-_jpg.rf.a384d38588191d796589048d6cb38e97.jpg",
+      "reason": "Visible animal but missing bounding-box annotation.",
+      "status": "excluded_from_training_and_validation"
+    }
+  ]
+}

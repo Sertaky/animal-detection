@@ -21,6 +21,7 @@ def save_checkpoint(
     training_metrics: Mapping[str, Any],
     configuration: Mapping[str, Any],
     class_mapping: Mapping[str, Any],
+    scheduler=None,
 ) -> Path:
     """Atomically save one requested training checkpoint."""
     destination = Path(path).resolve()
@@ -30,6 +31,7 @@ def save_checkpoint(
         "epoch": epoch,
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict(),
+        "scheduler_state_dict": scheduler.state_dict() if scheduler is not None else None,
         "validation_metrics": dict(validation_metrics),
         "training_metrics": dict(training_metrics),
         "configuration": dict(configuration),

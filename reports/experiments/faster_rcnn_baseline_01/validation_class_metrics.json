@@ -1,0 +1,145 @@
+{
+  "best_epoch": 9,
+  "metrics": [
+    {
+      "model_label": 1,
+      "dataset_label": 0,
+      "class_name": "Buffalo",
+      "ap": 0.5053696036338806,
+      "ar_100": 0.686956524848938
+    },
+    {
+      "model_label": 2,
+      "dataset_label": 1,
+      "class_name": "Camel",
+      "ap": 0.39166679978370667,
+      "ar_100": 0.5950000286102295
+    },
+    {
+      "model_label": 3,
+      "dataset_label": 2,
+      "class_name": "Cat",
+      "ap": 0.6697329878807068,
+      "ar_100": 0.7588235139846802
+    },
+    {
+      "model_label": 4,
+      "dataset_label": 3,
+      "class_name": "Cheetah",
+      "ap": 0.4731729030609131,
+      "ar_100": 0.5440000295639038
+    },
+    {
+      "model_label": 5,
+      "dataset_label": 4,
+      "class_name": "Cow",
+      "ap": 0.55455082654953,
+      "ar_100": 0.658823549747467
+    },
+    {
+      "model_label": 6,
+      "dataset_label": 5,
+      "class_name": "Deer",
+      "ap": 0.6246606707572937,
+      "ar_100": 0.699999988079071
+    },
+    {
+      "model_label": 7,
+      "dataset_label": 6,
+      "class_name": "Dog",
+      "ap": 0.6918909549713135,
+      "ar_100": 0.8117647171020508
+    },
+    {
+      "model_label": 8,
+      "dataset_label": 7,
+      "class_name": "Elephant",
+      "ap": 0.5720221400260925,
+      "ar_100": 0.6608695387840271
+    },
+    {
+      "model_label": 9,
+      "dataset_label": 8,
+      "class_name": "Goat",
+      "ap": 0.4486537277698517,
+      "ar_100": 0.5909090638160706
+    },
+    {
+      "model_label": 10,
+      "dataset_label": 9,
+      "class_name": "Gorilla",
+      "ap": 0.5842525362968445,
+      "ar_100": 0.770588219165802
+    },
+    {
+      "model_label": 11,
+      "dataset_label": 10,
+      "class_name": "Hippo",
+      "ap": 0.5748568177223206,
+      "ar_100": 0.7217391133308411
+    },
+    {
+      "model_label": 12,
+      "dataset_label": 11,
+      "class_name": "Horse",
+      "ap": 0.6940047144889832,
+      "ar_100": 0.7900000214576721
+    },
+    {
+      "model_label": 13,
+      "dataset_label": 12,
+      "class_name": "Lion",
+      "ap": 0.7586583495140076,
+      "ar_100": 0.8600000143051147
+    },
+    {
+      "model_label": 14,
+      "dataset_label": 13,
+      "class_name": "Monkeys",
+      "ap": 0.4066896438598633,
+      "ar_100": 0.6157894730567932
+    },
+    {
+      "model_label": 15,
+      "dataset_label": 14,
+      "class_name": "Panda",
+      "ap": 0.2846958041191101,
+      "ar_100": 0.31388887763023376
+    },
+    {
+      "model_label": 16,
+      "dataset_label": 15,
+      "class_name": "Rat",
+      "ap": 0.6009458303451538,
+      "ar_100": 0.6800000071525574
+    },
+    {
+      "model_label": 17,
+      "dataset_label": 16,
+      "class_name": "Rhino",
+      "ap": 0.7670333385467529,
+      "ar_100": 0.821052610874176
+    },
+    {
+      "model_label": 18,
+      "dataset_label": 17,
+      "class_name": "Tiger",
+      "ap": 0.6266261339187622,
+      "ar_100": 0.699999988079071
+    },
+    {
+      "model_label": 19,
+      "dataset_label": 18,
+      "class_name": "Wolf",
+      "ap": 0.8007975816726685,
+      "ar_100": 0.9071428775787354
+    },
+    {
+      "model_label": 20,
+      "dataset_label": 19,
+      "class_name": "Zebra",
+      "ap": 0.47940996289253235,
+      "ar_100": 0.5615384578704834
+    }
+  ]
+}

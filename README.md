@@ -4,7 +4,7 @@ A standalone portfolio project for multi-class animal object detection using PyT
 
 ## Status
 
-Repository setup and dataset auditing are in progress. Model training and final model selection have not started, and no performance claims are made.
+Repository setup, dataset auditing, and the first full baseline experiment are complete. No test-set performance claim is made.
 
 ## Environment setup
 
@@ -63,8 +63,9 @@ The dataset supports zero-object samples and detection transforms with an
 sequences so samples with different object counts can share a DataLoader batch.
 
 The cow and wolf samples identified by the audit have empty label files despite
-visibly containing animals. They intentionally remain empty targets until a
-separate annotation-override mechanism is designed; the raw labels are not edited.
+visibly containing animals. The raw parser continues to represent empty targets
+faithfully. Full training and validation exclude these two known bad annotations
+through `data/manifests/excluded_samples.json`; raw labels are never edited.
 
 Run a short DataLoader check with:
 
@@ -125,20 +126,41 @@ python scripts/check_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Cl
 ## Training and Validation
 
 The reusable engine optimizes only on the `train` split and computes COCO-style
-detection metrics only on the `valid` split. The `test` split remains untouched and
-is not used for model selection. Validation tracks mAP@0.50:0.95, mAP@0.50,
+detection metrics only on the `valid` split. The training script does not construct
+the `test` split, and it is not used for model selection. Validation tracks mAP@0.50:0.95, mAP@0.50,
 mAP@0.75, mean recall, and class-wise AP where available through TorchMetrics.
 
-The best-checkpoint criterion is validation mAP@0.50:0.95. Individual Faster R-CNN
-losses, total loss, learning rate, runtime, and peak CUDA memory are written to
-`reports/training_history.json`. The best checkpoint is written to
-`checkpoints/faster_rcnn_best.pt`, which remains outside Git tracking. The initial
-run is only a short pipeline-validation experiment, not final training or model
-selection.
+The earlier bounded pipeline check is recorded in `reports/training_history.json`
+with its checkpoint at `checkpoints/faster_rcnn_best.pt`.
 
 ```powershell
 python scripts/train_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --epochs 1 --batch-size 1 --num-workers 0
 ```
 
-For an explicitly bounded pipeline check, use `--max-train-batches` and
-`--max-val-batches`; these limits are recorded in the experiment configuration.
+## First baseline experiment
+
+The baseline uses Faster R-CNN ResNet50-FPN initialized with COCO V1 detector
+weights and a new 21-class predictor (20 animals plus background). All parameters
+are fine-tuned in FP32 with 512×512 inputs, batch size 1, and 10 epochs.
+Training uses resize, 50% random horizontal flip, and tensor conversion;
+validation uses resize and tensor conversion only. SGD uses learning rate 0.0025,
+momentum 0.9, and weight decay 0.0005. StepLR decays the learning rate by 0.1
+after epoch 7. The history records the rate used during each epoch.
+
+The exclusion manifest removes one visibly annotated-missing cow image from the
+1,400 training images and one wolf image from the 300 validation images, leaving
+1,399 usable training images and 299 usable validation images. Selection uses
+highest validation mAP@0.50:0.95, then mAP@0.50 for an exact tie. The held-out
+test split is not part of training or selection.
+
+Baseline reports are under `reports/experiments/faster_rcnn_baseline_01/`.
+Ignored checkpoints are under `checkpoints/faster_rcnn_baseline_01/`.
+
+### FIRST BASELINE VALIDATION RESULTS
+
+After 10 full epochs, the best checkpoint was selected at epoch 9 by
+validation mAP@0.50:0.95 = 0.575485. At that epoch, validation mAP@0.50
+was 0.825687 and mAP@0.75 was 0.653031. These are validation results
+for the first baseline, not test performance or a final model claim.
+The complete epoch history, class-wise AP, configuration, summary, and
+two unsmoothed plots are in the baseline report directory above.

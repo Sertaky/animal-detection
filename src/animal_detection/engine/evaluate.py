@@ -39,6 +39,7 @@ def evaluate_map(
     dataloader,
     device: torch.device | str,
     class_metrics: bool = True,
+    print_freq: int | None = None,
 ) -> dict[str, Any]:
     """Evaluate validation predictions with TorchMetrics MeanAveragePrecision."""
     device = torch.device(device)
@@ -54,7 +55,7 @@ def evaluate_map(
     batch_count = 0
 
     with torch.no_grad():
-        for images, targets in dataloader:
+        for batch_index, (images, targets) in enumerate(dataloader, start=1):
             device_images = [image.to(device) for image in images]
             outputs = model(device_images)
             if not isinstance(outputs, list) or len(outputs) != len(device_images):
@@ -65,6 +66,8 @@ def evaluate_map(
             )
             image_count += len(device_images)
             batch_count += 1
+            if print_freq and batch_index % print_freq == 0:
+                print(f"validation batch={batch_index}/{len(dataloader)}", flush=True)
 
     if image_count == 0:
         raise ValueError("Validation dataloader produced no samples")

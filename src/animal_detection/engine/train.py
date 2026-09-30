@@ -76,9 +76,14 @@ def train_one_epoch(
         sample_count += batch_size
         batch_count += 1
         if print_freq and (batch_index + 1) % print_freq == 0:
+            average = weighted_sums["total_loss"] / sample_count
+            current_lr = optimizer.param_groups[0]["lr"]
             print(
-                f"epoch={epoch} batch={batch_index + 1} "
-                f"samples={sample_count} total_loss={total_value:.6f}"
+                f"epoch={epoch} batch={batch_index + 1}/{len(dataloader)} "
+                f"samples={sample_count} loss={total_value:.6f} "
+                f"average_loss={average:.6f} lr={current_lr:.8g} "
+                f"elapsed_seconds={time.perf_counter() - started:.1f}",
+                flush=True,
             )
 
     if sample_count == 0:

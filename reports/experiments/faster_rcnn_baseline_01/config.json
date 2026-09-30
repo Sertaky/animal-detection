@@ -1,0 +1,61 @@
+{
+  "dataset_root": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8",
+  "epochs": 10,
+  "batch_size": 1,
+  "num_workers": 0,
+  "lr": 0.0025,
+  "weight_decay": 0.0005,
+  "momentum": 0.9,
+  "device": "cuda",
+  "seed": 42,
+  "output_dir": ".",
+  "image_size": 512,
+  "experiment_name": "faster_rcnn_baseline_01",
+  "exclusions_manifest": "G:\\animal-detection\\data\\manifests\\excluded_samples.json",
+  "step_size": 7,
+  "gamma": 0.1,
+  "max_train_batches": null,
+  "max_val_batches": null,
+  "print_freq": 100,
+  "architecture": "Faster R-CNN ResNet50-FPN",
+  "pretrained_weights": "FasterRCNN_ResNet50_FPN_Weights.COCO_V1",
+  "num_foreground_classes": 20,
+  "num_model_classes": 21,
+  "all_parameters_trainable": true,
+  "trainable_backbone_layers": 5,
+  "optimizer": "SGD",
+  "scheduler": {
+    "type": "StepLR",
+    "step_size": 7,
+    "gamma": 0.1
+  },
+  "train_transforms": [
+    "Resize(512,512)",
+    "RandomHorizontalFlip(p=0.5)",
+    "ToTensor"
+  ],
+  "valid_transforms": [
+    "Resize(512,512)",
+    "ToTensor"
+  ],
+  "precision": "FP32",
+  "train_usable_samples": 1399,
+  "valid_usable_samples": 299,
+  "excluded_samples": 2,
+  "model_selection_metric": "validation mAP@0.50:0.95; tie: mAP@0.50",
+  "learning_rate_convention": "LR used during each epoch, before the end-of-epoch scheduler step",
+  "split_usage": {
+    "train": "optimization",
+    "valid": "selection/evaluation",
+    "test": "not accessed"
+  },
+  "package_versions": {
+    "torch": "2.14.0+cu130",
+    "torchvision": "0.29.0+cu130",
+    "torchmetrics": "1.9.0",
+    "pycocotools": "2.0.11",
+    "numpy": "2.5.2",
+    "matplotlib": "3.11.2"
+  },
+  "raw_train_valid_sha256_before": "220afb919499324d4a232ad3f81ebed96ba2f9d0d8e78dde84c9dd332eac859f"
+}
