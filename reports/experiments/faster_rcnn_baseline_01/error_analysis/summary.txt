@@ -1,0 +1,25 @@
+FIRST BASELINE VALIDATION ERROR ANALYSIS (diagnostic, not COCO AP)
+Checkpoint epoch 9; 299 usable validation images; score threshold 0.50; IoU threshold 0.50.
+GT=412, TP=313, FP=103, FN=99; precision=0.752, recall=0.760.
+1. FP=103 narrowly exceeds FN=99; class_confusion is the largest FP subtype (57). Small objects account for 47 FN and 4+ object images for 38 FN (overlapping groups).
+2. The larger issue at 0.50 is precision (0.760 recall vs 0.752 precision).
+3. Localization-category FP count=22 (21.4% of FP).
+4. Matched boxes at IoU 0.50 to <0.75: 49 (15.7% of TP); baseline mAP50 minus mAP75=0.173.
+5. Lowest existing validation AP classes: Panda 0.285, Camel 0.392, Monkeys 0.407, Goat 0.449.
+6. Size-group recalls: small=0.382 (n=76), medium=0.774 (n=133), large=0.892 (n=203).
+7. Object-count group recalls: 1=0.871 (images=240), 2-3=0.714 (images=48), 4+=0.433 (images=11).
+8. FP confidence median=0.687, TP confidence median=0.974; FP q1-q3=0.609-0.845, max=0.996. FPs are generally lower-confidence than TPs, but some are highly confident.
+9. Most common confusion pairs: Monkeys -> Gorilla (7), Buffalo -> Rhino (5), Gorilla -> Monkeys (5), Goat -> Camel (3), Goat -> Deer (3).
+10. Next experiment directions (hypotheses, not actions):
+   - Run one controlled input-resolution comparison (for example 640x640) to test whether small-object recall and box placement improve; the measured size gap and matched-IoU 0.50-0.75 share motivate this hypothesis.
+   - Audit the Panda validation misses and training labels, then consider one class-focused sampling/augmentation comparison; its AP and diagnostic recall are below the overall values.
+
+Class focus:
+Panda: GT=36, TP=16, FP=4, FN=20, precision=0.800, recall=0.444, AP=0.285; matched IoU median=0.876 (Q1-Q3 0.760-0.897); TP confidence median=0.987, FP confidence median=0.901; confused as: none observed; 3 review examples.
+Camel: GT=20, TP=13, FP=13, FN=7, precision=0.500, recall=0.650, AP=0.392; matched IoU median=0.861 (Q1-Q3 0.811-0.908); TP confidence median=0.897, FP confidence median=0.671; confused as: Goat (1), Rhino (1); 3 review examples.
+Monkeys: GT=19, TP=12, FP=12, FN=7, precision=0.500, recall=0.632, AP=0.407; matched IoU median=0.828 (Q1-Q3 0.743-0.859); TP confidence median=0.920, FP confidence median=0.678; confused as: Gorilla (7); 3 review examples.
+Goat: GT=22, TP=12, FP=6, FN=10, precision=0.667, recall=0.545, AP=0.449; matched IoU median=0.864 (Q1-Q3 0.834-0.882); TP confidence median=0.809, FP confidence median=0.582; confused as: Camel (3), Deer (3), Lion (2), Wolf (1); 3 review examples.
+Full distributions and exact example paths are in class_diagnostics.json and visualizations.json.
+
+Categorization priority for unmatched predictions: duplicate (same class, IoU>=0.50 with already matched GT), class confusion (wrong class, IoU>=0.50), localization (same class, 0.10<=IoU<0.50), background (max IoU<0.10), then other overlap. False negatives are unmatched GT boxes. Categories are diagnostic and do not replace COCO AP.
+The network was run once; threshold variants and reports use the prediction cache.

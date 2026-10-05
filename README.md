@@ -77,7 +77,7 @@ Install and run the development tests with:
 
 ```powershell
 python -m pip install -r requirements-dev.txt --extra-index-url https://download.pytorch.org/whl/cu130
-pytest -q
+pytest -q -m "not heldout"
 ```
 
 ## Model-Facing Targets and Detection Transforms
@@ -114,9 +114,9 @@ final predictor is replaced with 21 outputs: background label 0 plus 20 animal
 foreground classes. Dataset labels 0–19 are explicitly adapted to model labels
 1–20 before the forward pass.
 
-This milestone performs only one smoke-test optimization step and one inference
-pass. It is not a trainer, no checkpoint is saved, and no accuracy or performance
-results exist yet. The default smoke resolution is 512×512 to provide a conservative
+The earlier integration check performed one smoke-test optimization step and one
+inference pass without saving a checkpoint. The default smoke resolution was
+512×512 to provide a conservative
 FP32 baseline for the 4 GB RTX 3050; this is not a final training configuration.
 
 ```powershell
@@ -132,10 +132,6 @@ mAP@0.75, mean recall, and class-wise AP where available through TorchMetrics.
 
 The earlier bounded pipeline check is recorded in `reports/training_history.json`
 with its checkpoint at `checkpoints/faster_rcnn_best.pt`.
-
-```powershell
-python scripts/train_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --epochs 1 --batch-size 1 --num-workers 0
-```
 
 ## First baseline experiment
 
@@ -164,3 +160,25 @@ was 0.825687 and mAP@0.75 was 0.653031. These are validation results
 for the first baseline, not test performance or a final model claim.
 The complete epoch history, class-wise AP, configuration, summary, and
 two unsmoothed plots are in the baseline report directory above.
+
+## Baseline Validation Error Analysis
+
+The epoch-9 best checkpoint was analyzed once on all 299 usable validation
+images, with no random augmentation or weight updates. The primary diagnostic
+matching uses score threshold 0.50 and class-aware IoU threshold 0.50.
+At that operating point, 412 annotated objects yield 313 true positives,
+103 false positives, and 99 false negatives. These counts are diagnostic
+one-to-one matches, not COCO AP.
+
+Class confusion is the largest false-positive subtype (57). Small objects
+have 0.382 recall versus 0.892 for large objects; scenes with four or more
+objects have 0.433 recall versus 0.871 for one-object scenes. Panda has
+the lowest baseline AP and 16/36 objects matched at this operating point.
+The analysis does not use test results.
+
+See [the concise summary](reports/experiments/faster_rcnn_baseline_01/error_analysis/summary.txt),
+[structured diagnostics](reports/experiments/faster_rcnn_baseline_01/error_analysis/summary.json),
+and [visualization index](reports/experiments/faster_rcnn_baseline_01/error_analysis/visualizations.json).
+The cached validation predictions and detailed per-class, threshold,
+localization, confidence, size, crowdedness, and confusion reports are in the
+same `error_analysis/` directory.

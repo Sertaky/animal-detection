@@ -32,7 +32,11 @@ def first_nonempty_index(dataset: YoloDetectionDataset) -> int:
 
 @pytest.mark.parametrize(
     ("split", "expected_length"),
-    [("train", 1400), ("valid", 300), ("test", 300)],
+    [
+        ("train", 1400),
+        ("valid", 300),
+        pytest.param("test", 300, marks=pytest.mark.heldout),
+    ],
 )
 def test_dataset_lengths(split: str, expected_length: int) -> None:
     assert len(YoloDetectionDataset(DATASET_ROOT, split)) == expected_length
@@ -59,9 +63,9 @@ def test_normal_sample_shapes_dtypes_and_bounds() -> None:
     assert torch.all((labels >= 0) & (labels <= 19))
 
 
-def test_every_annotation_is_valid_and_all_class_ids_are_observed() -> None:
+def check_annotations(splits: tuple[str, ...]) -> set[int]:
     observed_class_ids: set[int] = set()
-    for split in ("train", "valid", "test"):
+    for split in splits:
         dataset = YoloDetectionDataset(DATASET_ROOT, split)
         for index in range(len(dataset)):
             image, target = dataset[index]
@@ -78,7 +82,16 @@ def test_every_annotation_is_valid_and_all_class_ids_are_observed() -> None:
                 assert torch.all((labels >= 0) & (labels <= 19))
                 observed_class_ids.update(int(label) for label in labels.tolist())
             image.close()
-    assert observed_class_ids == set(range(20))
+    return observed_class_ids
+
+
+def test_train_valid_annotations_are_valid_and_all_classes_observed() -> None:
+    assert check_annotations(("train", "valid")) == set(range(20))
+
+
+@pytest.mark.heldout
+def test_heldout_annotations_are_valid() -> None:
+    assert check_annotations(("test",)) <= set(range(20))
 
 
 def test_zero_object_sample_has_correct_empty_shapes() -> None:
