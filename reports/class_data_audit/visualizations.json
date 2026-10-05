@@ -1,0 +1,499 @@
+{
+  "Panda": {
+    "smallest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\smallest\\01_valid_panda-31-_jpg.rf.1722af557aaa24ec059a6b58e9afd553.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\panda-31-_jpg.rf.1722af557aaa24ec059a6b58e9afd553.jpg",
+        "split": "valid",
+        "object_count": 17
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\smallest\\02_train_panda-37-_jpg.rf.f816260548a5c427f93ff476b4ad5688.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-37-_jpg.rf.f816260548a5c427f93ff476b4ad5688.jpg",
+        "split": "train",
+        "object_count": 6
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\smallest\\03_train_panda-32-_jpg.rf.d0feb3dd7f9e8748afcdf3cf07db2150.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-32-_jpg.rf.d0feb3dd7f9e8748afcdf3cf07db2150.jpg",
+        "split": "train",
+        "object_count": 4
+      }
+    ],
+    "largest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\largest\\01_train_panda-34-_jpg.rf.588ab8eb83e92e8662d24fa62d0019e4.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-34-_jpg.rf.588ab8eb83e92e8662d24fa62d0019e4.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\largest\\02_valid_panda-78-_jpg.rf.e95a872ef526e982cbf281cc92fc7e30.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\panda-78-_jpg.rf.e95a872ef526e982cbf281cc92fc7e30.jpg",
+        "split": "valid",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\largest\\03_train_panda-44-_jpg.rf.5a25a1eb7eecb251a9b9f317066abeb0.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-44-_jpg.rf.5a25a1eb7eecb251a9b9f317066abeb0.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "boundary": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\boundary\\01_train_panda-22-_jpg.rf.9abec74ef6cab5cb69b97218ec880491.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-22-_jpg.rf.9abec74ef6cab5cb69b97218ec880491.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\boundary\\02_valid_panda-83-_jpg.rf.120f8099a1a733c914ae5e43da1cf858.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\panda-83-_jpg.rf.120f8099a1a733c914ae5e43da1cf858.jpg",
+        "split": "valid",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\boundary\\03_valid_panda-78-_jpg.rf.e95a872ef526e982cbf281cc92fc7e30.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\panda-78-_jpg.rf.e95a872ef526e982cbf281cc92fc7e30.jpg",
+        "split": "valid",
+        "object_count": 1
+      }
+    ],
+    "crowded": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\crowded\\01_valid_panda-31-_jpg.rf.1722af557aaa24ec059a6b58e9afd553.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\panda-31-_jpg.rf.1722af557aaa24ec059a6b58e9afd553.jpg",
+        "split": "valid",
+        "object_count": 17
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\crowded\\02_train_panda-37-_jpg.rf.f816260548a5c427f93ff476b4ad5688.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-37-_jpg.rf.f816260548a5c427f93ff476b4ad5688.jpg",
+        "split": "train",
+        "object_count": 6
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\crowded\\03_train_panda-32-_jpg.rf.d0feb3dd7f9e8748afcdf3cf07db2150.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-32-_jpg.rf.d0feb3dd7f9e8748afcdf3cf07db2150.jpg",
+        "split": "train",
+        "object_count": 4
+      }
+    ],
+    "typical": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\typical\\01_train_panda-92-_jpg.rf.7edb34ba55ee8640adc372fd1b56472d.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-92-_jpg.rf.7edb34ba55ee8640adc372fd1b56472d.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\typical\\02_train_panda-24-_jpg.rf.1c87aaff3fa5f138eca6a9d74a01f840.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-24-_jpg.rf.1c87aaff3fa5f138eca6a9d74a01f840.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\panda\\typical\\03_train_panda-100-_jpg.rf.43842cacc389dea229329e9b0ba997e8.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\panda-100-_jpg.rf.43842cacc389dea229329e9b0ba997e8.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "overview": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\overviews\\panda_review_overview.jpg"
+  },
+  "Monkeys": {
+    "smallest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\smallest\\01_train_Monkey-145-_jpeg.rf.433156b09f036727fcacc106762d52a1.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-145-_jpeg.rf.433156b09f036727fcacc106762d52a1.jpg",
+        "split": "train",
+        "object_count": 6
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\smallest\\02_train_Monkey-133-_jpeg.rf.44015a97eaaf61810880d74dfc5ae024.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-133-_jpeg.rf.44015a97eaaf61810880d74dfc5ae024.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\smallest\\03_train_Monkey-109-_jpeg.rf.c3674271d8f806ad8ecaf170a0537659.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-109-_jpeg.rf.c3674271d8f806ad8ecaf170a0537659.jpg",
+        "split": "train",
+        "object_count": 2
+      }
+    ],
+    "largest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\largest\\01_valid_Monkey-146-_jpeg.rf.1d27c389623d4f63b420cf917149d424.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\Monkey-146-_jpeg.rf.1d27c389623d4f63b420cf917149d424.jpg",
+        "split": "valid",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\largest\\02_train_Monkey-154-_jpeg.rf.ac21ad9601f985e2d9184d331fd197a4.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-154-_jpeg.rf.ac21ad9601f985e2d9184d331fd197a4.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\largest\\03_train_Monkey-111-_jpeg.rf.c4e1afa30d3f21d846df0b83089cdd12.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-111-_jpeg.rf.c4e1afa30d3f21d846df0b83089cdd12.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "boundary": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\boundary\\01_train_Monkey-169-_jpeg.rf.42cca32307fd64f2e08d877b70f823c3.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-169-_jpeg.rf.42cca32307fd64f2e08d877b70f823c3.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\boundary\\02_valid_Monkey-171-_jpeg.rf.098e336ef4ec66a86c45e9b863bd4321.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\Monkey-171-_jpeg.rf.098e336ef4ec66a86c45e9b863bd4321.jpg",
+        "split": "valid",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\boundary\\03_valid_Monkey-168-_jpeg.rf.43dff2c1a8764a5bcfc35ad6d48df245.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\Monkey-168-_jpeg.rf.43dff2c1a8764a5bcfc35ad6d48df245.jpg",
+        "split": "valid",
+        "object_count": 1
+      }
+    ],
+    "crowded": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\crowded\\01_train_Monkey-145-_jpeg.rf.433156b09f036727fcacc106762d52a1.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-145-_jpeg.rf.433156b09f036727fcacc106762d52a1.jpg",
+        "split": "train",
+        "object_count": 6
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\crowded\\02_valid_Monkey-177-_jpeg.rf.8d8ae27b9f1463afb356e19b812c7384.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\Monkey-177-_jpeg.rf.8d8ae27b9f1463afb356e19b812c7384.jpg",
+        "split": "valid",
+        "object_count": 4
+      }
+    ],
+    "typical": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\typical\\01_train_Monkey-101-_jpeg.rf.89a0e91dea41e7b5aa7d3f7003db9786.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-101-_jpeg.rf.89a0e91dea41e7b5aa7d3f7003db9786.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\typical\\02_train_Monkey-131-_jpeg.rf.78a577a720f126b6175450b57f1500ce.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-131-_jpeg.rf.78a577a720f126b6175450b57f1500ce.jpg",
+        "split": "train",
+        "object_count": 3
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\monkeys\\typical\\03_train_Monkey-98-_jpeg.rf.a6b8e232051008d10e71dee26864766e.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-98-_jpeg.rf.a6b8e232051008d10e71dee26864766e.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "overview": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\overviews\\monkeys_review_overview.jpg"
+  },
+  "Gorilla": {
+    "smallest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\smallest\\01_train_gorilla-150-_jpeg.rf.a0f6a2d90955ff8cca73973339ed3033.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-150-_jpeg.rf.a0f6a2d90955ff8cca73973339ed3033.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\smallest\\02_train_gorilla-186-_jpeg.rf.7e569aa319a8b9635f50ebb65c6ffe9a.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-186-_jpeg.rf.7e569aa319a8b9635f50ebb65c6ffe9a.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\smallest\\03_train_gorilla-171-_jpeg.rf.8bb4d526c387c9293c43891c2c39976b.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-171-_jpeg.rf.8bb4d526c387c9293c43891c2c39976b.jpg",
+        "split": "train",
+        "object_count": 5
+      }
+    ],
+    "largest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\largest\\01_train_gorilla-194-_jpeg.rf.72f179a1649131189057254bf87650e9.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-194-_jpeg.rf.72f179a1649131189057254bf87650e9.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\largest\\02_valid_gorilla-118-_jpeg.rf.d5e292f8216fb39338f7c5c700612d0a.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\gorilla-118-_jpeg.rf.d5e292f8216fb39338f7c5c700612d0a.jpg",
+        "split": "valid",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\largest\\03_train_gorilla-174-_jpeg.rf.59dccad88b9786e684486f102b5fa340.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-174-_jpeg.rf.59dccad88b9786e684486f102b5fa340.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "boundary": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\boundary\\01_train_gorilla-175-_jpeg.rf.6919106b82a6aa05c58a917347d24c9a.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-175-_jpeg.rf.6919106b82a6aa05c58a917347d24c9a.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\boundary\\02_train_gorilla-171-_jpeg.rf.8bb4d526c387c9293c43891c2c39976b.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-171-_jpeg.rf.8bb4d526c387c9293c43891c2c39976b.jpg",
+        "split": "train",
+        "object_count": 5
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\boundary\\03_valid_gorilla-191-_jpeg.rf.7b0b85b98d13072f20eb8739e8c59055.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\gorilla-191-_jpeg.rf.7b0b85b98d13072f20eb8739e8c59055.jpg",
+        "split": "valid",
+        "object_count": 1
+      }
+    ],
+    "crowded": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\crowded\\01_train_gorilla-171-_jpeg.rf.8bb4d526c387c9293c43891c2c39976b.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-171-_jpeg.rf.8bb4d526c387c9293c43891c2c39976b.jpg",
+        "split": "train",
+        "object_count": 5
+      }
+    ],
+    "typical": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\typical\\01_train_gorilla-167-_jpeg.rf.7e23ba63847bf541009d50a5f6e83bc4.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-167-_jpeg.rf.7e23ba63847bf541009d50a5f6e83bc4.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\typical\\02_train_gorilla-177-_jpeg.rf.f1d352e181481b524ac436df5633fc37.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-177-_jpeg.rf.f1d352e181481b524ac436df5633fc37.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\gorilla\\typical\\03_train_gorilla-185-_jpeg.rf.abf4b9d09ffd30c56db8fb100a63c95b.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-185-_jpeg.rf.abf4b9d09ffd30c56db8fb100a63c95b.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "overview": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\overviews\\gorilla_review_overview.jpg"
+  },
+  "Goat": {
+    "smallest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\smallest\\01_valid_goat-414-_jpg.rf.56692c309afcd732493d40d8ba51c872.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\goat-414-_jpg.rf.56692c309afcd732493d40d8ba51c872.jpg",
+        "split": "valid",
+        "object_count": 4
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\smallest\\02_train_goat-354-_jpg.rf.889a0cbda1071343714cb716b6b2d568.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-354-_jpg.rf.889a0cbda1071343714cb716b6b2d568.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\smallest\\03_train_goat-322-_jpg.rf.0d3207e0fcadbda00813ab74aed388c7.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-322-_jpg.rf.0d3207e0fcadbda00813ab74aed388c7.jpg",
+        "split": "train",
+        "object_count": 2
+      }
+    ],
+    "largest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\largest\\01_valid_goat-416-_jpg.rf.7512569d0c8b0929cdb77832f50d3379.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\goat-416-_jpg.rf.7512569d0c8b0929cdb77832f50d3379.jpg",
+        "split": "valid",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\largest\\02_valid_goat-413-_jpg.rf.3c670c21df2534f66d8d34af24fa6b3d.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\goat-413-_jpg.rf.3c670c21df2534f66d8d34af24fa6b3d.jpg",
+        "split": "valid",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\largest\\03_train_goat-401-_jpg.rf.f2a9fc252d0aebacac9f8547b6f317f9.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-401-_jpg.rf.f2a9fc252d0aebacac9f8547b6f317f9.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "boundary": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\boundary\\01_train_goat-399-_jpg.rf.a42bb9e108a845e9ba0457d67fc61af9.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-399-_jpg.rf.a42bb9e108a845e9ba0457d67fc61af9.jpg",
+        "split": "train",
+        "object_count": 3
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\boundary\\02_train_goat-349-_jpg.rf.211e23c3d006ada4f848aa8f9b7843db.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-349-_jpg.rf.211e23c3d006ada4f848aa8f9b7843db.jpg",
+        "split": "train",
+        "object_count": 6
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\boundary\\03_train_goat-429-_jpg.rf.ab4cdaa87cebf8644ac257ecc46cd1e9.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-429-_jpg.rf.ab4cdaa87cebf8644ac257ecc46cd1e9.jpg",
+        "split": "train",
+        "object_count": 3
+      }
+    ],
+    "crowded": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\crowded\\01_train_goat-349-_jpg.rf.211e23c3d006ada4f848aa8f9b7843db.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-349-_jpg.rf.211e23c3d006ada4f848aa8f9b7843db.jpg",
+        "split": "train",
+        "object_count": 6
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\crowded\\02_valid_goat-414-_jpg.rf.56692c309afcd732493d40d8ba51c872.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\goat-414-_jpg.rf.56692c309afcd732493d40d8ba51c872.jpg",
+        "split": "valid",
+        "object_count": 4
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\crowded\\03_train_goat-352-_jpg.rf.f10bbc93728250b85f9023444103fb18.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-352-_jpg.rf.f10bbc93728250b85f9023444103fb18.jpg",
+        "split": "train",
+        "object_count": 4
+      }
+    ],
+    "typical": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\typical\\01_train_goat-361-_jpg.rf.f8d13b9cfa7e2b1037983f3cecb8b87d.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-361-_jpg.rf.f8d13b9cfa7e2b1037983f3cecb8b87d.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\typical\\02_train_goat-379-_jpg.rf.12a3754ca7c66f9295c5699fb1296439.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-379-_jpg.rf.12a3754ca7c66f9295c5699fb1296439.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\goat\\typical\\03_train_goat-388-_jpg.rf.3ebe0d0a322552761f9c30bb9d56c132.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-388-_jpg.rf.3ebe0d0a322552761f9c30bb9d56c132.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "overview": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\overviews\\goat_review_overview.jpg"
+  },
+  "Camel": {
+    "smallest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\smallest\\01_train_camel-54-_jpg.rf.e55ba71749f63639f4f6a26a1d84f4ec.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-54-_jpg.rf.e55ba71749f63639f4f6a26a1d84f4ec.jpg",
+        "split": "train",
+        "object_count": 3
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\smallest\\02_train_camel-130-_jpg.rf.ee1bb2d474749664b35d4a8af21b85da.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-130-_jpg.rf.ee1bb2d474749664b35d4a8af21b85da.jpg",
+        "split": "train",
+        "object_count": 3
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\smallest\\03_train_camel-134-_jpg.rf.72998533a4c4cd7607f96233dfed2e97.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-134-_jpg.rf.72998533a4c4cd7607f96233dfed2e97.jpg",
+        "split": "train",
+        "object_count": 2
+      }
+    ],
+    "largest": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\largest\\01_train_camel-122-_jpg.rf.bade1702dd643ece31a6dc71b8910296.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-122-_jpg.rf.bade1702dd643ece31a6dc71b8910296.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\largest\\02_train_camel-24-_jpg.rf.1cec3b6a3f7f63c48e555c301fbe1ef8.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-24-_jpg.rf.1cec3b6a3f7f63c48e555c301fbe1ef8.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\largest\\03_train_camel-114-_jpg.rf.9f4384fae10477c394e96930e7a76ed2.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-114-_jpg.rf.9f4384fae10477c394e96930e7a76ed2.jpg",
+        "split": "train",
+        "object_count": 1
+      }
+    ],
+    "boundary": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\boundary\\01_valid_camel-56-_jpg.rf.f975c487b1da068ccfe2e0eb713b1289.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\camel-56-_jpg.rf.f975c487b1da068ccfe2e0eb713b1289.jpg",
+        "split": "valid",
+        "object_count": 4
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\boundary\\02_valid_camel-125-_jpg.rf.f8957cd15211f51d46a59c5b4df12786.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\camel-125-_jpg.rf.f8957cd15211f51d46a59c5b4df12786.jpg",
+        "split": "valid",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\boundary\\03_train_camel-62-_jpg.rf.28affbddb7396fcaa3e702defd54241f.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-62-_jpg.rf.28affbddb7396fcaa3e702defd54241f.jpg",
+        "split": "train",
+        "object_count": 2
+      }
+    ],
+    "crowded": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\crowded\\01_train_camel-127-_jpg.rf.16975818e1b39856564a46f12cc76f87.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-127-_jpg.rf.16975818e1b39856564a46f12cc76f87.jpg",
+        "split": "train",
+        "object_count": 5
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\crowded\\02_valid_camel-56-_jpg.rf.f975c487b1da068ccfe2e0eb713b1289.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\camel-56-_jpg.rf.f975c487b1da068ccfe2e0eb713b1289.jpg",
+        "split": "valid",
+        "object_count": 4
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\crowded\\03_train_camel-28-_jpg.rf.a10f0890ef90c13a1cacd0e6635f1bef.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-28-_jpg.rf.a10f0890ef90c13a1cacd0e6635f1bef.jpg",
+        "split": "train",
+        "object_count": 4
+      }
+    ],
+    "typical": [
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\typical\\01_train_camel-110-_jpg.rf.c57c1c15a3d136e63a21c82d676fe0e4.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-110-_jpg.rf.c57c1c15a3d136e63a21c82d676fe0e4.jpg",
+        "split": "train",
+        "object_count": 2
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\typical\\02_train_camel-42-_jpg.rf.8496b92d2f296e211c26aa1b7f16b9e1.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-42-_jpg.rf.8496b92d2f296e211c26aa1b7f16b9e1.jpg",
+        "split": "train",
+        "object_count": 1
+      },
+      {
+        "output": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\camel\\typical\\03_train_camel-106-_jpg.rf.9840642c1b8082d14b5d510374073b18.jpg",
+        "source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-106-_jpg.rf.9840642c1b8082d14b5d510374073b18.jpg",
+        "split": "train",
+        "object_count": 4
+      }
+    ],
+    "overview": "G:\\animal-detection\\reports\\class_data_audit\\visualizations\\overviews\\camel_review_overview.jpg"
+  }
+}

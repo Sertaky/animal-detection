@@ -1,0 +1,89 @@
+{
+  "Monkeys_vs_Gorilla": [
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\monkeys_vs_gorilla_01.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-94-_jpeg.rf.3c9e1d7a31f9bcee7136f0f21efe0380.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-172-_jpeg.rf.66426b4a771759c6c111509b15bf5e43.jpg",
+      "left_area": 0.363482666015625,
+      "right_area": 0.366566162109375,
+      "left_object_count": 1,
+      "right_object_count": 1
+    },
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\monkeys_vs_gorilla_02.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\valid\\images\\Monkey-110-_jpeg.rf.144af16c9043f0411638d2d8e0f6c32b.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-170-_jpeg.rf.323540bd73f74120df2a3b7d4851c032.jpg",
+      "left_area": 0.35926940917968747,
+      "right_area": 0.37206298828125,
+      "left_object_count": 1,
+      "right_object_count": 1
+    },
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\monkeys_vs_gorilla_03.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\Monkey-104-_jpeg.rf.023fa67efecb258c459ed356e76e22e8.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\gorilla-125-_jpeg.rf.528057242586d04404d33497a13ec8ad.jpg",
+      "left_area": 0.366961669921875,
+      "right_area": 0.31532897949218747,
+      "left_object_count": 1,
+      "right_object_count": 1
+    }
+  ],
+  "Goat_vs_Camel": [
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\goat_vs_camel_01.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-365-_jpg.rf.87a1fdd4ce1c754c3ec3068ebbb84ae0.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-87-_jpg.rf.6771c8ec9c75e26458df66ae22f76304.jpg",
+      "left_area": 0.26904296875,
+      "right_area": 0.26332031250000004,
+      "left_object_count": 1,
+      "right_object_count": 1
+    },
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\goat_vs_camel_02.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-434-_jpg.rf.5164735d3b8b07a1e5806454ec23eb93.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-108-_jpg.rf.fc61d48039bc4ba5a763c2f5bac60c38.jpg",
+      "left_area": 0.266209716796875,
+      "right_area": 0.285765380859375,
+      "left_object_count": 1,
+      "right_object_count": 1
+    },
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\goat_vs_camel_03.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-345-_jpg.rf.155243ba8d67cc2fa1035387d64ed9c5.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\camel-55-_jpg.rf.d6eda760357483d6175aa399697c0362.jpg",
+      "left_area": 0.2618701171875,
+      "right_area": 0.24191894531250002,
+      "left_object_count": 1,
+      "right_object_count": 1
+    }
+  ],
+  "Goat_vs_Deer": [
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\goat_vs_deer_01.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-365-_jpg.rf.87a1fdd4ce1c754c3ec3068ebbb84ae0.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\images-2024-05-19T161121-928_jpeg_jpg.rf.fcfabc0ebb15fdf08a909eef1715ddf6.jpg",
+      "left_area": 0.26904296875,
+      "right_area": 0.2570196533203125,
+      "left_object_count": 1,
+      "right_object_count": 1
+    },
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\goat_vs_deer_02.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-434-_jpg.rf.5164735d3b8b07a1e5806454ec23eb93.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\images-39-_jpeg_jpg.rf.09460bdd67f8ae661af60a3b326c266a.jpg",
+      "left_area": 0.266209716796875,
+      "right_area": 0.254375,
+      "left_object_count": 1,
+      "right_object_count": 1
+    },
+    {
+      "output": "G:\\animal-detection\\reports\\class_data_audit\\confusion_pairs\\goat_vs_deer_03.jpg",
+      "left_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\goat-345-_jpg.rf.155243ba8d67cc2fa1035387d64ed9c5.jpg",
+      "right_source": "G:\\animal-detection\\Multi-Class Animal Detection.v1-yolov8\\train\\images\\images-2024-05-19T161033-781_jpeg_jpg.rf.a5dc0ea7ee0d2958e44b219656bcaa2d.jpg",
+      "left_area": 0.2618701171875,
+      "right_area": 0.28983032226562494,
+      "left_object_count": 1,
+      "right_object_count": 1
+    }
+  ]
+}

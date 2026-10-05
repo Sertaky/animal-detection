@@ -1,0 +1,53 @@
+{
+  "review_scope": "Manual visual inspection of five class overview sheets and nine matched confusion-pair sheets generated from train and validation only.",
+  "answers": {
+    "panda_small": "Yes, especially in validation. Panda validation has 50.0% small objects and median normalized area 0.094, versus train median 0.535; combined Panda small share is 23.9%. The smallest sampled scenes contain many genuinely tiny animals.",
+    "panda_crowded": "Yes, as a validation-specific difficulty. In validation, 47.2% of Panda objects occur in 4+ object images and 33.3% of Panda-containing images are multi-object, versus 7.1% multi-object images in train. Several sampled scenes show severe overlap/occlusion-like crowding.",
+    "panda_annotations": "Box placement was generally plausible in the reviewed samples, with no clear new missing box. However, the Panda label visibly combines giant pandas and red pandas, creating a concrete class-scope/visual-consistency concern; the densest scenes also contain many tiny overlapping boxes.",
+    "primates": "Plausible but not proven as systematic label error. Monkeys spans visually diverse primates, including dark ape-like subjects, while Gorilla is more visually consistent. Matched examples are often distinguishable, but dark fur, frontal faces, forest/zoo backgrounds, partial subjects, and broad Monkeys taxonomy provide credible ambiguity. No obvious wrong Gorilla label was confirmed in the reviewed set.",
+    "ungulates": "Goat and Camel are structurally similar in median area (0.269 vs 0.298), small-object share (23.6% vs 27.5%), and multi-object-image share (both 27.1%). Deer differs: median area 0.491, 2.0% small, and 12.9% multi-object images. Matched visual examples remain clearly different, so similarity is mainly scale/context rather than evidence of systematic label interchange.",
+    "weak_smaller": "Generally, but not systematically. The median of weak-class median areas is 0.361 versus about 0.534 for the four reference classes. Goat, Camel, and Monkeys are smaller, but Panda (0.469) and Gorilla (0.523) are not uniformly small.",
+    "weak_crowded": "Some are. Weak classes have more objects in 4+ scenes overall, driven by Panda, Goat, and Camel, but this is not universal: Gorilla and Monkeys are less extreme, and reference Rhino has a high multi-object-image share.",
+    "weak_boundary": "No. Mean class-level boundary-touch frequency is lower for the five weak classes (about 35%) than for the four references (about 49%), largely because Wolf and Lion are frequently edge-touching. Boundary truncation does not explain weakness as a group.",
+    "split_shifts": "Yes. Panda has the strongest shift across median area, small share, crowdedness, boundary rate, and aspect ratio. Camel shifts toward larger and more boundary-touching validation boxes; Goat shifts in small-object and boundary shares. Lion and Deer also show area/boundary shifts, so not every shift is exclusive to weak classes. These are descriptive differences, not significance claims.",
+    "quality_concerns": "The new concrete concern is Panda semantic inconsistency (giant panda and red panda under one label), plus difficult dense Panda scenes. Reviewed Goat, Camel, Deer, Monkeys, and Gorilla boxes were mostly plausible; no additional clear missing annotation or definite wrong-class sample was confirmed. The two previously confirmed empty-label cow/wolf images remain in the queue."
+  },
+  "suspicious_samples": [
+    {
+      "split": "train",
+      "image_filename": "panda-100-_jpg.rf.43842cacc389dea229329e9b0ba997e8.jpg",
+      "reason": "ambiguous_class_scope",
+      "evidence": "A red panda is annotated as Panda while the same class also contains giant pandas.",
+      "review_visualization": "reports/class_data_audit/visualizations/panda/typical/03_train_panda-100-_jpg.rf.43842cacc389dea229329e9b0ba997e8.jpg",
+      "action": "review_only_no_change"
+    },
+    {
+      "split": "train",
+      "image_filename": "panda-22-_jpg.rf.9abec74ef6cab5cb69b97218ec880491.jpg",
+      "reason": "ambiguous_class_scope_and_truncation",
+      "evidence": "Red pandas share the Panda label; the reviewed subjects are also edge-truncated.",
+      "review_visualization": "reports/class_data_audit/visualizations/panda/boundary/01_train_panda-22-_jpg.rf.9abec74ef6cab5cb69b97218ec880491.jpg",
+      "action": "review_only_no_change"
+    },
+    {
+      "split": "valid",
+      "image_filename": "panda-83-_jpg.rf.120f8099a1a733c914ae5e43da1cf858.jpg",
+      "reason": "ambiguous_class_scope_and_overlap",
+      "evidence": "Multiple overlapping red pandas are annotated under the mixed Panda class scope.",
+      "review_visualization": "reports/class_data_audit/visualizations/panda/boundary/02_valid_panda-83-_jpg.rf.120f8099a1a733c914ae5e43da1cf858.jpg",
+      "action": "review_only_no_change"
+    },
+    {
+      "split": "valid",
+      "image_filename": "panda-31-_jpg.rf.1722af557aaa24ec059a6b58e9afd553.jpg",
+      "reason": "severe_crowding_and_tiny_objects",
+      "evidence": "The image has 17 annotated Panda instances, many very small and mutually occluded/overlapping.",
+      "review_visualization": "reports/class_data_audit/visualizations/panda/crowded/01_valid_panda-31-_jpg.rf.1722af557aaa24ec059a6b58e9afd553.jpg",
+      "action": "review_only_no_change"
+    }
+  ],
+  "recommendations": [
+    "Resolve the Panda class policy first: review the full Panda set and decide whether giant panda and red panda should remain one documented class or be relabeled/separated in a future authorized cleanup. Do not train on silently changed labels.",
+    "If labels remain unchanged, test one controlled class-aware sampling or targeted small/crowded-instance augmentation experiment focused on Panda, Goat, Camel, and Monkeys, keeping model and optimization settings fixed."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "raw_train_valid_sha256_before": "220afb919499324d4a232ad3f81ebed96ba2f9d0d8e78dde84c9dd332eac859f",
+  "raw_train_valid_sha256_after": "220afb919499324d4a232ad3f81ebed96ba2f9d0d8e78dde84c9dd332eac859f",
+  "raw_data_unchanged": true,
+  "splits_constructed": [
+    "train",
+    "valid"
+  ],
+  "test_split_constructed": false,
+  "training_performed": false,
+  "optimizer_constructed": false,
+  "annotation_or_split_changes": false,
+  "record_counts": {
+    "train": 1400,
+    "valid": 300
+  }
+}

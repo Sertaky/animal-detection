@@ -1,0 +1,2163 @@
+{
+  "definitions": {
+    "size_bins": {
+      "small": "area < 0.10",
+      "medium": "0.10 <= area < 0.40",
+      "large": "area >= 0.40"
+    },
+    "boundary_touch": "box edge within 1 pixel of image boundary",
+    "crowdedness": {
+      "1": "1 total annotated object",
+      "2-3": "2-3 total annotated objects",
+      "4+": "4+ total annotated objects"
+    },
+    "shift_flags": {
+      "median_area": "absolute train/valid delta >= 0.10",
+      "small_share": "absolute delta >= 15 percentage points",
+      "boundary": "absolute delta >= 10 percentage points",
+      "multi_object_images": "absolute delta >= 20 percentage points",
+      "aspect_ratio": "median relative delta >= 35%"
+    }
+  },
+  "groups": {
+    "weak_confused": [
+      "Panda",
+      "Monkeys",
+      "Gorilla",
+      "Goat",
+      "Camel"
+    ],
+    "strong_reference": [
+      "Dog",
+      "Wolf",
+      "Rhino",
+      "Lion"
+    ],
+    "confusion_context": [
+      "Deer"
+    ]
+  },
+  "classes": {
+    "Panda": {
+      "train": {
+        "image_count": 70,
+        "object_count": 81,
+        "objects_per_image": 1.1571428571428573,
+        "normalized_area": {
+          "count": 81,
+          "mean": 0.49824422200520824,
+          "median": 0.53533935546875,
+          "q1": 0.36793762207031255,
+          "q3": 0.63161865234375,
+          "min": 0.022854003906250003,
+          "max": 0.9953173828124999
+        },
+        "normalized_width": {
+          "count": 81,
+          "mean": 0.6427372685185185,
+          "median": 0.66796875,
+          "q1": 0.48984375,
+          "q3": 0.8140625,
+          "min": 0.115625,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 81,
+          "mean": 0.7171199845679012,
+          "median": 0.78984375,
+          "q1": 0.61640625,
+          "q3": 0.86796875,
+          "min": 0.10703125,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 81,
+          "mean": 0.9364917606519372,
+          "median": 0.9140401146131805,
+          "q1": 0.7050298380221655,
+          "q3": 1.0745454545454545,
+          "min": 0.4172003659652333,
+          "max": 2.0802919708029197
+        },
+        "size_counts": {
+          "small": 10,
+          "medium": 15,
+          "large": 56
+        },
+        "size_percent": {
+          "small": 12.345679012345679,
+          "medium": 18.51851851851852,
+          "large": 69.1358024691358
+        },
+        "boundary_touch_count": 23,
+        "boundary_touch_percent": 28.395061728395063,
+        "multi_object_image_count": 5,
+        "multi_object_image_percent": 7.142857142857143,
+        "object_crowdedness_counts": {
+          "1": 65,
+          "2-3": 6,
+          "4+": 10
+        },
+        "object_crowdedness_percent": {
+          "1": 80.24691358024691,
+          "2-3": 7.407407407407407,
+          "4+": 12.345679012345679
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 36,
+        "objects_per_image": 2.4,
+        "normalized_area": {
+          "count": 36,
+          "mean": 0.2680121358235677,
+          "median": 0.09372100830078126,
+          "q1": 0.012168121337890626,
+          "q3": 0.5453901672363282,
+          "min": 0.005855712890624999,
+          "max": 0.98046875
+        },
+        "normalized_width": {
+          "count": 36,
+          "mean": 0.41874999999999996,
+          "median": 0.32890625,
+          "q1": 0.148046875,
+          "q3": 0.682421875,
+          "min": 0.09140625,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 36,
+          "mean": 0.41143663194444446,
+          "median": 0.26289062500000004,
+          "q1": 0.0818359375,
+          "q3": 0.75078125,
+          "min": 0.059375,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 36,
+          "mean": 1.4111723876764708,
+          "median": 1.2941052631578946,
+          "q1": 0.9454101789819742,
+          "q3": 1.787325456498389,
+          "min": 0.4005791505791506,
+          "max": 2.720720720720721
+        },
+        "size_counts": {
+          "small": 18,
+          "medium": 6,
+          "large": 12
+        },
+        "size_percent": {
+          "small": 50.0,
+          "medium": 16.666666666666668,
+          "large": 33.333333333333336
+        },
+        "boundary_touch_count": 6,
+        "boundary_touch_percent": 16.666666666666668,
+        "multi_object_image_count": 5,
+        "multi_object_image_percent": 33.333333333333336,
+        "object_crowdedness_counts": {
+          "1": 10,
+          "2-3": 9,
+          "4+": 17
+        },
+        "object_crowdedness_percent": {
+          "1": 27.77777777777778,
+          "2-3": 25.0,
+          "4+": 47.22222222222222
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 117,
+        "objects_per_image": 1.3764705882352941,
+        "normalized_area": {
+          "count": 117,
+          "mean": 0.4274035801031651,
+          "median": 0.4690045166015625,
+          "q1": 0.12852539062499999,
+          "q3": 0.6120886230468751,
+          "min": 0.005855712890624999,
+          "max": 0.9953173828124999
+        },
+        "normalized_width": {
+          "count": 117,
+          "mean": 0.5738181089743588,
+          "median": 0.61484375,
+          "q1": 0.334375,
+          "q3": 0.8078125,
+          "min": 0.09140625,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 117,
+          "mean": 0.6230635683760684,
+          "median": 0.7421875,
+          "q1": 0.378125,
+          "q3": 0.85078125,
+          "min": 0.059375,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 117,
+          "mean": 1.0825473381979476,
+          "median": 0.97534516765286,
+          "q1": 0.7556874381800199,
+          "q3": 1.22,
+          "min": 0.4005791505791506,
+          "max": 2.720720720720721
+        },
+        "size_counts": {
+          "small": 28,
+          "medium": 21,
+          "large": 68
+        },
+        "size_percent": {
+          "small": 23.931623931623932,
+          "medium": 17.94871794871795,
+          "large": 58.11965811965812
+        },
+        "boundary_touch_count": 29,
+        "boundary_touch_percent": 24.786324786324787,
+        "multi_object_image_count": 10,
+        "multi_object_image_percent": 11.764705882352942,
+        "object_crowdedness_counts": {
+          "1": 75,
+          "2-3": 15,
+          "4+": 27
+        },
+        "object_crowdedness_percent": {
+          "1": 64.1025641025641,
+          "2-3": 12.820512820512821,
+          "4+": 23.076923076923077
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 81,
+        "valid_object_count": 36,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 30.76923076923077,
+        "median_area_delta_valid_minus_train": -0.44161834716796877,
+        "small_object_share_delta_pp": 37.65432098765432,
+        "boundary_touch_delta_pp": -11.728395061728396,
+        "multi_object_image_delta_pp": 26.190476190476193,
+        "median_aspect_ratio_delta": 0.3800651485447142,
+        "flags": [
+          "median_area_abs_delta_ge_0.10",
+          "small_object_share_delta_ge_15pp",
+          "boundary_touch_delta_ge_10pp",
+          "multi_object_image_delta_ge_20pp",
+          "median_aspect_ratio_relative_delta_ge_35pct"
+        ]
+      }
+    },
+    "Monkeys": {
+      "train": {
+        "image_count": 70,
+        "object_count": 91,
+        "objects_per_image": 1.3,
+        "normalized_area": {
+          "count": 91,
+          "mean": 0.3748025613302713,
+          "median": 0.363482666015625,
+          "q1": 0.20001495361328125,
+          "q3": 0.5379000854492186,
+          "min": 0.036553955078125006,
+          "max": 0.9399792480468749
+        },
+        "normalized_width": {
+          "count": 91,
+          "mean": 0.5319368131868133,
+          "median": 0.49609375,
+          "q1": 0.357421875,
+          "q3": 0.717578125,
+          "min": 0.13125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 91,
+          "mean": 0.6593149038461539,
+          "median": 0.67109375,
+          "q1": 0.494140625,
+          "q3": 0.8355468749999999,
+          "min": 0.20703125,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 91,
+          "mean": 0.8497611236801851,
+          "median": 0.7929465301478953,
+          "q1": 0.5679947609692206,
+          "q3": 1.0451005421531223,
+          "min": 0.3585409252669039,
+          "max": 2.9781931464174454
+        },
+        "size_counts": {
+          "small": 7,
+          "medium": 47,
+          "large": 37
+        },
+        "size_percent": {
+          "small": 7.6923076923076925,
+          "medium": 51.64835164835165,
+          "large": 40.65934065934066
+        },
+        "boundary_touch_count": 27,
+        "boundary_touch_percent": 29.67032967032967,
+        "multi_object_image_count": 12,
+        "multi_object_image_percent": 17.142857142857142,
+        "object_crowdedness_counts": {
+          "1": 58,
+          "2-3": 27,
+          "4+": 6
+        },
+        "object_crowdedness_percent": {
+          "1": 63.73626373626374,
+          "2-3": 29.67032967032967,
+          "4+": 6.593406593406593
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 19,
+        "objects_per_image": 1.2666666666666666,
+        "normalized_area": {
+          "count": 19,
+          "mean": 0.4407029643811677,
+          "median": 0.35926940917968747,
+          "q1": 0.19699615478515625,
+          "q3": 0.65360595703125,
+          "min": 0.14320312500000001,
+          "max": 0.9906414794921875
+        },
+        "normalized_width": {
+          "count": 19,
+          "mean": 0.5631578947368421,
+          "median": 0.46875,
+          "q1": 0.30078125,
+          "q3": 0.81015625,
+          "min": 0.24375,
+          "max": 0.99765625
+        },
+        "normalized_height": {
+          "count": 19,
+          "mean": 0.7425986842105264,
+          "median": 0.7234375,
+          "q1": 0.645703125,
+          "q3": 0.8859375,
+          "min": 0.434375,
+          "max": 0.99296875
+        },
+        "aspect_ratio": {
+          "count": 19,
+          "mean": 0.7550478040528393,
+          "median": 0.814873417721519,
+          "q1": 0.49382716049382713,
+          "q3": 0.978284263345626,
+          "min": 0.2657580919931857,
+          "max": 1.183585313174946
+        },
+        "size_counts": {
+          "small": 0,
+          "medium": 10,
+          "large": 9
+        },
+        "size_percent": {
+          "small": 0.0,
+          "medium": 52.63157894736842,
+          "large": 47.36842105263158
+        },
+        "boundary_touch_count": 7,
+        "boundary_touch_percent": 36.8421052631579,
+        "multi_object_image_count": 2,
+        "multi_object_image_percent": 13.333333333333334,
+        "object_crowdedness_counts": {
+          "1": 13,
+          "2-3": 2,
+          "4+": 4
+        },
+        "object_crowdedness_percent": {
+          "1": 68.42105263157895,
+          "2-3": 10.526315789473685,
+          "4+": 21.05263157894737
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 110,
+        "objects_per_image": 1.2941176470588236,
+        "normalized_area": {
+          "count": 110,
+          "mean": 0.3861853582208808,
+          "median": 0.36137603759765624,
+          "q1": 0.198345947265625,
+          "q3": 0.5558279418945313,
+          "min": 0.036553955078125006,
+          "max": 0.9906414794921875
+        },
+        "normalized_width": {
+          "count": 110,
+          "mean": 0.5373295454545455,
+          "median": 0.494140625,
+          "q1": 0.346875,
+          "q3": 0.7369140625,
+          "min": 0.13125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 110,
+          "mean": 0.673700284090909,
+          "median": 0.69375,
+          "q1": 0.5189453125,
+          "q3": 0.840234375,
+          "min": 0.20703125,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 110,
+          "mean": 0.8334015502900073,
+          "median": 0.7982037965943432,
+          "q1": 0.5564711393170143,
+          "q3": 1.0152475934131808,
+          "min": 0.2657580919931857,
+          "max": 2.9781931464174454
+        },
+        "size_counts": {
+          "small": 7,
+          "medium": 57,
+          "large": 46
+        },
+        "size_percent": {
+          "small": 6.363636363636363,
+          "medium": 51.81818181818182,
+          "large": 41.81818181818182
+        },
+        "boundary_touch_count": 34,
+        "boundary_touch_percent": 30.90909090909091,
+        "multi_object_image_count": 14,
+        "multi_object_image_percent": 16.470588235294116,
+        "object_crowdedness_counts": {
+          "1": 71,
+          "2-3": 29,
+          "4+": 10
+        },
+        "object_crowdedness_percent": {
+          "1": 64.54545454545455,
+          "2-3": 26.363636363636363,
+          "4+": 9.090909090909092
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 91,
+        "valid_object_count": 19,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 17.272727272727273,
+        "median_area_delta_valid_minus_train": -0.00421325683593754,
+        "small_object_share_delta_pp": -7.6923076923076925,
+        "boundary_touch_delta_pp": 7.171775592828226,
+        "multi_object_image_delta_pp": -3.8095238095238084,
+        "median_aspect_ratio_delta": 0.02192688757362371,
+        "flags": []
+      }
+    },
+    "Gorilla": {
+      "train": {
+        "image_count": 70,
+        "object_count": 84,
+        "objects_per_image": 1.2,
+        "normalized_area": {
+          "count": 84,
+          "mean": 0.4863008190336681,
+          "median": 0.516256103515625,
+          "q1": 0.22329162597656252,
+          "q3": 0.7021902465820313,
+          "min": 0.017080078125,
+          "max": 0.99765625
+        },
+        "normalized_width": {
+          "count": 84,
+          "mean": 0.6018880208333334,
+          "median": 0.6109375,
+          "q1": 0.38671875,
+          "q3": 0.8314453125,
+          "min": 0.103125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 84,
+          "mean": 0.7425502232142858,
+          "median": 0.787109375,
+          "q1": 0.615625,
+          "q3": 0.9306640625,
+          "min": 0.165625,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 84,
+          "mean": 0.8106291014210292,
+          "median": 0.8258692626162505,
+          "q1": 0.59739238321286,
+          "q3": 0.9805084827546273,
+          "min": 0.21364653243847875,
+          "max": 1.6523994811932556
+        },
+        "size_counts": {
+          "small": 7,
+          "medium": 28,
+          "large": 49
+        },
+        "size_percent": {
+          "small": 8.333333333333334,
+          "medium": 33.333333333333336,
+          "large": 58.333333333333336
+        },
+        "boundary_touch_count": 36,
+        "boundary_touch_percent": 42.857142857142854,
+        "multi_object_image_count": 10,
+        "multi_object_image_percent": 14.285714285714286,
+        "object_crowdedness_counts": {
+          "1": 60,
+          "2-3": 19,
+          "4+": 5
+        },
+        "object_crowdedness_percent": {
+          "1": 71.42857142857143,
+          "2-3": 22.61904761904762,
+          "4+": 5.9523809523809526
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 17,
+        "objects_per_image": 1.1333333333333333,
+        "normalized_area": {
+          "count": 17,
+          "mean": 0.5147428983800553,
+          "median": 0.537923583984375,
+          "q1": 0.2798712158203125,
+          "q3": 0.6896044921875001,
+          "min": 0.0904693603515625,
+          "max": 0.9657641601562501
+        },
+        "normalized_width": {
+          "count": 17,
+          "mean": 0.6495404411764706,
+          "median": 0.634375,
+          "q1": 0.45234375,
+          "q3": 0.8390625,
+          "min": 0.24375,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 17,
+          "mean": 0.7446231617647059,
+          "median": 0.8015625,
+          "q1": 0.62265625,
+          "q3": 0.91015625,
+          "min": 0.30078125,
+          "max": 0.9703125
+        },
+        "aspect_ratio": {
+          "count": 17,
+          "mean": 0.8761000195484416,
+          "median": 0.8763040238450075,
+          "q1": 0.7224199288256228,
+          "q3": 1.0257648953301128,
+          "min": 0.4698996655518395,
+          "max": 1.221774193548387
+        },
+        "size_counts": {
+          "small": 1,
+          "medium": 5,
+          "large": 11
+        },
+        "size_percent": {
+          "small": 5.882352941176471,
+          "medium": 29.41176470588235,
+          "large": 64.70588235294117
+        },
+        "boundary_touch_count": 8,
+        "boundary_touch_percent": 47.05882352941177,
+        "multi_object_image_count": 2,
+        "multi_object_image_percent": 13.333333333333334,
+        "object_crowdedness_counts": {
+          "1": 13,
+          "2-3": 4,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 76.47058823529412,
+          "2-3": 23.529411764705884,
+          "4+": 0.0
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 101,
+        "objects_per_image": 1.188235294117647,
+        "normalized_area": {
+          "count": 101,
+          "mean": 0.49108809971573336,
+          "median": 0.52301025390625,
+          "q1": 0.24081298828124997,
+          "q3": 0.7013763427734375,
+          "min": 0.017080078125,
+          "max": 0.99765625
+        },
+        "normalized_width": {
+          "count": 101,
+          "mean": 0.6099087252475247,
+          "median": 0.61328125,
+          "q1": 0.39296875,
+          "q3": 0.8390625,
+          "min": 0.103125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 101,
+          "mean": 0.7428991336633664,
+          "median": 0.79296875,
+          "q1": 0.615625,
+          "q3": 0.921875,
+          "min": 0.165625,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 101,
+          "mean": 0.8216489589276232,
+          "median": 0.8369781312127237,
+          "q1": 0.6130856219709209,
+          "q3": 0.9982638888888888,
+          "min": 0.21364653243847875,
+          "max": 1.6523994811932556
+        },
+        "size_counts": {
+          "small": 8,
+          "medium": 33,
+          "large": 60
+        },
+        "size_percent": {
+          "small": 7.920792079207921,
+          "medium": 32.67326732673267,
+          "large": 59.40594059405941
+        },
+        "boundary_touch_count": 44,
+        "boundary_touch_percent": 43.56435643564357,
+        "multi_object_image_count": 12,
+        "multi_object_image_percent": 14.117647058823529,
+        "object_crowdedness_counts": {
+          "1": 73,
+          "2-3": 23,
+          "4+": 5
+        },
+        "object_crowdedness_percent": {
+          "1": 72.27722772277228,
+          "2-3": 22.77227722772277,
+          "4+": 4.9504950495049505
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 84,
+        "valid_object_count": 17,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 16.831683168316832,
+        "median_area_delta_valid_minus_train": 0.02166748046875,
+        "small_object_share_delta_pp": -2.450980392156863,
+        "boundary_touch_delta_pp": 4.201680672268914,
+        "multi_object_image_delta_pp": -0.9523809523809526,
+        "median_aspect_ratio_delta": 0.05043476122875701,
+        "flags": []
+      }
+    },
+    "Goat": {
+      "train": {
+        "image_count": 70,
+        "object_count": 101,
+        "objects_per_image": 1.4428571428571428,
+        "normalized_area": {
+          "count": 101,
+          "mean": 0.3133029023727568,
+          "median": 0.2851251220703125,
+          "q1": 0.113017578125,
+          "q3": 0.45539794921875,
+          "min": 0.030395507812500003,
+          "max": 0.88762939453125
+        },
+        "normalized_width": {
+          "count": 101,
+          "mean": 0.49074876237623755,
+          "median": 0.46796875,
+          "q1": 0.3078125,
+          "q3": 0.6359375,
+          "min": 0.1171875,
+          "max": 0.971875
+        },
+        "normalized_height": {
+          "count": 101,
+          "mean": 0.5793548886138614,
+          "median": 0.58671875,
+          "q1": 0.365625,
+          "q3": 0.7875,
+          "min": 0.1484375,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 101,
+          "mean": 0.9296285134760662,
+          "median": 0.8660714285714286,
+          "q1": 0.6098003629764065,
+          "q3": 1.07095046854083,
+          "min": 0.22800925925925924,
+          "max": 3.1526315789473682
+        },
+        "size_counts": {
+          "small": 20,
+          "medium": 49,
+          "large": 32
+        },
+        "size_percent": {
+          "small": 19.801980198019802,
+          "medium": 48.51485148514851,
+          "large": 31.683168316831683
+        },
+        "boundary_touch_count": 34,
+        "boundary_touch_percent": 33.663366336633665,
+        "multi_object_image_count": 19,
+        "multi_object_image_percent": 27.142857142857142,
+        "object_crowdedness_counts": {
+          "1": 51,
+          "2-3": 36,
+          "4+": 14
+        },
+        "object_crowdedness_percent": {
+          "1": 50.495049504950494,
+          "2-3": 35.64356435643565,
+          "4+": 13.861386138613861
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 22,
+        "objects_per_image": 1.4666666666666666,
+        "normalized_area": {
+          "count": 22,
+          "mean": 0.3479809292879972,
+          "median": 0.23202453613281251,
+          "q1": 0.050950927734375005,
+          "q3": 0.5962705993652344,
+          "min": 0.0223388671875,
+          "max": 0.98443359375
+        },
+        "normalized_width": {
+          "count": 22,
+          "mean": 0.4670809659090908,
+          "median": 0.411328125,
+          "q1": 0.2025390625,
+          "q3": 0.766015625,
+          "min": 0.11484375,
+          "max": 0.990625
+        },
+        "normalized_height": {
+          "count": 22,
+          "mean": 0.5740767045454546,
+          "median": 0.566015625,
+          "q1": 0.34296875,
+          "q3": 0.8466796875,
+          "min": 0.14296875,
+          "max": 0.9953125
+        },
+        "aspect_ratio": {
+          "count": 22,
+          "mean": 0.7951784435491785,
+          "median": 0.802135747180099,
+          "q1": 0.6268310808740155,
+          "q3": 0.937351986249045,
+          "min": 0.3597285067873303,
+          "max": 1.206482593037215
+        },
+        "size_counts": {
+          "small": 9,
+          "medium": 5,
+          "large": 8
+        },
+        "size_percent": {
+          "small": 40.90909090909091,
+          "medium": 22.727272727272727,
+          "large": 36.36363636363637
+        },
+        "boundary_touch_count": 5,
+        "boundary_touch_percent": 22.727272727272727,
+        "multi_object_image_count": 4,
+        "multi_object_image_percent": 26.666666666666668,
+        "object_crowdedness_counts": {
+          "1": 11,
+          "2-3": 7,
+          "4+": 4
+        },
+        "object_crowdedness_percent": {
+          "1": 50.0,
+          "2-3": 31.818181818181817,
+          "4+": 18.181818181818183
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 123,
+        "objects_per_image": 1.4470588235294117,
+        "normalized_area": {
+          "count": 123,
+          "mean": 0.31950547629255593,
+          "median": 0.26904296875,
+          "q1": 0.109442138671875,
+          "q3": 0.47994781494140626,
+          "min": 0.0223388671875,
+          "max": 0.98443359375
+        },
+        "normalized_width": {
+          "count": 123,
+          "mean": 0.48651549796747967,
+          "median": 0.46328125,
+          "q1": 0.291015625,
+          "q3": 0.673046875,
+          "min": 0.11484375,
+          "max": 0.990625
+        },
+        "normalized_height": {
+          "count": 123,
+          "mean": 0.5784108231707317,
+          "median": 0.58671875,
+          "q1": 0.347265625,
+          "q3": 0.7921875,
+          "min": 0.14296875,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 123,
+          "mean": 0.9055805334891431,
+          "median": 0.8386206896551723,
+          "q1": 0.6153306450643622,
+          "q3": 1.0446985698230105,
+          "min": 0.22800925925925924,
+          "max": 3.1526315789473682
+        },
+        "size_counts": {
+          "small": 29,
+          "medium": 54,
+          "large": 40
+        },
+        "size_percent": {
+          "small": 23.577235772357724,
+          "medium": 43.90243902439025,
+          "large": 32.520325203252035
+        },
+        "boundary_touch_count": 39,
+        "boundary_touch_percent": 31.70731707317073,
+        "multi_object_image_count": 23,
+        "multi_object_image_percent": 27.058823529411764,
+        "object_crowdedness_counts": {
+          "1": 62,
+          "2-3": 43,
+          "4+": 18
+        },
+        "object_crowdedness_percent": {
+          "1": 50.40650406504065,
+          "2-3": 34.959349593495936,
+          "4+": 14.634146341463415
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 101,
+        "valid_object_count": 22,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 17.88617886178862,
+        "median_area_delta_valid_minus_train": -0.05310058593749997,
+        "small_object_share_delta_pp": 21.107110711071105,
+        "boundary_touch_delta_pp": -10.936093609360938,
+        "multi_object_image_delta_pp": -0.4761904761904745,
+        "median_aspect_ratio_delta": -0.06393568139132966,
+        "flags": [
+          "small_object_share_delta_ge_15pp",
+          "boundary_touch_delta_ge_10pp"
+        ]
+      }
+    },
+    "Camel": {
+      "train": {
+        "image_count": 70,
+        "object_count": 100,
+        "objects_per_image": 1.4285714285714286,
+        "normalized_area": {
+          "count": 100,
+          "mean": 0.30255836791992186,
+          "median": 0.25235595703125,
+          "q1": 0.07694061279296875,
+          "q3": 0.47698760986328126,
+          "min": 0.007412109375000001,
+          "max": 0.94375
+        },
+        "normalized_width": {
+          "count": 100,
+          "mean": 0.4699921875,
+          "median": 0.50390625,
+          "q1": 0.213671875,
+          "q3": 0.669921875,
+          "min": 0.06328125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 100,
+          "mean": 0.538390625,
+          "median": 0.48984375,
+          "q1": 0.3630859375,
+          "q3": 0.780078125,
+          "min": 0.06875,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 100,
+          "mean": 0.8910550320094687,
+          "median": 0.8697328359596523,
+          "q1": 0.5853814506833824,
+          "q3": 1.1079175475687104,
+          "min": 0.220708446866485,
+          "max": 2.081593927893738
+        },
+        "size_counts": {
+          "small": 31,
+          "medium": 36,
+          "large": 33
+        },
+        "size_percent": {
+          "small": 31.0,
+          "medium": 36.0,
+          "large": 33.0
+        },
+        "boundary_touch_count": 40,
+        "boundary_touch_percent": 40.0,
+        "multi_object_image_count": 20,
+        "multi_object_image_percent": 28.571428571428573,
+        "object_crowdedness_counts": {
+          "1": 50,
+          "2-3": 37,
+          "4+": 13
+        },
+        "object_crowdedness_percent": {
+          "1": 50.0,
+          "2-3": 37.0,
+          "4+": 13.0
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 20,
+        "objects_per_image": 1.3333333333333333,
+        "normalized_area": {
+          "count": 20,
+          "mean": 0.40388656616210933,
+          "median": 0.4409423828125,
+          "q1": 0.2784136962890625,
+          "q3": 0.5374644470214844,
+          "min": 0.019106445312499998,
+          "max": 0.77654052734375
+        },
+        "normalized_width": {
+          "count": 20,
+          "mean": 0.5685546875,
+          "median": 0.600390625,
+          "q1": 0.478515625,
+          "q3": 0.6937500000000001,
+          "min": 0.134375,
+          "max": 0.9265625
+        },
+        "normalized_height": {
+          "count": 20,
+          "mean": 0.6641015625,
+          "median": 0.6671875,
+          "q1": 0.5042968750000001,
+          "q3": 0.8470703125,
+          "min": 0.1421875,
+          "max": 0.99765625
+        },
+        "aspect_ratio": {
+          "count": 20,
+          "mean": 0.8889698026023828,
+          "median": 0.8203736596276561,
+          "q1": 0.7484804820880087,
+          "q3": 0.9297568869486678,
+          "min": 0.5184025058731402,
+          "max": 1.9129032258064516
+        },
+        "size_counts": {
+          "small": 2,
+          "medium": 7,
+          "large": 11
+        },
+        "size_percent": {
+          "small": 10.0,
+          "medium": 35.0,
+          "large": 55.0
+        },
+        "boundary_touch_count": 13,
+        "boundary_touch_percent": 65.0,
+        "multi_object_image_count": 3,
+        "multi_object_image_percent": 20.0,
+        "object_crowdedness_counts": {
+          "1": 12,
+          "2-3": 4,
+          "4+": 4
+        },
+        "object_crowdedness_percent": {
+          "1": 60.0,
+          "2-3": 20.0,
+          "4+": 20.0
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 120,
+        "objects_per_image": 1.411764705882353,
+        "normalized_area": {
+          "count": 120,
+          "mean": 0.3194464009602865,
+          "median": 0.298302001953125,
+          "q1": 0.09497283935546877,
+          "q3": 0.5015222167968749,
+          "min": 0.007412109375000001,
+          "max": 0.94375
+        },
+        "normalized_width": {
+          "count": 120,
+          "mean": 0.4864192708333333,
+          "median": 0.5171875,
+          "q1": 0.2421875,
+          "q3": 0.6833984375000001,
+          "min": 0.06328125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 120,
+          "mean": 0.5593424479166667,
+          "median": 0.5203125,
+          "q1": 0.370703125,
+          "q3": 0.7900390625,
+          "min": 0.06875,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 120,
+          "mean": 0.8907074937749544,
+          "median": 0.8487146246918884,
+          "q1": 0.5936145053212456,
+          "q3": 1.0565673289183224,
+          "min": 0.220708446866485,
+          "max": 2.081593927893738
+        },
+        "size_counts": {
+          "small": 33,
+          "medium": 43,
+          "large": 44
+        },
+        "size_percent": {
+          "small": 27.5,
+          "medium": 35.833333333333336,
+          "large": 36.666666666666664
+        },
+        "boundary_touch_count": 53,
+        "boundary_touch_percent": 44.166666666666664,
+        "multi_object_image_count": 23,
+        "multi_object_image_percent": 27.058823529411764,
+        "object_crowdedness_counts": {
+          "1": 62,
+          "2-3": 41,
+          "4+": 17
+        },
+        "object_crowdedness_percent": {
+          "1": 51.666666666666664,
+          "2-3": 34.166666666666664,
+          "4+": 14.166666666666666
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 100,
+        "valid_object_count": 20,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 16.666666666666668,
+        "median_area_delta_valid_minus_train": 0.18858642578124996,
+        "small_object_share_delta_pp": -21.0,
+        "boundary_touch_delta_pp": 25.0,
+        "multi_object_image_delta_pp": -8.571428571428573,
+        "median_aspect_ratio_delta": -0.04935917633199627,
+        "flags": [
+          "median_area_abs_delta_ge_0.10",
+          "small_object_share_delta_ge_15pp",
+          "boundary_touch_delta_ge_10pp"
+        ]
+      }
+    },
+    "Dog": {
+      "train": {
+        "image_count": 70,
+        "object_count": 83,
+        "objects_per_image": 1.1857142857142857,
+        "normalized_area": {
+          "count": 83,
+          "mean": 0.5045751879588667,
+          "median": 0.4727001953125,
+          "q1": 0.30417724609374996,
+          "q3": 0.7156173706054687,
+          "min": 0.05223388671875,
+          "max": 1.0
+        },
+        "normalized_width": {
+          "count": 83,
+          "mean": 0.5944277108433734,
+          "median": 0.57734375,
+          "q1": 0.393359375,
+          "q3": 0.81953125,
+          "min": 0.153125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 83,
+          "mean": 0.7967243975903614,
+          "median": 0.86328125,
+          "q1": 0.705078125,
+          "q3": 0.935546875,
+          "min": 0.284375,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 83,
+          "mean": 0.7349844171585318,
+          "median": 0.7130681818181818,
+          "q1": 0.5575990446498569,
+          "q3": 0.9241732211728264,
+          "min": 0.3,
+          "max": 1.299492385786802
+        },
+        "size_counts": {
+          "small": 6,
+          "medium": 26,
+          "large": 51
+        },
+        "size_percent": {
+          "small": 7.228915662650603,
+          "medium": 31.325301204819276,
+          "large": 61.44578313253012
+        },
+        "boundary_touch_count": 39,
+        "boundary_touch_percent": 46.98795180722892,
+        "multi_object_image_count": 6,
+        "multi_object_image_percent": 8.571428571428571,
+        "object_crowdedness_counts": {
+          "1": 64,
+          "2-3": 8,
+          "4+": 11
+        },
+        "object_crowdedness_percent": {
+          "1": 77.10843373493977,
+          "2-3": 9.63855421686747,
+          "4+": 13.25301204819277
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 17,
+        "objects_per_image": 1.1333333333333333,
+        "normalized_area": {
+          "count": 17,
+          "mean": 0.49044333065257345,
+          "median": 0.5073046875,
+          "q1": 0.29148437499999996,
+          "q3": 0.6486328125,
+          "min": 0.16976440429687498,
+          "max": 0.9128466796875001
+        },
+        "normalized_width": {
+          "count": 17,
+          "mean": 0.5722886029411766,
+          "median": 0.62890625,
+          "q1": 0.35390625,
+          "q3": 0.75625,
+          "min": 0.26328125,
+          "max": 0.946875
+        },
+        "normalized_height": {
+          "count": 17,
+          "mean": 0.8405790441176472,
+          "median": 0.859375,
+          "q1": 0.75546875,
+          "q3": 0.9640625,
+          "min": 0.4796875,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 17,
+          "mean": 0.6873339775570905,
+          "median": 0.737785016286645,
+          "q1": 0.4328097731239093,
+          "q3": 0.875904860392968,
+          "min": 0.3063636363636364,
+          "max": 1.1134259259259258
+        },
+        "size_counts": {
+          "small": 0,
+          "medium": 7,
+          "large": 10
+        },
+        "size_percent": {
+          "small": 0.0,
+          "medium": 41.1764705882353,
+          "large": 58.8235294117647
+        },
+        "boundary_touch_count": 8,
+        "boundary_touch_percent": 47.05882352941177,
+        "multi_object_image_count": 2,
+        "multi_object_image_percent": 13.333333333333334,
+        "object_crowdedness_counts": {
+          "1": 13,
+          "2-3": 4,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 76.47058823529412,
+          "2-3": 23.529411764705884,
+          "4+": 0.0
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 100,
+        "objects_per_image": 1.1764705882352942,
+        "normalized_area": {
+          "count": 100,
+          "mean": 0.5021727722167969,
+          "median": 0.4811349487304687,
+          "q1": 0.298013916015625,
+          "q3": 0.7090580749511719,
+          "min": 0.05223388671875,
+          "max": 1.0
+        },
+        "normalized_width": {
+          "count": 100,
+          "mean": 0.5906640625,
+          "median": 0.581640625,
+          "q1": 0.3875,
+          "q3": 0.796875,
+          "min": 0.153125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 100,
+          "mean": 0.8041796875000001,
+          "median": 0.861328125,
+          "q1": 0.7097656250000001,
+          "q3": 0.9375,
+          "min": 0.284375,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 100,
+          "mean": 0.7268838424262867,
+          "median": 0.7191863236560463,
+          "q1": 0.5229940635917554,
+          "q3": 0.9138763197586728,
+          "min": 0.3,
+          "max": 1.299492385786802
+        },
+        "size_counts": {
+          "small": 6,
+          "medium": 33,
+          "large": 61
+        },
+        "size_percent": {
+          "small": 6.0,
+          "medium": 33.0,
+          "large": 61.0
+        },
+        "boundary_touch_count": 47,
+        "boundary_touch_percent": 47.0,
+        "multi_object_image_count": 8,
+        "multi_object_image_percent": 9.411764705882353,
+        "object_crowdedness_counts": {
+          "1": 77,
+          "2-3": 12,
+          "4+": 11
+        },
+        "object_crowdedness_percent": {
+          "1": 77.0,
+          "2-3": 12.0,
+          "4+": 11.0
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 83,
+        "valid_object_count": 17,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 17.0,
+        "median_area_delta_valid_minus_train": 0.0346044921875,
+        "small_object_share_delta_pp": -7.228915662650603,
+        "boundary_touch_delta_pp": 0.07087172218285076,
+        "multi_object_image_delta_pp": 4.761904761904763,
+        "median_aspect_ratio_delta": 0.024716834468463178,
+        "flags": []
+      }
+    },
+    "Wolf": {
+      "train": {
+        "image_count": 70,
+        "object_count": 74,
+        "objects_per_image": 1.0571428571428572,
+        "normalized_area": {
+          "count": 74,
+          "mean": 0.853407526789485,
+          "median": 0.8880487060546876,
+          "q1": 0.8261297607421875,
+          "q3": 0.9535466003417968,
+          "min": 0.0584344482421875,
+          "max": 1.0
+        },
+        "normalized_width": {
+          "count": 74,
+          "mean": 0.893676097972973,
+          "median": 0.929296875,
+          "q1": 0.889453125,
+          "q3": 0.9681640625,
+          "min": 0.16953125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 74,
+          "mean": 0.9368454391891893,
+          "median": 0.975,
+          "q1": 0.931640625,
+          "q3": 0.99765625,
+          "min": 0.25703125,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 74,
+          "mean": 0.9488840458479583,
+          "median": 0.9698195318646735,
+          "q1": 0.9128788693035254,
+          "q3": 1.0,
+          "min": 0.3273001508295626,
+          "max": 1.1367112810707458
+        },
+        "size_counts": {
+          "small": 2,
+          "medium": 1,
+          "large": 71
+        },
+        "size_percent": {
+          "small": 2.7027027027027026,
+          "medium": 1.3513513513513513,
+          "large": 95.94594594594595
+        },
+        "boundary_touch_count": 54,
+        "boundary_touch_percent": 72.97297297297297,
+        "multi_object_image_count": 4,
+        "multi_object_image_percent": 5.714285714285714,
+        "object_crowdedness_counts": {
+          "1": 66,
+          "2-3": 8,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 89.1891891891892,
+          "2-3": 10.81081081081081,
+          "4+": 0.0
+        }
+      },
+      "valid": {
+        "image_count": 14,
+        "object_count": 14,
+        "objects_per_image": 1.0,
+        "normalized_area": {
+          "count": 14,
+          "mean": 0.9076775687081474,
+          "median": 0.9184259033203125,
+          "q1": 0.8659567260742188,
+          "q3": 0.9947265625,
+          "min": 0.7216314697265626,
+          "max": 1.0
+        },
+        "normalized_width": {
+          "count": 14,
+          "mean": 0.9597098214285714,
+          "median": 0.96640625,
+          "q1": 0.9396484375,
+          "q3": 0.9947265625,
+          "min": 0.8640625,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 14,
+          "mean": 0.94375,
+          "median": 0.971875,
+          "q1": 0.919921875,
+          "q3": 0.9994140625,
+          "min": 0.80390625,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 14,
+          "mean": 1.0202610060114121,
+          "median": 1.0,
+          "q1": 0.9935546875,
+          "q3": 1.021813276996498,
+          "min": 0.941778127458694,
+          "max": 1.1754554170661553
+        },
+        "size_counts": {
+          "small": 0,
+          "medium": 0,
+          "large": 14
+        },
+        "size_percent": {
+          "small": 0.0,
+          "medium": 0.0,
+          "large": 100.0
+        },
+        "boundary_touch_count": 10,
+        "boundary_touch_percent": 71.42857142857143,
+        "multi_object_image_count": 0,
+        "multi_object_image_percent": 0.0,
+        "object_crowdedness_counts": {
+          "1": 14,
+          "2-3": 0,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 100.0,
+          "2-3": 0.0,
+          "4+": 0.0
+        }
+      },
+      "combined": {
+        "image_count": 84,
+        "object_count": 88,
+        "objects_per_image": 1.0476190476190477,
+        "normalized_area": {
+          "count": 88,
+          "mean": 0.8620413970947266,
+          "median": 0.892120361328125,
+          "q1": 0.8321490478515625,
+          "q3": 0.9611328125,
+          "min": 0.0584344482421875,
+          "max": 1.0
+        },
+        "normalized_width": {
+          "count": 88,
+          "mean": 0.9041814630681819,
+          "median": 0.9339843750000001,
+          "q1": 0.8970703125,
+          "q3": 0.96953125,
+          "min": 0.16953125,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 88,
+          "mean": 0.9379438920454546,
+          "median": 0.975,
+          "q1": 0.927734375,
+          "q3": 0.99765625,
+          "min": 0.25703125,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 88,
+          "mean": 0.9602394713285078,
+          "median": 0.9871650192202086,
+          "q1": 0.922244205802502,
+          "q3": 1.001939883900005,
+          "min": 0.3273001508295626,
+          "max": 1.1754554170661553
+        },
+        "size_counts": {
+          "small": 2,
+          "medium": 1,
+          "large": 85
+        },
+        "size_percent": {
+          "small": 2.272727272727273,
+          "medium": 1.1363636363636365,
+          "large": 96.5909090909091
+        },
+        "boundary_touch_count": 64,
+        "boundary_touch_percent": 72.72727272727273,
+        "multi_object_image_count": 4,
+        "multi_object_image_percent": 4.761904761904762,
+        "object_crowdedness_counts": {
+          "1": 80,
+          "2-3": 8,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 90.9090909090909,
+          "2-3": 9.090909090909092,
+          "4+": 0.0
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 74,
+        "valid_object_count": 14,
+        "train_image_count": 70,
+        "valid_image_count": 14,
+        "valid_object_share_percent": 15.909090909090908,
+        "median_area_delta_valid_minus_train": 0.030377197265624933,
+        "small_object_share_delta_pp": -2.7027027027027026,
+        "boundary_touch_delta_pp": -1.5444015444015378,
+        "multi_object_image_delta_pp": -5.714285714285714,
+        "median_aspect_ratio_delta": 0.030180468135326488,
+        "flags": []
+      }
+    },
+    "Rhino": {
+      "train": {
+        "image_count": 70,
+        "object_count": 98,
+        "objects_per_image": 1.4,
+        "normalized_area": {
+          "count": 98,
+          "mean": 0.399689094387755,
+          "median": 0.36030609130859376,
+          "q1": 0.22408523559570315,
+          "q3": 0.564917449951172,
+          "min": 0.07196044921875,
+          "max": 0.88984375
+        },
+        "normalized_width": {
+          "count": 98,
+          "mean": 0.5738281249999999,
+          "median": 0.568359375,
+          "q1": 0.3953125,
+          "q3": 0.7570312499999999,
+          "min": 0.17421875,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 98,
+          "mean": 0.6580277423469387,
+          "median": 0.6871093749999999,
+          "q1": 0.4966796875,
+          "q3": 0.807421875,
+          "min": 0.234375,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 98,
+          "mean": 0.8993573977341753,
+          "median": 0.9021106759201998,
+          "q1": 0.6401488204823885,
+          "q3": 1.074389293139293,
+          "min": 0.3343051506316812,
+          "max": 2.245614035087719
+        },
+        "size_counts": {
+          "small": 7,
+          "medium": 47,
+          "large": 44
+        },
+        "size_percent": {
+          "small": 7.142857142857143,
+          "medium": 47.95918367346939,
+          "large": 44.89795918367347
+        },
+        "boundary_touch_count": 21,
+        "boundary_touch_percent": 21.428571428571427,
+        "multi_object_image_count": 26,
+        "multi_object_image_percent": 37.142857142857146,
+        "object_crowdedness_counts": {
+          "1": 44,
+          "2-3": 50,
+          "4+": 4
+        },
+        "object_crowdedness_percent": {
+          "1": 44.89795918367347,
+          "2-3": 51.02040816326531,
+          "4+": 4.081632653061225
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 19,
+        "objects_per_image": 1.2666666666666666,
+        "normalized_area": {
+          "count": 19,
+          "mean": 0.4264377312911184,
+          "median": 0.41507934570312505,
+          "q1": 0.309324951171875,
+          "q3": 0.5688894653320313,
+          "min": 0.046162109375,
+          "max": 0.85836181640625
+        },
+        "normalized_width": {
+          "count": 19,
+          "mean": 0.6541118421052632,
+          "median": 0.72265625,
+          "q1": 0.50390625,
+          "q3": 0.811328125,
+          "min": 0.2546875,
+          "max": 0.9140625
+        },
+        "normalized_height": {
+          "count": 19,
+          "mean": 0.6213815789473685,
+          "median": 0.59609375,
+          "q1": 0.51875,
+          "q3": 0.7421875,
+          "min": 0.18125,
+          "max": 0.9390625
+        },
+        "aspect_ratio": {
+          "count": 19,
+          "mean": 1.110836436717442,
+          "median": 1.1694058154235145,
+          "q1": 0.9529398020011294,
+          "q3": 1.3887879873119822,
+          "min": 0.47679708826205636,
+          "max": 1.497032640949555
+        },
+        "size_counts": {
+          "small": 1,
+          "medium": 8,
+          "large": 10
+        },
+        "size_percent": {
+          "small": 5.2631578947368425,
+          "medium": 42.10526315789474,
+          "large": 52.63157894736842
+        },
+        "boundary_touch_count": 2,
+        "boundary_touch_percent": 10.526315789473685,
+        "multi_object_image_count": 4,
+        "multi_object_image_percent": 26.666666666666668,
+        "object_crowdedness_counts": {
+          "1": 11,
+          "2-3": 8,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 57.89473684210526,
+          "2-3": 42.10526315789474,
+          "4+": 0.0
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 117,
+        "objects_per_image": 1.3764705882352941,
+        "normalized_area": {
+          "count": 117,
+          "mean": 0.40403289012419863,
+          "median": 0.38052368164062506,
+          "q1": 0.2250360107421875,
+          "q3": 0.5695477294921876,
+          "min": 0.046162109375,
+          "max": 0.88984375
+        },
+        "normalized_width": {
+          "count": 117,
+          "mean": 0.5868656517094015,
+          "median": 0.6015625,
+          "q1": 0.409375,
+          "q3": 0.76484375,
+          "min": 0.17421875,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 117,
+          "mean": 0.6520766559829058,
+          "median": 0.6609375,
+          "q1": 0.503125,
+          "q3": 0.80390625,
+          "min": 0.18125,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 117,
+          "mean": 0.9337001476545349,
+          "median": 0.9322344322344321,
+          "q1": 0.6947996589940324,
+          "q3": 1.1282051282051282,
+          "min": 0.3343051506316812,
+          "max": 2.245614035087719
+        },
+        "size_counts": {
+          "small": 8,
+          "medium": 55,
+          "large": 54
+        },
+        "size_percent": {
+          "small": 6.837606837606837,
+          "medium": 47.00854700854701,
+          "large": 46.15384615384615
+        },
+        "boundary_touch_count": 23,
+        "boundary_touch_percent": 19.65811965811966,
+        "multi_object_image_count": 30,
+        "multi_object_image_percent": 35.294117647058826,
+        "object_crowdedness_counts": {
+          "1": 55,
+          "2-3": 58,
+          "4+": 4
+        },
+        "object_crowdedness_percent": {
+          "1": 47.00854700854701,
+          "2-3": 49.572649572649574,
+          "4+": 3.4188034188034186
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 98,
+        "valid_object_count": 19,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 16.23931623931624,
+        "median_area_delta_valid_minus_train": 0.05477325439453129,
+        "small_object_share_delta_pp": -1.8796992481203008,
+        "boundary_touch_delta_pp": -10.902255639097742,
+        "multi_object_image_delta_pp": -10.476190476190478,
+        "median_aspect_ratio_delta": 0.26729513950331474,
+        "flags": [
+          "boundary_touch_delta_ge_10pp"
+        ]
+      }
+    },
+    "Lion": {
+      "train": {
+        "image_count": 70,
+        "object_count": 81,
+        "objects_per_image": 1.1571428571428573,
+        "normalized_area": {
+          "count": 81,
+          "mean": 0.5240030170958719,
+          "median": 0.5370538330078125,
+          "q1": 0.29089477539062497,
+          "q3": 0.7406250000000001,
+          "min": 0.019832763671875003,
+          "max": 1.0
+        },
+        "normalized_width": {
+          "count": 81,
+          "mean": 0.6564139660493827,
+          "median": 0.7078125,
+          "q1": 0.49140625,
+          "q3": 0.8796875,
+          "min": 0.16484375,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 81,
+          "mean": 0.7378086419753087,
+          "median": 0.8328125,
+          "q1": 0.57578125,
+          "q3": 0.9453125,
+          "min": 0.1203125,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 81,
+          "mean": 0.9253166568045161,
+          "median": 0.9604051565377533,
+          "q1": 0.6985472154963681,
+          "q3": 1.0478424015009382,
+          "min": 0.2631103074141049,
+          "max": 1.6582984658298465
+        },
+        "size_counts": {
+          "small": 9,
+          "medium": 18,
+          "large": 54
+        },
+        "size_percent": {
+          "small": 11.11111111111111,
+          "medium": 22.22222222222222,
+          "large": 66.66666666666667
+        },
+        "boundary_touch_count": 42,
+        "boundary_touch_percent": 51.851851851851855,
+        "multi_object_image_count": 8,
+        "multi_object_image_percent": 11.428571428571429,
+        "object_crowdedness_counts": {
+          "1": 62,
+          "2-3": 14,
+          "4+": 5
+        },
+        "object_crowdedness_percent": {
+          "1": 76.54320987654322,
+          "2-3": 17.28395061728395,
+          "4+": 6.172839506172839
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 15,
+        "objects_per_image": 1.0,
+        "normalized_area": {
+          "count": 15,
+          "mean": 0.7335948486328124,
+          "median": 0.7242919921875,
+          "q1": 0.5717950439453126,
+          "q3": 0.9173699951171875,
+          "min": 0.35302734375,
+          "max": 0.9953125
+        },
+        "normalized_width": {
+          "count": 15,
+          "mean": 0.8206770833333333,
+          "median": 0.82109375,
+          "q1": 0.7171875,
+          "q3": 0.94140625,
+          "min": 0.55390625,
+          "max": 0.9953125
+        },
+        "normalized_height": {
+          "count": 15,
+          "mean": 0.8858854166666666,
+          "median": 0.971875,
+          "q1": 0.8578125,
+          "q3": 0.99609375,
+          "min": 0.51796875,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 15,
+          "mean": 0.9620339889425797,
+          "median": 0.971875,
+          "q1": 0.7961312086927851,
+          "q3": 1.016418927484787,
+          "min": 0.5811475409836067,
+          "max": 1.5852187028657616
+        },
+        "size_counts": {
+          "small": 0,
+          "medium": 1,
+          "large": 14
+        },
+        "size_percent": {
+          "small": 0.0,
+          "medium": 6.666666666666667,
+          "large": 93.33333333333333
+        },
+        "boundary_touch_count": 11,
+        "boundary_touch_percent": 73.33333333333333,
+        "multi_object_image_count": 0,
+        "multi_object_image_percent": 0.0,
+        "object_crowdedness_counts": {
+          "1": 15,
+          "2-3": 0,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 100.0,
+          "2-3": 0.0,
+          "4+": 0.0
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 96,
+        "objects_per_image": 1.1294117647058823,
+        "normalized_area": {
+          "count": 96,
+          "mean": 0.5567517407735189,
+          "median": 0.5873883056640625,
+          "q1": 0.3263456726074219,
+          "q3": 0.76320068359375,
+          "min": 0.019832763671875003,
+          "max": 1.0
+        },
+        "normalized_width": {
+          "count": 96,
+          "mean": 0.6820800781250002,
+          "median": 0.726171875,
+          "q1": 0.5130859375,
+          "q3": 0.896484375,
+          "min": 0.16484375,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 96,
+          "mean": 0.7609456380208334,
+          "median": 0.8453125,
+          "q1": 0.6246093749999999,
+          "q3": 0.9585937499999999,
+          "min": 0.1203125,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 96,
+          "mean": 0.9310537399510886,
+          "median": 0.9616267268756878,
+          "q1": 0.7214834494061779,
+          "q3": 1.0466026327077982,
+          "min": 0.2631103074141049,
+          "max": 1.6582984658298465
+        },
+        "size_counts": {
+          "small": 9,
+          "medium": 19,
+          "large": 68
+        },
+        "size_percent": {
+          "small": 9.375,
+          "medium": 19.791666666666668,
+          "large": 70.83333333333333
+        },
+        "boundary_touch_count": 53,
+        "boundary_touch_percent": 55.208333333333336,
+        "multi_object_image_count": 8,
+        "multi_object_image_percent": 9.411764705882353,
+        "object_crowdedness_counts": {
+          "1": 77,
+          "2-3": 14,
+          "4+": 5
+        },
+        "object_crowdedness_percent": {
+          "1": 80.20833333333333,
+          "2-3": 14.583333333333334,
+          "4+": 5.208333333333333
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 81,
+        "valid_object_count": 15,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 15.625,
+        "median_area_delta_valid_minus_train": 0.18723815917968745,
+        "small_object_share_delta_pp": -11.11111111111111,
+        "boundary_touch_delta_pp": 21.481481481481474,
+        "multi_object_image_delta_pp": -11.428571428571429,
+        "median_aspect_ratio_delta": 0.011469843462246776,
+        "flags": [
+          "median_area_abs_delta_ge_0.10",
+          "boundary_touch_delta_ge_10pp"
+        ]
+      }
+    },
+    "Deer": {
+      "train": {
+        "image_count": 70,
+        "object_count": 83,
+        "objects_per_image": 1.1857142857142857,
+        "normalized_area": {
+          "count": 83,
+          "mean": 0.4579104062735316,
+          "median": 0.436527099609375,
+          "q1": 0.289713134765625,
+          "q3": 0.6213995361328125,
+          "min": 0.029294433593749995,
+          "max": 0.9589416503906251
+        },
+        "normalized_width": {
+          "count": 83,
+          "mean": 0.5543109939759037,
+          "median": 0.5359375,
+          "q1": 0.428125,
+          "q3": 0.69765625,
+          "min": 0.1109375,
+          "max": 0.98828125
+        },
+        "normalized_height": {
+          "count": 83,
+          "mean": 0.7886577560240965,
+          "median": 0.85,
+          "q1": 0.675,
+          "q3": 0.941015625,
+          "min": 0.2640625,
+          "max": 0.9984375
+        },
+        "aspect_ratio": {
+          "count": 83,
+          "mean": 0.7100601475016696,
+          "median": 0.7072892938496583,
+          "q1": 0.5203313726281499,
+          "q3": 0.8398489808064276,
+          "min": 0.29732313575525815,
+          "max": 1.21760391198044
+        },
+        "size_counts": {
+          "small": 2,
+          "medium": 34,
+          "large": 47
+        },
+        "size_percent": {
+          "small": 2.4096385542168677,
+          "medium": 40.963855421686745,
+          "large": 56.626506024096386
+        },
+        "boundary_touch_count": 29,
+        "boundary_touch_percent": 34.93975903614458,
+        "multi_object_image_count": 11,
+        "multi_object_image_percent": 15.714285714285714,
+        "object_crowdedness_counts": {
+          "1": 59,
+          "2-3": 24,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 71.08433734939759,
+          "2-3": 28.91566265060241,
+          "4+": 0.0
+        }
+      },
+      "valid": {
+        "image_count": 15,
+        "object_count": 15,
+        "objects_per_image": 1.0,
+        "normalized_area": {
+          "count": 15,
+          "mean": 0.596258544921875,
+          "median": 0.6153735351562499,
+          "q1": 0.5546527099609375,
+          "q3": 0.6762286376953125,
+          "min": 0.1090625,
+          "max": 0.946875
+        },
+        "normalized_width": {
+          "count": 15,
+          "mean": 0.7053645833333334,
+          "median": 0.66875,
+          "q1": 0.64140625,
+          "q3": 0.7945312499999999,
+          "min": 0.27265625,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 15,
+          "mean": 0.8286458333333333,
+          "median": 0.86875,
+          "q1": 0.7738281250000001,
+          "q3": 0.9351562499999999,
+          "min": 0.4,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 15,
+          "mean": 0.8598517384390332,
+          "median": 0.7673216132368149,
+          "q1": 0.7046785054243137,
+          "q3": 0.940893121301775,
+          "min": 0.6477093206951027,
+          "max": 1.5076560659599527
+        },
+        "size_counts": {
+          "small": 0,
+          "medium": 1,
+          "large": 14
+        },
+        "size_percent": {
+          "small": 0.0,
+          "medium": 6.666666666666667,
+          "large": 93.33333333333333
+        },
+        "boundary_touch_count": 7,
+        "boundary_touch_percent": 46.666666666666664,
+        "multi_object_image_count": 0,
+        "multi_object_image_percent": 0.0,
+        "object_crowdedness_counts": {
+          "1": 15,
+          "2-3": 0,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 100.0,
+          "2-3": 0.0,
+          "4+": 0.0
+        }
+      },
+      "combined": {
+        "image_count": 85,
+        "object_count": 98,
+        "objects_per_image": 1.1529411764705881,
+        "normalized_area": {
+          "count": 98,
+          "mean": 0.47908614178093106,
+          "median": 0.490625,
+          "q1": 0.33128814697265624,
+          "q3": 0.635614013671875,
+          "min": 0.029294433593749995,
+          "max": 0.9589416503906251
+        },
+        "normalized_width": {
+          "count": 98,
+          "mean": 0.5774314413265307,
+          "median": 0.58125,
+          "q1": 0.4484375,
+          "q3": 0.71953125,
+          "min": 0.1109375,
+          "max": 1.0
+        },
+        "normalized_height": {
+          "count": 98,
+          "mean": 0.7947783801020407,
+          "median": 0.854296875,
+          "q1": 0.6880859375,
+          "q3": 0.937109375,
+          "min": 0.2640625,
+          "max": 1.0
+        },
+        "aspect_ratio": {
+          "count": 98,
+          "mean": 0.7329874318288172,
+          "median": 0.7299184737626221,
+          "q1": 0.563856285863328,
+          "q3": 0.8840647329109568,
+          "min": 0.29732313575525815,
+          "max": 1.5076560659599527
+        },
+        "size_counts": {
+          "small": 2,
+          "medium": 35,
+          "large": 61
+        },
+        "size_percent": {
+          "small": 2.0408163265306123,
+          "medium": 35.714285714285715,
+          "large": 62.244897959183675
+        },
+        "boundary_touch_count": 36,
+        "boundary_touch_percent": 36.734693877551024,
+        "multi_object_image_count": 11,
+        "multi_object_image_percent": 12.941176470588236,
+        "object_crowdedness_counts": {
+          "1": 74,
+          "2-3": 24,
+          "4+": 0
+        },
+        "object_crowdedness_percent": {
+          "1": 75.51020408163265,
+          "2-3": 24.489795918367346,
+          "4+": 0.0
+        }
+      },
+      "train_vs_valid": {
+        "train_object_count": 83,
+        "valid_object_count": 15,
+        "train_image_count": 70,
+        "valid_image_count": 15,
+        "valid_object_share_percent": 15.306122448979592,
+        "median_area_delta_valid_minus_train": 0.1788464355468749,
+        "small_object_share_delta_pp": -2.4096385542168677,
+        "boundary_touch_delta_pp": 11.726907630522085,
+        "multi_object_image_delta_pp": -15.714285714285714,
+        "median_aspect_ratio_delta": 0.060032319387156585,
+        "flags": [
+          "median_area_abs_delta_ge_0.10",
+          "boundary_touch_delta_ge_10pp"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "count": 6,
+  "samples": [
+    {
+      "split": "train",
+      "image_filename": "cow-19-_jpg.rf.79ab2f17459bf2b455ba932f730a35d2.jpg",
+      "reason": "empty_annotation_with_visible_object",
+      "evidence": "Visible animal but missing bounding-box annotation.",
+      "source": "previously confirmed exclusion manifest",
+      "action": "review_only_no_change"
+    },
+    {
+      "split": "valid",
+      "image_filename": "wolf-109-_jpg.rf.a384d38588191d796589048d6cb38e97.jpg",
+      "reason": "empty_annotation_with_visible_object",
+      "evidence": "Visible animal but missing bounding-box annotation.",
+      "source": "previously confirmed exclusion manifest",
+      "action": "review_only_no_change"
+    },
+    {
+      "split": "train",
+      "image_filename": "panda-100-_jpg.rf.43842cacc389dea229329e9b0ba997e8.jpg",
+      "reason": "ambiguous_class_scope",
+      "evidence": "A red panda is annotated as Panda while the same class also contains giant pandas.",
+      "review_visualization": "reports/class_data_audit/visualizations/panda/typical/03_train_panda-100-_jpg.rf.43842cacc389dea229329e9b0ba997e8.jpg",
+      "action": "review_only_no_change"
+    },
+    {
+      "split": "train",
+      "image_filename": "panda-22-_jpg.rf.9abec74ef6cab5cb69b97218ec880491.jpg",
+      "reason": "ambiguous_class_scope_and_truncation",
+      "evidence": "Red pandas share the Panda label; the reviewed subjects are also edge-truncated.",
+      "review_visualization": "reports/class_data_audit/visualizations/panda/boundary/01_train_panda-22-_jpg.rf.9abec74ef6cab5cb69b97218ec880491.jpg",
+      "action": "review_only_no_change"
+    },
+    {
+      "split": "valid",
+      "image_filename": "panda-83-_jpg.rf.120f8099a1a733c914ae5e43da1cf858.jpg",
+      "reason": "ambiguous_class_scope_and_overlap",
+      "evidence": "Multiple overlapping red pandas are annotated under the mixed Panda class scope.",
+      "review_visualization": "reports/class_data_audit/visualizations/panda/boundary/02_valid_panda-83-_jpg.rf.120f8099a1a733c914ae5e43da1cf858.jpg",
+      "action": "review_only_no_change"
+    },
+    {
+      "split": "valid",
+      "image_filename": "panda-31-_jpg.rf.1722af557aaa24ec059a6b58e9afd553.jpg",
+      "reason": "severe_crowding_and_tiny_objects",
+      "evidence": "The image has 17 annotated Panda instances, many very small and mutually occluded/overlapping.",
+      "review_visualization": "reports/class_data_audit/visualizations/panda/crowded/01_valid_panda-31-_jpg.rf.1722af557aaa24ec059a6b58e9afd553.jpg",
+      "action": "review_only_no_change"
+    }
+  ]
+}

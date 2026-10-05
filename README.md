@@ -213,6 +213,31 @@ Conclusion: 640x640 is not an overall validation improvement for this fixed
 COCO-style AP, more diagnostic false positives, and higher runtime/memory cost.
 This is a validation-only experiment; no test-set claim is made.
 
-See [the structured comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison/comparison.json),
-[the concise comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison/comparison.txt),
-and the plots in `reports/experiments/faster_rcnn_resolution_640_01/comparison/`.
+See [the structured comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison_vs_baseline_01.json),
+[the concise comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison_vs_baseline_01.txt),
+and the plots in `reports/experiments/faster_rcnn_resolution_640_01/`.
+
+## Class-Focused Data Audit
+
+Before designing a third experiment, a train/validation-only data audit compared
+the weak or confused Panda, Monkeys, Gorilla, Goat, and Camel classes with Dog,
+Wolf, Rhino, and Lion references; Deer was included for the Goat/Deer confusion
+context. The audit measures box geometry, fixed small/medium/large bins,
+boundary contact, crowdedness, and train/validation shifts, and includes manual
+review sheets without model predictions.
+
+The clearest issue is Panda validation difficulty and class consistency. Panda
+validation has 50.0% small objects and median normalized area 0.094 versus 0.535
+in train; 47.2% of its validation objects occur in images with four or more
+objects. Reviewed Panda samples also mix giant pandas and red pandas under one
+label. Goat and Camel have similar scale/crowding distributions, while Deer is
+larger and less crowded. Monkeys contains visually diverse primates, making
+some Gorilla confusion plausible, but reviewed examples did not establish
+systematic wrong labeling. Weak classes are not systematically more
+boundary-truncated than the stronger references.
+
+See [the audit summary](reports/class_data_audit/summary.txt),
+[structured class statistics](reports/class_data_audit/class_statistics.json),
+[the review-only suspicious sample queue](reports/class_data_audit/suspicious_samples.json),
+and the visual indexes under `reports/class_data_audit/`. No raw files, labels,
+splits, or exclusions were changed, and no test data or training was used.

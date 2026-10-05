@@ -1,0 +1,44 @@
+CLASS-FOCUSED DATA AUDIT (TRAIN + VALID ONLY)
+
+Combined structural statistics:
+Class      Objects Images MedianArea Small% Boundary% MultiObjectImages% ShiftFlags
+Panda          117     85      0.469  23.9%     24.8%              11.8% median_area_abs_delta_ge_0.10,small_object_share_delta_ge_15pp,boundary_touch_delta_ge_10pp,multi_object_image_delta_ge_20pp,median_aspect_ratio_relative_delta_ge_35pct
+Monkeys        110     85      0.361   6.4%     30.9%              16.5% none
+Gorilla        101     85      0.523   7.9%     43.6%              14.1% none
+Goat           123     85      0.269  23.6%     31.7%              27.1% small_object_share_delta_ge_15pp,boundary_touch_delta_ge_10pp
+Camel          120     85      0.298  27.5%     44.2%              27.1% median_area_abs_delta_ge_0.10,small_object_share_delta_ge_15pp,boundary_touch_delta_ge_10pp
+Dog            100     85      0.481   6.0%     47.0%               9.4% none
+Wolf            88     84      0.892   2.3%     72.7%               4.8% none
+Rhino          117     85      0.381   6.8%     19.7%              35.3% boundary_touch_delta_ge_10pp
+Lion            96     85      0.587   9.4%     55.2%               9.4% median_area_abs_delta_ge_0.10,boundary_touch_delta_ge_10pp
+Deer            98     85      0.491   2.0%     36.7%              12.9% median_area_abs_delta_ge_0.10,boundary_touch_delta_ge_10pp
+
+Evidence-based questions:
+1. Is Panda weakness associated with small objects?
+   Yes, especially in validation. Panda validation has 50.0% small objects and median normalized area 0.094, versus train median 0.535; combined Panda small share is 23.9%. The smallest sampled scenes contain many genuinely tiny animals.
+2. Is Panda weakness associated with crowded scenes?
+   Yes, as a validation-specific difficulty. In validation, 47.2% of Panda objects occur in 4+ object images and 33.3% of Panda-containing images are multi-object, versus 7.1% multi-object images in train. Several sampled scenes show severe overlap/occlusion-like crowding.
+3. Are Panda annotations visibly problematic?
+   Box placement was generally plausible in the reviewed samples, with no clear new missing box. However, the Panda label visibly combines giant pandas and red pandas, creating a concrete class-scope/visual-consistency concern; the densest scenes also contain many tiny overlapping boxes.
+4. Is Monkeys/Gorilla confusion visually plausible or annotation-ambiguous?
+   Plausible but not proven as systematic label error. Monkeys spans visually diverse primates, including dark ape-like subjects, while Gorilla is more visually consistent. Matched examples are often distinguishable, but dark fur, frontal faces, forest/zoo backgrounds, partial subjects, and broad Monkeys taxonomy provide credible ambiguity. No obvious wrong Gorilla label was confirmed in the reviewed set.
+5. Are Goat/Camel/Deer distributions unusually similar?
+   Goat and Camel are structurally similar in median area (0.269 vs 0.298), small-object share (23.6% vs 27.5%), and multi-object-image share (both 27.1%). Deer differs: median area 0.491, 2.0% small, and 12.9% multi-object images. Matched visual examples remain clearly different, so similarity is mainly scale/context rather than evidence of systematic label interchange.
+6. Are weak classes systematically smaller than strong classes?
+   Generally, but not systematically. The median of weak-class median areas is 0.361 versus about 0.534 for the four reference classes. Goat, Camel, and Monkeys are smaller, but Panda (0.469) and Gorilla (0.523) are not uniformly small.
+7. Are weak classes more crowded?
+   Some are. Weak classes have more objects in 4+ scenes overall, driven by Panda, Goat, and Camel, but this is not universal: Gorilla and Monkeys are less extreme, and reference Rhino has a high multi-object-image share.
+8. Are weak classes more boundary-truncated?
+   No. Mean class-level boundary-touch frequency is lower for the five weak classes (about 35%) than for the four references (about 49%), largely because Wolf and Lion are frequently edge-touching. Boundary truncation does not explain weakness as a group.
+9. Are there notable train/validation distribution shifts?
+   Yes. Panda has the strongest shift across median area, small share, crowdedness, boundary rate, and aspect ratio. Camel shifts toward larger and more boundary-touching validation boxes; Goat shifts in small-object and boundary shares. Lion and Deer also show area/boundary shifts, so not every shift is exclusive to weak classes. These are descriptive differences, not significance claims.
+10. Are there new annotation-quality concerns?
+   The new concrete concern is Panda semantic inconsistency (giant panda and red panda under one label), plus difficult dense Panda scenes. Reviewed Goat, Camel, Deer, Monkeys, and Gorilla boxes were mostly plausible; no additional clear missing annotation or definite wrong-class sample was confirmed. The two previously confirmed empty-label cow/wolf images remain in the queue.
+
+Suspicious review queue: 6 samples (review only; no edits or exclusions applied).
+
+At most two possible Experiment 03 directions:
+- Resolve the Panda class policy first: review the full Panda set and decide whether giant panda and red panda should remain one documented class or be relabeled/separated in a future authorized cleanup. Do not train on silently changed labels.
+- If labels remain unchanged, test one controlled class-aware sampling or targeted small/crowded-instance augmentation experiment focused on Panda, Goat, Camel, and Monkeys, keeping model and optimization settings fixed.
+
+No model training, test-split access, annotation changes, or split changes occurred.
