@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analyze the fixed epoch-9 baseline on the usable validation split only."""
+"""Analyze one experiment's best checkpoint on the usable validation split only."""
 
 from __future__ import annotations
 
@@ -53,24 +53,21 @@ def write_json(path: Path, value: Any) -> None:
     temporary.replace(path)
 
 
-def load_baseline(config_path: Path, checkpoint_path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+def load_experiment(config_path: Path, checkpoint_path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
     config = json.loads(config_path.read_text(encoding="utf-8"))
     if (
         config["architecture"] != "Faster R-CNN ResNet50-FPN"
         or config["pretrained_weights"] != "FasterRCNN_ResNet50_FPN_Weights.COCO_V1"
         or config["num_model_classes"] != 21
         or config["num_foreground_classes"] != 20
-        or config["image_size"] != 512
-        or config["valid_transforms"] != ["Resize(512,512)", "ToTensor"]
+        or config["valid_transforms"] != [f"Resize({config['image_size']},{config['image_size']})", "ToTensor"]
         or config["valid_usable_samples"] != 299
     ):
-        raise ValueError("Baseline configuration does not match the reviewed epoch-9 experiment")
+        raise ValueError("Experiment configuration does not match the reviewed detection setup")
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False, mmap=True)
-    if checkpoint["epoch"] != 9:
-        raise ValueError(f"Expected checkpoint epoch 9, found {checkpoint['epoch']}")
     checkpoint_config = checkpoint["configuration"]
     if checkpoint_config["architecture"] != config["architecture"] or checkpoint_config["num_model_classes"] != 21:
-        raise ValueError("Checkpoint architecture/class count differs from baseline config")
+        raise ValueError("Checkpoint architecture/class count differs from experiment config")
     expected_mapping = {
         str(index): {"dataset_label": index - 1, "class_name": name}
         for index, name in enumerate(ANIMAL_CLASS_NAMES, start=1)
@@ -85,7 +82,8 @@ def usable_validation_dataset(root: Path, config: dict[str, Any]) -> Subset:
     excluded = [item["image_filename"] for item in manifest["samples"] if item["split"] == "valid"]
     if excluded != ["wolf-109-_jpg.rf.a384d38588191d796589048d6cb38e97.jpg"]:
         raise ValueError(f"Unexpected validation exclusion: {excluded}")
-    base = YoloDetectionDataset(root, "valid", transforms=get_eval_transforms(size=(512, 512)))
+    image_size = int(config["image_size"])
+    base = YoloDetectionDataset(root, "valid", transforms=get_eval_transforms(size=(image_size, image_size)))
     indices = [index for index, path in enumerate(base.image_paths) if path.name not in excluded]
     if len(base) != 300 or len(indices) != 299:
         raise ValueError("Validation split/exclusion count differs from baseline")
@@ -96,10 +94,11 @@ def usable_validation_dataset(root: Path, config: dict[str, Any]) -> Subset:
 
 
 def run_inference(
-    dataset: Subset, root: Path, checkpoint: dict[str, Any], device: torch.device
+    dataset: Subset, root: Path, checkpoint: dict[str, Any], device: torch.device,
+    image_size: int,
 ) -> tuple[list[dict[str, Any]], float]:
     model = build_faster_rcnn(
-        num_classes=21, pretrained=False, min_size=512, max_size=512,
+        num_classes=21, pretrained=False, min_size=image_size, max_size=image_size,
     )
     model.load_state_dict(checkpoint["model_state_dict"], strict=True)
     model.to(device).eval()
@@ -158,7 +157,8 @@ def main() -> int:
 
     experiment_dir = args.experiment_dir.resolve()
     checkpoint_path = args.checkpoint.resolve()
-    config, checkpoint = load_baseline(experiment_dir / "config.json", checkpoint_path)
+    config, checkpoint = load_experiment(experiment_dir / "config.json", checkpoint_path)
+    checkpoint_epoch = int(checkpoint["epoch"])
     root = Path(config["dataset_root"]).resolve()
     valid_hash_before = valid_integrity_hash(root)
     checkpoint_sha256 = sha256_file(checkpoint_path)
@@ -179,14 +179,16 @@ def main() -> int:
         print("Using existing validation prediction cache; no network inference rerun.", flush=True)
     else:
         dataset = usable_validation_dataset(root, config)
-        images, runtime = run_inference(dataset, root, checkpoint, torch.device(args.device))
+        images, runtime = run_inference(
+            dataset, root, checkpoint, torch.device(args.device), int(config["image_size"])
+        )
         if len(images) != 299 or len({item["image_id"] for item in images}) != 299:
             raise RuntimeError("Inference did not cover exactly 299 distinct validation images")
         cache = {
             "schema_version": 1,
             "split": "valid",
             "checkpoint": str(checkpoint_path),
-            "checkpoint_epoch": 9,
+            "checkpoint_epoch": checkpoint_epoch,
             "checkpoint_sha256": checkpoint_sha256,
             "valid_raw_sha256": valid_hash_before,
             "preprocessing": config["valid_transforms"],
@@ -197,12 +199,13 @@ def main() -> int:
         }
         write_json(cache_path, cache)
     existing_ap = json.loads((experiment_dir / "validation_class_metrics.json").read_text(encoding="utf-8"))
-    if existing_ap["best_epoch"] != 9:
-        raise ValueError("Existing class AP report is not from epoch 9")
+    if existing_ap["best_epoch"] != checkpoint_epoch:
+        raise ValueError("Existing class AP report is not from the selected best checkpoint")
     generate_reports(
         cache=cache, class_ap=existing_ap["metrics"], root=root,
         report_dir=report_dir, score_threshold=args.score_threshold,
-        iou_threshold=args.iou_threshold,
+        iou_threshold=args.iou_threshold, experiment_name=config["experiment_name"],
+        validation_metrics=checkpoint["validation_metrics"],
     )
     valid_hash_after = valid_integrity_hash(root)
     if valid_hash_after != valid_hash_before:

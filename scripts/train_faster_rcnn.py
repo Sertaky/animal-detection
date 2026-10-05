@@ -156,6 +156,22 @@ def main() -> int:
     parser.add_argument("--image-size", type=int, default=512)
     parser.add_argument("--experiment-name", default="faster_rcnn_baseline_01")
     parser.add_argument(
+        "--comparison-target",
+        default=None,
+        help="Name of the reference experiment for a controlled comparison.",
+    )
+    parser.add_argument(
+        "--reference-checkpoint",
+        type=Path,
+        default=None,
+        help="Checkpoint whose parameter count must match during preflight.",
+    )
+    parser.add_argument(
+        "--preflight-only",
+        action="store_true",
+        help="Validate configuration/model/GPU forward pass without training.",
+    )
+    parser.add_argument(
         "--exclusions-manifest", type=Path,
         default=PROJECT_ROOT / "data" / "manifests" / "excluded_samples.json",
     )
@@ -250,8 +266,8 @@ def main() -> int:
         "trainable_backbone_layers": 5,
         "optimizer": "SGD",
         "scheduler": {"type": "StepLR", "step_size": args.step_size, "gamma": args.gamma},
-        "train_transforms": ["Resize(512,512)", "RandomHorizontalFlip(p=0.5)", "ToTensor"],
-        "valid_transforms": ["Resize(512,512)", "ToTensor"],
+        "train_transforms": [f"Resize({args.image_size},{args.image_size})", "RandomHorizontalFlip(p=0.5)", "ToTensor"],
+        "valid_transforms": [f"Resize({args.image_size},{args.image_size})", "ToTensor"],
         "precision": "FP32",
         "train_usable_samples": len(train_dataset),
         "valid_usable_samples": len(valid_dataset),
@@ -265,9 +281,12 @@ def main() -> int:
             for name in ("torch", "torchvision", "torchmetrics", "pycocotools", "numpy", "matplotlib")
         },
         "raw_train_valid_sha256_before": raw_hash_before,
+        "controlled_change": (
+            {"variable": "image_size", "reference_value": 512, "experiment_value": args.image_size}
+            if args.comparison_target else None
+        ),
     }
     write_json(config_path, configuration)
-    write_training_history(history_path, [])
     model = build_faster_rcnn(
         num_classes=21,
         pretrained=True,
@@ -283,6 +302,81 @@ def main() -> int:
     )
     if not all(parameter.requires_grad for parameter in model.parameters()):
         raise RuntimeError("Baseline requires all model parameters trainable")
+    total_parameters = sum(parameter.numel() for parameter in model.parameters())
+    trainable_parameters = sum(
+        parameter.numel() for parameter in model.parameters() if parameter.requires_grad
+    )
+    reference_parameters = None
+    if args.reference_checkpoint is not None:
+        reference = torch.load(
+            args.reference_checkpoint.resolve(), map_location="cpu", weights_only=False, mmap=True
+        )
+        parameter_names = {name for name, _ in model.named_parameters()}
+        reference_parameters = sum(
+            tensor.numel()
+            for name, tensor in reference["model_state_dict"].items()
+            if name in parameter_names
+        )
+        if reference_parameters != total_parameters:
+            raise RuntimeError(
+                f"Parameter count differs from reference: {total_parameters} != {reference_parameters}"
+            )
+        del reference
+    configuration.update({
+        "total_parameters": total_parameters,
+        "trainable_parameters": trainable_parameters,
+        "reference_parameter_count": reference_parameters,
+    })
+    write_json(config_path, configuration)
+
+    if args.preflight_only:
+        model.train()
+        image, target = train_dataset[0]
+        if tuple(image.shape) != (3, args.image_size, args.image_size):
+            raise RuntimeError(f"Unexpected transformed image shape: {tuple(image.shape)}")
+        if device.type == "cuda":
+            torch.cuda.reset_peak_memory_stats(device)
+        with torch.no_grad():
+            losses = model(
+                [image.to(device)],
+                [{key: value.to(device) if torch.is_tensor(value) else value for key, value in target.items()}],
+            )
+        loss_values = {name: float(value.detach().cpu()) for name, value in losses.items()}
+        if not loss_values or not all(np.isfinite(value) for value in loss_values.values()):
+            raise RuntimeError(f"Preflight produced non-finite losses: {loss_values}")
+        preflight = {
+            "passed": True,
+            "device": str(device),
+            "train_base_samples": len(train_base),
+            "train_usable_samples": len(train_dataset),
+            "valid_base_samples": len(valid_base),
+            "valid_usable_samples": len(valid_dataset),
+            "excluded_samples": len(manifest["samples"]),
+            "image_shape": list(image.shape),
+            "target_box_count": int(target["boxes"].shape[0]),
+            "losses": loss_values,
+            "finite_losses": True,
+            "total_parameters": total_parameters,
+            "trainable_parameters": trainable_parameters,
+            "all_parameters_trainable": total_parameters == trainable_parameters,
+            "reference_parameter_count": reference_parameters,
+            "parameter_count_matches_reference": reference_parameters == total_parameters,
+            "gpu_peak_allocated_mib": (
+                torch.cuda.max_memory_allocated(device) / (1024 ** 2) if device.type == "cuda" else 0.0
+            ),
+            "gpu_peak_reserved_mib": (
+                torch.cuda.max_memory_reserved(device) / (1024 ** 2) if device.type == "cuda" else 0.0
+            ),
+            "optimizer_step_performed": False,
+            "test_split_constructed": False,
+            "raw_train_valid_sha256": raw_hash_before,
+        }
+        write_json(reports_dir / "preflight.json", preflight)
+        print(json.dumps(preflight, indent=2), flush=True)
+        print("preflight_complete=True training_started=False", flush=True)
+        return 0
+
+    write_training_history(history_path, [])
     scheduler = StepLR(optimizer, step_size=args.step_size, gamma=args.gamma)
     class_mapping = {
         str(dataset_label + 1): {
@@ -427,6 +521,9 @@ def main() -> int:
         "raw_train_valid_sha256_before": raw_hash_before,
         "raw_train_valid_sha256_after": raw_hash_after,
         "test_split_accessed_by_training": False,
+        "total_parameters": total_parameters,
+        "trainable_parameters": trainable_parameters,
+        "all_parameters_trainable": total_parameters == trainable_parameters,
     }
     write_json(summary_path, summary)
     print(f"training_history={history_path}")

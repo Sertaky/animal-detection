@@ -4,7 +4,8 @@ A standalone portfolio project for multi-class animal object detection using PyT
 
 ## Status
 
-Repository setup, dataset auditing, and the first full baseline experiment are complete. No test-set performance claim is made.
+Repository setup, dataset auditing, the first full baseline, and a controlled
+640x640 resolution comparison are complete. No test-set performance claim is made.
 
 ## Environment setup
 
@@ -182,3 +183,36 @@ and [visualization index](reports/experiments/faster_rcnn_baseline_01/error_anal
 The cached validation predictions and detailed per-class, threshold,
 localization, confidence, size, crowdedness, and confusion reports are in the
 same `error_analysis/` directory.
+
+## Experiment 02: 640x640 resolution comparison
+
+`faster_rcnn_resolution_640_01` changes only the train and validation resize
+from 512x512 to 640x640. Architecture, COCO V1 initialization, 21 model
+classes, all-trainable parameters, batch size 1, 10-epoch schedule, SGD and
+StepLR settings, seed 42, transforms other than size, exclusion manifest,
+usable splits, and model-selection rule match Baseline 01. A GPU preflight
+confirmed a 3x640x640 tensor, finite training losses, no OOM, and the same
+41,396,536 trainable parameters before the full run.
+
+The best 640 checkpoint was epoch 9, with validation mAP = 0.560321,
+mAP@0.50 = 0.809025, mAP@0.75 = 0.630468, and mAR@100 = 0.684877.
+Relative to the 512 baseline, these changed by -0.015163, -0.016661,
+-0.022563, and -0.002567 respectively. Mean epoch runtime increased from
+412.301 to 468.981 seconds (+13.7%), while peak allocated GPU memory increased
+from 737.231 to 934.290 MiB (+26.7%).
+
+At the fixed diagnostic score/IoU thresholds of 0.50/0.50, 640 improved
+small-object recall from 0.382 to 0.447 and 4+-object-scene recall from 0.433
+to 0.493. Overall diagnostic recall rose slightly from 0.760 to 0.767, but
+precision fell from 0.752 to 0.740, false positives rose from 103 to 111, and
+class-confusion events rose from 57 to 71. Tiger, Buffalo, and Cow had the
+largest class-AP gains; Wolf, Monkeys, and Rat had the largest declines.
+
+Conclusion: 640x640 is not an overall validation improvement for this fixed
+10-epoch setup. Its targeted small/crowded recall gains do not offset lower
+COCO-style AP, more diagnostic false positives, and higher runtime/memory cost.
+This is a validation-only experiment; no test-set claim is made.
+
+See [the structured comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison/comparison.json),
+[the concise comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison/comparison.txt),
+and the plots in `reports/experiments/faster_rcnn_resolution_640_01/comparison/`.

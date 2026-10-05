@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "device": "cuda",
+  "train_base_samples": 1400,
+  "train_usable_samples": 1399,
+  "valid_base_samples": 300,
+  "valid_usable_samples": 299,
+  "excluded_samples": 2,
+  "image_shape": [
+    3,
+    640,
+    640
+  ],
+  "target_box_count": 1,
+  "losses": {
+    "loss_classifier": 3.330348491668701,
+    "loss_box_reg": 0.16617357730865479,
+    "loss_objectness": 0.00038224318996071815,
+    "loss_rpn_box_reg": 0.00268009165301919
+  },
+  "finite_losses": true,
+  "total_parameters": 41396536,
+  "trainable_parameters": 41396536,
+  "all_parameters_trainable": true,
+  "reference_parameter_count": 41396536,
+  "parameter_count_matches_reference": true,
+  "gpu_peak_allocated_mib": 360.53662109375,
+  "gpu_peak_reserved_mib": 408.0,
+  "optimizer_step_performed": false,
+  "test_split_constructed": false,
+  "raw_train_valid_sha256": "220afb919499324d4a232ad3f81ebed96ba2f9d0d8e78dde84c9dd332eac859f"
+}

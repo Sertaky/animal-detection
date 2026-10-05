@@ -1,0 +1,51 @@
+{
+  "matching_iou_threshold": 0.5,
+  "note": "Diagnostic one-to-one counts, not COCO AP or an optimized operating threshold.",
+  "thresholds": [
+    {
+      "score_threshold": 0.05,
+      "predictions_kept": 1397,
+      "tp": 366,
+      "fp": 1031,
+      "fn": 46,
+      "precision": 0.2619899785254116,
+      "recall": 0.8883495145631068
+    },
+    {
+      "score_threshold": 0.1,
+      "predictions_kept": 965,
+      "tp": 353,
+      "fp": 612,
+      "fn": 59,
+      "precision": 0.36580310880829014,
+      "recall": 0.8567961165048543
+    },
+    {
+      "score_threshold": 0.25,
+      "predictions_kept": 602,
+      "tp": 339,
+      "fp": 263,
+      "fn": 73,
+      "precision": 0.5631229235880398,
+      "recall": 0.8228155339805825
+    },
+    {
+      "score_threshold": 0.5,
+      "predictions_kept": 427,
+      "tp": 316,
+      "fp": 111,
+      "fn": 96,
+      "precision": 0.7400468384074942,
+      "recall": 0.7669902912621359
+    },
+    {
+      "score_threshold": 0.75,
+      "predictions_kept": 311,
+      "tp": 271,
+      "fp": 40,
+      "fn": 141,
+      "precision": 0.8713826366559485,
+      "recall": 0.6577669902912622
+    }
+  ]
+}

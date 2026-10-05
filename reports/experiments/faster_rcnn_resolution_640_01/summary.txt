@@ -1,0 +1,16 @@
+RESOLUTION EXPERIMENT: 512 VS 640
+
+1. Overall mAP improved: No (0.575485 -> 0.560321, delta -0.015163).
+2. mAP@0.75 improved: No (0.653031 -> 0.630468, delta -0.022563).
+3. Small-object recall improved: Yes (0.381579 -> 0.447368, delta +0.065789).
+4. Crowded-scene (4+) recall improved: Yes (0.432836 -> 0.492537, delta +0.059701).
+5. Mean/median matched IoU: 0.847782/0.876271 -> 0.838181/0.871001. Localization-error count changed 22 -> 26.
+6. Largest AP gains: Tiger +0.048, Buffalo +0.036, Cow +0.035, Cheetah +0.024, Elephant +0.011.
+7. Largest AP losses: Wolf -0.113, Monkeys -0.091, Rat -0.062, Rhino -0.052, Lion -0.052.
+8. Runtime cost: mean epoch 412.301 -> 468.981 seconds; total 4139.928 -> 4702.019 seconds.
+9. GPU-memory cost: allocated 737.231 -> 934.290 MiB; reserved 888.000 -> 1054.000 MiB.
+10. Worth it: No for this fixed 10-epoch setup; targeted small/crowded recall gains did not offset lower AP, more false positives/class confusions, and higher runtime/memory cost.
+
+At score/IoU 0.50, precision changed 0.752404 -> 0.740047 and recall changed 0.759709 -> 0.766990.
+No Experiment 03 is recommended from this result alone; review the measured tradeoff first.
+No held-out test data or metrics were used.

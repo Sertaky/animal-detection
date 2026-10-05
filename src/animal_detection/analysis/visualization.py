@@ -60,6 +60,9 @@ def _render(row: dict[str, Any], source: Path, destination: Path, category: str)
     canvas = Image.new("RGB", (1024, 1130), "white")
     canvas.paste(resized, (0, 65))
     draw = ImageDraw.Draw(canvas)
+    transformed_height, transformed_width = row["image"]["transformed_size"]
+    scale_x = 1024 / transformed_width
+    scale_y = 1024 / transformed_height
     try:
         font = ImageFont.truetype("arial.ttf", size=19)
     except OSError:
@@ -68,19 +71,19 @@ def _render(row: dict[str, Any], source: Path, destination: Path, category: str)
     _text(draw, (12, 35), "Ground truth: green    True positive: cyan    False positive: red", "#202020", font)
     for index, gt in enumerate(row["image"]["ground_truth"]):
         x1, y1, x2, y2 = gt["box"]
-        draw.rectangle((2 * x1, 2 * y1 + 65, 2 * x2, 2 * y2 + 65), outline="#00bb00", width=4)
+        draw.rectangle((scale_x * x1, scale_y * y1 + 65, scale_x * x2, scale_y * y2 + 65), outline="#00bb00", width=4)
         gt_label = f"G{index} {_name(gt['label'])}" if len(row["image"]["ground_truth"]) <= 5 else f"G{index}"
-        _text(draw, (int(2 * x1), max(65, int(2 * y1) + 65)), gt_label, "#006000", font)
+        _text(draw, (int(scale_x * x1), max(65, int(scale_y * y1) + 65)), gt_label, "#006000", font)
     shown = row["match"]["predictions"][:20]
     for record in shown:
         prediction = row["image"]["predictions"][record["prediction_index"]]
         x1, y1, x2, y2 = prediction["box"]
         color = "#007f9e" if record["status"] == "true_positive" else "#cf2828"
-        draw.rectangle((2 * x1, 2 * y1 + 65, 2 * x2, 2 * y2 + 65), outline=color, width=3)
+        draw.rectangle((scale_x * x1, scale_y * y1 + 65, scale_x * x2, scale_y * y2 + 65), outline=color, width=3)
         prefix = "TP" if record["status"] == "true_positive" else record["category"]
         suffix = f" IoU {record['iou']:.2f}" if record["iou"] is not None else ""
         label = f"{prefix} {_name(record['label'])} {record['score']:.2f}{suffix}"
-        _text(draw, (int(2 * x1), min(1060, max(65, int(2 * y2) + 42))), label, color, font)
+        _text(draw, (int(scale_x * x1), min(1060, max(65, int(scale_y * y2) + 42))), label, color, font)
     gt_classes = {}
     for gt in row["image"]["ground_truth"]:
         name = _name(gt["label"])

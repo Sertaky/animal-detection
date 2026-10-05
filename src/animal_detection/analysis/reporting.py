@@ -115,6 +115,7 @@ def threshold_report(images: list[dict[str, Any]], iou_threshold: float) -> dict
 def aggregate(
     cache: dict[str, Any], class_ap: list[dict[str, Any]],
     score_threshold: float, iou_threshold: float,
+    validation_metrics: dict[str, Any],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     images = cache["images"]
     rows = diagnostic_rows(images, score_threshold, iou_threshold)
@@ -254,9 +255,9 @@ def aggregate(
         "matched_iou": statistics(matched_ious),
         "matched_050_to_lt_075": sum(0.50 <= iou < 0.75 for iou in matched_ious),
         "matched_050_to_lt_075_fraction": ratio(sum(0.50 <= iou < 0.75 for iou in matched_ious), len(matched_ious)),
-        "baseline_map_50": 0.8256866335868835,
-        "baseline_map_75": 0.6530308127403259,
-        "baseline_map_50_minus_map_75": 0.8256866335868835 - 0.6530308127403259,
+        "validation_map_50": float(validation_metrics["map_50"]),
+        "validation_map_75": float(validation_metrics["map_75"]),
+        "validation_map_50_minus_map_75": float(validation_metrics["map_50"] - validation_metrics["map_75"]),
     }
     confidence = {
         "raw_prediction_scores": statistics(
@@ -301,7 +302,7 @@ def aggregate(
         },
     }
     summary = {
-        "checkpoint_epoch": 9,
+        "checkpoint_epoch": cache["checkpoint_epoch"],
         "validation_images": len(images),
         "inference_runtime_seconds": cache["inference_runtime_seconds"],
         "raw_predictions": cache["raw_prediction_count"],
@@ -344,8 +345,11 @@ def aggregate(
 def generate_reports(
     *, cache: dict[str, Any], class_ap: list[dict[str, Any]],
     root: Path, report_dir: Path, score_threshold: float, iou_threshold: float,
+    experiment_name: str, validation_metrics: dict[str, Any],
 ) -> None:
-    reports, rows = aggregate(cache, class_ap, score_threshold, iou_threshold)
+    reports, rows = aggregate(
+        cache, class_ap, score_threshold, iou_threshold, validation_metrics
+    )
     visualization_manifest = render_examples(rows, root, report_dir / "visualizations")
     reports["summary.json"]["visualization_counts"] = {
         name: len(paths) for name, paths in visualization_manifest.items()
@@ -395,8 +399,8 @@ def generate_reports(
             "class-focused sampling/augmentation comparison; its AP and diagnostic recall are below the overall values."
         )
     lines = [
-        "FIRST BASELINE VALIDATION ERROR ANALYSIS (diagnostic, not COCO AP)",
-        f"Checkpoint epoch 9; {summary['validation_images']} usable validation images; "
+        f"VALIDATION ERROR ANALYSIS: {experiment_name} (diagnostic, not COCO AP)",
+        f"Checkpoint epoch {summary['checkpoint_epoch']}; {summary['validation_images']} usable validation images; "
         f"score threshold {score_threshold:.2f}; IoU threshold {iou_threshold:.2f}.",
         f"GT={summary['ground_truth_objects']}, TP={summary['true_positives']}, "
         f"FP={summary['false_positives']}, FN={summary['false_negatives']}; "
@@ -411,7 +415,7 @@ def generate_reports(
         f"({ratio(fp_categories['localization'], summary['false_positives']):.1%} of FP).",
         f"4. Matched boxes at IoU 0.50 to <0.75: {loc['matched_050_to_lt_075']} "
         f"({loc['matched_050_to_lt_075_fraction']:.1%} of TP); "
-        f"baseline mAP50 minus mAP75={loc['baseline_map_50_minus_map_75']:.3f}.",
+        f"validation mAP50 minus mAP75={loc['validation_map_50_minus_map_75']:.3f}.",
         "5. Lowest existing validation AP classes: "
         + ", ".join(f"{item['class_name']} {item['baseline_validation_ap']:.3f}" for item in weak) + ".",
         "6. Size-group recalls: "

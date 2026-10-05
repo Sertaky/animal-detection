@@ -1,0 +1,27 @@
+CONTROLLED RESOLUTION COMPARISON: 640x640 vs 512x512
+Baseline: faster_rcnn_baseline_01 (best epoch 9)
+Candidate: faster_rcnn_resolution_640_01 (best epoch 9)
+Only reviewed experimental change: input resize 512 -> 640.
+
+map: 0.575485 -> 0.560321 (delta -0.015163)
+map_50: 0.825687 -> 0.809025 (delta -0.016661)
+map_75: 0.653031 -> 0.630468 (delta -0.022563)
+mAR@100: 0.687444 -> 0.684877 (delta -0.002567)
+
+Diagnostic recall by object size:
+  small: 0.381579 -> 0.447368 (delta +0.065789)
+  medium: 0.774436 -> 0.789474 (delta +0.015038)
+  large: 0.891626 -> 0.871921 (delta -0.019704)
+Diagnostic recall by objects per image:
+  1: 0.870833 -> 0.875000 (delta +0.004167)
+  2-3: 0.714286 -> 0.695238 (delta -0.019048)
+  4+: 0.432836 -> 0.492537 (delta +0.059701)
+
+Largest class AP gains: Tiger +0.048, Buffalo +0.036, Cow +0.035, Cheetah +0.024, Elephant +0.011
+Largest class AP declines: Lion -0.052, Rhino -0.052, Rat -0.062, Monkeys -0.091, Wolf -0.113
+
+Runtime and memory:
+  total_training_seconds: 4139.928 -> 4702.019 (delta +562.091)
+  mean_epoch_seconds: 412.301 -> 468.981 (delta +56.681)
+  peak_gpu_allocated_mib: 737.231 -> 934.290 (delta +197.059)
+  peak_gpu_reserved_mib: 888.000 -> 1054.000 (delta +166.000)
