@@ -1,0 +1,57 @@
+{
+  "strongest_true_positives": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\strongest_true_positives_01_images-19-_jpeg_jpg.rf.fd62a68e0a8630107bb_6dc1aafe.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\strongest_true_positives_02_Elephant-29-_jpeg.rf.077b44908ba7bfd028ddc_3e5950e8.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\strongest_true_positives_03_buffalo-104-_jpg.rf.87faf7b74eac9b16f934ba_3ed980e5.jpg"
+  ],
+  "high_confidence_false_positives": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\high_confidence_false_positives_01_Zebra-Valid-332-_jpeg.rf.c8556f015f9f96253_ef3b2c49.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\high_confidence_false_positives_02_cheetah-7-_jpg.rf.7a255ff28f2c9f7155fd5243_40f4dead.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\high_confidence_false_positives_03_cow-62-_jpg.rf.2becbd06b7a85216ee931a56a9f_00022875.jpg"
+  ],
+  "missed_objects": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\missed_objects_01_panda-31-_jpg.rf.1722af557aaa24ec059a6b58e_20c9cd39.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\missed_objects_02_Zebra-Valid-332-_jpeg.rf.c8556f015f9f96253_ef3b2c49.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\missed_objects_03_Zebra-Valid-285-_jpeg.rf.d208fc7fdcf132392_157ffd7a.jpg"
+  ],
+  "localization": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\localization_01_Zebra-Valid-332-_jpeg.rf.c8556f015f9f96253_ef3b2c49.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\localization_02_cheetah-7-_jpg.rf.7a255ff28f2c9f7155fd5243_40f4dead.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\localization_03_horse-3-_jpg.rf.e1d93a7307d932a969d58445b6_891875fb.jpg"
+  ],
+  "class_confusion": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\class_confusion_01_cow-62-_jpg.rf.2becbd06b7a85216ee931a56a9f_00022875.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\class_confusion_02_Monkey-171-_jpeg.rf.098e336ef4ec66a86c45e9_13a7f0f7.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\class_confusion_03_goat-400-_jpg.rf.ef90b1b9e080ed6bd7ff37c57_8d3ec8af.jpg"
+  ],
+  "duplicate": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\duplicate_01_QJPVEATI9TC0_jpg.rf.a14d0ffd29e38431407425_07b2ae3c.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\duplicate_02_camel-4-_jpg.rf.b4c2495d1042f7cb4f41196a9c_6fb693b7.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\duplicate_03_panda-30-_jpg.rf.2e007c75d68d99fd4475448d0_81ce8daa.jpg"
+  ],
+  "crowded_scenes": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\crowded_scenes_01_panda-31-_jpg.rf.1722af557aaa24ec059a6b58e_20c9cd39.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\crowded_scenes_02_Zebra-Valid-313-_jpeg.rf.0084820f9ca2a48f6_d17e8f09.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\crowded_scenes_03_Zebra-Valid-332-_jpeg.rf.c8556f015f9f96253_ef3b2c49.jpg"
+  ],
+  "low_ap_panda": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_panda_01_panda-31-_jpg.rf.1722af557aaa24ec059a6b58e_20c9cd39.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_panda_02_panda-83-_jpg.rf.120f8099a1a733c914ae5e43d_2c9c5db5.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_panda_03_panda-68-_jpg.rf.2aba4d8269082ff900a8a892c_27d085b4.jpg"
+  ],
+  "low_ap_camel": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_camel_01_camel-56-_jpg.rf.f975c487b1da068ccfe2e0eb7_eb6963cf.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_camel_02_camel-76-_jpg.rf.94134d26e96969c5187295e7a_0bc38178.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_camel_03_camel-125-_jpg.rf.f8957cd15211f51d46a59c5b_05b11a63.jpg"
+  ],
+  "low_ap_monkeys": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_monkeys_01_Monkey-86-_jpeg.rf.74d36dd8ec6170c5047a428_fb49fbd6.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_monkeys_02_Monkey-110-_jpeg.rf.144af16c9043f0411638d2_094b61c7.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_monkeys_03_Monkey-117-_jpeg.rf.fd6b85e17660682575460b_856661de.jpg"
+  ],
+  "low_ap_goat": [
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_goat_01_goat-414-_jpg.rf.56692c309afcd732493d40d8b_369b7e5a.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_goat_02_goat-438-_jpg.rf.8f3924168e34d5d3b922f1642_286f76c4.jpg",
+    "G:\\animal-detection\\reports\\experiments\\faster_rcnn_difficulty_aware_sampling_01\\error_analysis\\visualizations\\low_ap_goat_03_goat-342-_jpg.rf.bce79866cb35283c242ea3946_c1a6fa54.jpg"
+  ]
+}

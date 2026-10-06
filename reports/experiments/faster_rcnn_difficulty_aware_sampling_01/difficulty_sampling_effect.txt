@@ -1,0 +1,15 @@
+DIFFICULTY-AWARE SAMPLING EFFECT
+
+1. Small-object-image exposure: 1.821x (255 draws / 140 raw images).
+2. Crowded-scene exposure: 1.686x (86 draws / 51 raw images).
+3. Small-object recall delta: +0.000000.
+4. Four-plus-object recall delta: -0.044776.
+5. Overall mAP delta: -0.010772.
+6. Precision delta: -0.002404.
+7. Localization errors delta: +2; mean matched IoU delta -0.000915.
+8. Class-confusion count delta: +4.
+9. Strong reference AP deltas: Dog -0.026663, Wolf -0.054237, Rhino -0.061188, Lion -0.120892.
+10. Versus class-aware: mAP delta -0.011678, small recall delta -0.078947, four-plus recall delta -0.059701, precision delta +0.013636.
+11. Overall assessment: not beneficial. Exposure increased for the intended image groups, but small-object recall did not improve, crowded-scene recall and overall mAP declined, and all three primary outcomes were worse than class-aware sampling.
+
+No test metrics were used.

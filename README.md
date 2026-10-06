@@ -273,3 +273,38 @@ strong-class degradation was consistent. No test metrics were used. See the
 [sampling-effect summary](reports/experiments/faster_rcnn_class_aware_sampling_01/sampling_effect_summary.txt),
 [weak-class comparison](reports/experiments/faster_rcnn_class_aware_sampling_01/weak_class_comparison.json),
 and [overall comparison](reports/experiments/faster_rcnn_class_aware_sampling_01/comparison_vs_baseline_01.json).
+
+## Experiment 04: Difficulty-Aware Sampling
+
+Experiment 04 changes only the training sampling policy from Baseline 01.
+An image is considered difficult when it contains any box whose normalized area
+is strictly below 0.10, or when it contains at least four annotated objects.
+Such images receive weight 2.0; all other images receive weight 1.0. The two
+conditions use maximum/presence aggregation, so an image that is both small-object
+containing and crowded still receives weight 2.0. Sampling uses seeded replacement
+for exactly 1,399 draws per epoch and does not consult semantic class IDs.
+
+Architecture, COCO V1 initialization, all-trainable parameters, 512x512 inputs,
+batch size 1, transforms, augmentation, 10 epochs, SGD, LR and StepLR schedule,
+seed 42, exclusions, validation, and selection policy match Baseline 01. The raw
+training set contains 140 small-object images, 51 crowded images, 49 in both
+groups, and 1,257 ordinary images. The fixed-seed simulation yielded 255 small-
+object-image draws (1.821x exposure) and 86 crowded-image draws (1.686x), while
+retaining 859 unique images (61.40%) across 1,399 draws.
+
+The best checkpoint was epoch 10: validation mAP=0.564713, mAP@0.50=0.828431,
+mAP@0.75=0.628207, and mAR@100=0.673316. Versus Baseline 01, small-object recall
+was unchanged at 0.381579, while 4+-object-scene recall fell from 0.432836 to
+0.388060 (-0.044776). Overall mAP fell by 0.010772, precision at the fixed
+diagnostic threshold fell by 0.002404, class-confusion errors rose from 57 to 61,
+and localization errors rose from 22 to 24. All four strong reference classes
+lost AP. Compared with Experiment 03, difficulty-aware sampling also had lower
+mAP (-0.011678), small recall (-0.078947), and crowded recall (-0.059701), though
+its fixed-threshold precision was 0.013636 higher.
+
+Conclusion: the fixed 2x difficulty-aware policy was not beneficial. Increased
+exposure to the intended training images did not improve the primary difficulty
+recall targets and came with lower overall AP. No test metrics were used. See the
+[difficulty-effect report](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/difficulty_sampling_effect.txt),
+[baseline comparison](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/comparison_vs_baseline_01.json),
+and [class-aware comparison](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/comparison_vs_class_aware_sampling_01.txt).

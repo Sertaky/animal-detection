@@ -1,0 +1,11 @@
+DIFFICULTY-AWARE SAMPLING SIMULATION
+Weights use only normalized box area and object count; semantic class IDs are not used.
+raw: total=1399 small=140 crowded=51 both=49 ordinary=1257
+draws=1399 unique=859 repeated=540 unique_percent=61.40 max_single_image=9
+small draws=18.23% crowded draws=6.15%
+
+Group | raw images | sampled occurrences | exposure multiplier
+ordinary | 1257 | 1141 | 0.908
+small_object_containing | 140 | 255 | 1.821
+crowded | 51 | 86 | 1.686
+small_and_crowded | 49 | 83 | 1.694

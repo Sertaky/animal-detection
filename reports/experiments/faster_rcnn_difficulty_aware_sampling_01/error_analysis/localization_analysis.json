@@ -1,0 +1,29 @@
+{
+  "definition": "Best same-class GT IoU per retained prediction with any same-class GT; duplicates included.",
+  "correct_class_prediction_iou": {
+    "count": 338,
+    "mean": 0.8085641304258073,
+    "median": 0.8674844589305699,
+    "q1": 0.7539054310617695,
+    "q3": 0.9173383423785619,
+    "min": 0.0,
+    "max": 0.9873497484451452
+  },
+  "correct_class_percent_ge_050": 0.9230769230769231,
+  "correct_class_percent_ge_075": 0.7603550295857988,
+  "correct_class_percent_ge_090": 0.34615384615384615,
+  "matched_iou": {
+    "count": 309,
+    "mean": 0.8468670086235952,
+    "median": 0.8756051455576799,
+    "q1": 0.7934168588860968,
+    "q3": 0.9207831688983072,
+    "min": 0.5205829685102977,
+    "max": 0.9873497484451452
+  },
+  "matched_050_to_lt_075": 52,
+  "matched_050_to_lt_075_fraction": 0.16828478964401294,
+  "validation_map_50": 0.828430712223053,
+  "validation_map_75": 0.6282066106796265,
+  "validation_map_50_minus_map_75": 0.2002241015434265
+}

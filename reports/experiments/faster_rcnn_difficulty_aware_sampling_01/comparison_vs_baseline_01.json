@@ -1,0 +1,269 @@
+{
+  "baseline_experiment": "faster_rcnn_baseline_01",
+  "candidate_experiment": "faster_rcnn_difficulty_aware_sampling_01",
+  "controlled_change": {
+    "variable": "train_sampling_policy",
+    "reference_value": "shuffle",
+    "experiment_value": "WeightedRandomSampler"
+  },
+  "metrics": {
+    "map": {
+      "reference": 0.575484573841095,
+      "candidate": 0.5647130012512207,
+      "delta": -0.010771572589874268
+    },
+    "map_50": {
+      "reference": 0.8256866335868835,
+      "candidate": 0.828430712223053,
+      "delta": 0.0027440786361694336
+    },
+    "map_75": {
+      "reference": 0.6530308127403259,
+      "candidate": 0.6282066106796265,
+      "delta": -0.024824202060699463
+    },
+    "mar_100": {
+      "reference": 0.6874443292617798,
+      "candidate": 0.6733155250549316,
+      "delta": -0.014128804206848145
+    },
+    "precision_score_050": {
+      "reference": 0.7524038461538461,
+      "candidate": 0.75,
+      "delta": -0.0024038461538461453
+    },
+    "recall_score_050": {
+      "reference": 0.7597087378640777,
+      "candidate": 0.75,
+      "delta": -0.009708737864077666
+    },
+    "tp": {
+      "reference": 313.0,
+      "candidate": 309.0,
+      "delta": -4.0
+    },
+    "fp": {
+      "reference": 103.0,
+      "candidate": 103.0,
+      "delta": 0.0
+    },
+    "fn": {
+      "reference": 99.0,
+      "candidate": 103.0,
+      "delta": 4.0
+    },
+    "class_confusion_count": {
+      "reference": 57.0,
+      "candidate": 61.0,
+      "delta": 4.0
+    },
+    "localization_error_count": {
+      "reference": 22.0,
+      "candidate": 24.0,
+      "delta": 2.0
+    },
+    "background_fp_count": {
+      "reference": 8.0,
+      "candidate": 8.0,
+      "delta": 0.0
+    },
+    "duplicate_count": {
+      "reference": 6.0,
+      "candidate": 3.0,
+      "delta": -3.0
+    },
+    "mean_matched_iou": {
+      "reference": 0.8477820036274942,
+      "candidate": 0.8468670086235952,
+      "delta": -0.0009149950038990218
+    },
+    "median_matched_iou": {
+      "reference": 0.8762711802774049,
+      "candidate": 0.8756051455576799,
+      "delta": -0.0006660347197250394
+    },
+    "mean_epoch_runtime_seconds": {
+      "reference": 412.30078167000175,
+      "candidate": 376.4020354699984,
+      "delta": -35.89874620000336
+    },
+    "total_runtime_seconds": {
+      "reference": 4139.927599599992,
+      "candidate": 3777.8381499000243,
+      "delta": -362.0894496999681
+    },
+    "peak_gpu_allocated_mib": {
+      "reference": 737.2314453125,
+      "candidate": 738.9814453125,
+      "delta": 1.75
+    },
+    "peak_gpu_reserved_mib": {
+      "reference": 888.0,
+      "candidate": 888.0,
+      "delta": 0.0
+    },
+    "best_epoch": {
+      "reference": 9.0,
+      "candidate": 10.0,
+      "delta": 1.0
+    },
+    "small_recall": {
+      "reference": 0.3815789473684211,
+      "candidate": 0.3815789473684211,
+      "delta": 0.0
+    },
+    "medium_recall": {
+      "reference": 0.7744360902255639,
+      "candidate": 0.8120300751879699,
+      "delta": 0.03759398496240596
+    },
+    "large_recall": {
+      "reference": 0.8916256157635468,
+      "candidate": 0.8472906403940886,
+      "delta": -0.044334975369458185
+    },
+    "one_object_recall": {
+      "reference": 0.8708333333333333,
+      "candidate": 0.8625,
+      "delta": -0.008333333333333304
+    },
+    "two_three_object_recall": {
+      "reference": 0.7142857142857143,
+      "candidate": 0.7238095238095238,
+      "delta": 0.00952380952380949
+    },
+    "four_plus_object_recall": {
+      "reference": 0.43283582089552236,
+      "candidate": 0.3880597014925373,
+      "delta": -0.04477611940298504
+    }
+  },
+  "class_ap": {
+    "Buffalo": {
+      "reference": 0.5053696036338806,
+      "candidate": 0.47842586040496826,
+      "delta": -0.026943743228912354
+    },
+    "Camel": {
+      "reference": 0.39166679978370667,
+      "candidate": 0.5035889744758606,
+      "delta": 0.11192217469215393
+    },
+    "Cat": {
+      "reference": 0.6697329878807068,
+      "candidate": 0.5433371067047119,
+      "delta": -0.12639588117599487
+    },
+    "Cheetah": {
+      "reference": 0.4731729030609131,
+      "candidate": 0.5262835621833801,
+      "delta": 0.05311065912246704
+    },
+    "Cow": {
+      "reference": 0.55455082654953,
+      "candidate": 0.6427931189537048,
+      "delta": 0.0882422924041748
+    },
+    "Deer": {
+      "reference": 0.6246606707572937,
+      "candidate": 0.5846977829933167,
+      "delta": -0.03996288776397705
+    },
+    "Dog": {
+      "reference": 0.6918909549713135,
+      "candidate": 0.6652281880378723,
+      "delta": -0.026662766933441162
+    },
+    "Elephant": {
+      "reference": 0.5720221400260925,
+      "candidate": 0.5768916606903076,
+      "delta": 0.004869520664215088
+    },
+    "Goat": {
+      "reference": 0.4486537277698517,
+      "candidate": 0.4646967053413391,
+      "delta": 0.016042977571487427
+    },
+    "Gorilla": {
+      "reference": 0.5842525362968445,
+      "candidate": 0.6428341865539551,
+      "delta": 0.058581650257110596
+    },
+    "Hippo": {
+      "reference": 0.5748568177223206,
+      "candidate": 0.5228658318519592,
+      "delta": -0.05199098587036133
+    },
+    "Horse": {
+      "reference": 0.6940047144889832,
+      "candidate": 0.6660811305046082,
+      "delta": -0.027923583984375
+    },
+    "Lion": {
+      "reference": 0.7586583495140076,
+      "candidate": 0.6377660036087036,
+      "delta": -0.12089234590530396
+    },
+    "Monkeys": {
+      "reference": 0.4066896438598633,
+      "candidate": 0.4223793148994446,
+      "delta": 0.0156896710395813
+    },
+    "Panda": {
+      "reference": 0.2846958041191101,
+      "candidate": 0.24486206471920013,
+      "delta": -0.03983373939990997
+    },
+    "Rat": {
+      "reference": 0.6009458303451538,
+      "candidate": 0.5574939846992493,
+      "delta": -0.04345184564590454
+    },
+    "Rhino": {
+      "reference": 0.7670333385467529,
+      "candidate": 0.7058456540107727,
+      "delta": -0.061187684535980225
+    },
+    "Tiger": {
+      "reference": 0.6266261339187622,
+      "candidate": 0.718624472618103,
+      "delta": 0.09199833869934082
+    },
+    "Wolf": {
+      "reference": 0.8007975816726685,
+      "candidate": 0.7465609312057495,
+      "delta": -0.054236650466918945
+    },
+    "Zebra": {
+      "reference": 0.47940996289253235,
+      "candidate": 0.44300350546836853,
+      "delta": -0.03640645742416382
+    }
+  },
+  "confidence": {
+    "true_positive": {
+      "mean": {
+        "reference": 0.9139670223092881,
+        "candidate": 0.9212128475645985,
+        "delta": 0.0072458252553104785
+      },
+      "median": {
+        "reference": 0.9739459156990051,
+        "candidate": 0.9701149463653564,
+        "delta": -0.0038309693336486816
+      }
+    },
+    "false_positive": {
+      "mean": {
+        "reference": 0.7229686066942308,
+        "candidate": 0.718030265812735,
+        "delta": -0.004938340881495806
+      },
+      "median": {
+        "reference": 0.6865424513816833,
+        "candidate": 0.6948933005332947,
+        "delta": 0.008350849151611328
+      }
+    }
+  }
+}

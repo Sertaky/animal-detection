@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "device": "cuda",
+  "train_base_samples": 1400,
+  "train_usable_samples": 1399,
+  "valid_base_samples": 300,
+  "valid_usable_samples": 299,
+  "excluded_samples": 2,
+  "image_shape": [
+    3,
+    512,
+    512
+  ],
+  "target_box_count": 1,
+  "losses": {
+    "loss_classifier": 3.321187973022461,
+    "loss_box_reg": 0.18527601659297943,
+    "loss_objectness": 3.831869253190234e-05,
+    "loss_rpn_box_reg": 0.0007929627900011837
+  },
+  "finite_losses": true,
+  "total_parameters": 41396536,
+  "trainable_parameters": 41396536,
+  "all_parameters_trainable": true,
+  "reference_parameter_count": 41396536,
+  "parameter_count_matches_reference": true,
+  "gpu_peak_allocated_mib": 286.583984375,
+  "gpu_peak_reserved_mib": 346.0,
+  "optimizer_step_performed": false,
+  "test_split_constructed": false,
+  "sampler_active": true,
+  "sampler_draws": 1399,
+  "sampler_draw_count_matches_train_length": true,
+  "raw_train_valid_sha256": "220afb919499324d4a232ad3f81ebed96ba2f9d0d8e78dde84c9dd332eac859f",
+  "sampling": {
+    "policy": "WeightedRandomSampler",
+    "weight_inputs": [
+      "normalized_box_area",
+      "object_count"
+    ],
+    "semantic_class_ids_used": false,
+    "image_weight_rule": "2.0 if any box has normalized area < 0.1 or image has >= 4 objects; otherwise 1.0; maximum/presence aggregation",
+    "small_area_threshold": 0.1,
+    "crowded_object_count": 4,
+    "difficulty_multiplier": 2.0,
+    "replacement": true,
+    "num_samples": 1399,
+    "seed": 42,
+    "total_usable_images": 1399,
+    "images_containing_small_objects": 140,
+    "crowded_images": 51,
+    "images_both_small_and_crowded": 49,
+    "ordinary_images": 1257,
+    "epoch_draws": 1399,
+    "unique_images_sampled": 859,
+    "repeated_image_draws": 540,
+    "unique_image_percent": 61.40100071479628,
+    "maximum_draws_for_one_image": 9,
+    "sampled_draws_containing_small_object_percent": 18.227305218012866,
+    "sampled_draws_crowded_percent": 6.147248034310222,
+    "groups": {
+      "ordinary": {
+        "raw_image_count": 1257,
+        "sampled_occurrences": 1141,
+        "exposure_multiplier": 0.9077167859984089
+      },
+      "small_object_containing": {
+        "raw_image_count": 140,
+        "sampled_occurrences": 255,
+        "exposure_multiplier": 1.8214285714285714
+      },
+      "crowded": {
+        "raw_image_count": 51,
+        "sampled_occurrences": 86,
+        "exposure_multiplier": 1.6862745098039216
+      },
+      "small_and_crowded": {
+        "raw_image_count": 49,
+        "sampled_occurrences": 83,
+        "exposure_multiplier": 1.6938775510204083
+      }
+    }
+  }
+}

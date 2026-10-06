@@ -29,9 +29,13 @@ from animal_detection.data import (
     YoloDetectionDataset,
     build_class_aware_image_weights,
     build_class_aware_sampler,
+    build_difficulty_aware_image_weights,
+    build_difficulty_aware_sampler,
+    compute_image_difficulty_flags,
     detection_collate_fn,
     get_eval_transforms,
     get_train_transforms,
+    difficulty_sampling_diagnostics,
     sampling_diagnostics,
 )
 from animal_detection.data.label_mapping import ANIMAL_CLASS_NAMES
@@ -186,6 +190,13 @@ def main() -> int:
     )
     parser.add_argument("--weak-multiplier", type=float, default=2.0)
     parser.add_argument(
+        "--difficulty-aware-sampling", action="store_true",
+        help="Use class-independent small-object/crowded-image sampling.",
+    )
+    parser.add_argument("--small-area-threshold", type=float, default=0.10)
+    parser.add_argument("--crowded-object-count", type=int, default=4)
+    parser.add_argument("--difficulty-multiplier", type=float, default=2.0)
+    parser.add_argument(
         "--exclusions-manifest", type=Path,
         default=PROJECT_ROOT / "data" / "manifests" / "excluded_samples.json",
     )
@@ -219,6 +230,12 @@ def main() -> int:
         parser.error("step-size must be positive and gamma must be in (0, 1)")
     if args.weak_multiplier < 1.0:
         parser.error("weak-multiplier must be at least 1.0")
+    if args.class_aware_sampling and args.difficulty_aware_sampling:
+        parser.error("Class-aware and difficulty-aware sampling cannot be combined")
+    if not 0.0 < args.small_area_threshold <= 1.0:
+        parser.error("small-area-threshold must be in (0, 1]")
+    if args.crowded_object_count < 1 or args.difficulty_multiplier < 1.0:
+        parser.error("crowded-object-count must be positive and difficulty-multiplier >= 1")
     unknown_weak = sorted(set(args.weak_class_names) - set(ANIMAL_CLASS_NAMES))
     if unknown_weak:
         parser.error(f"Unknown weak class names: {unknown_weak}")
@@ -303,10 +320,54 @@ def main() -> int:
         train_sampler = build_class_aware_sampler(
             image_weights, num_samples=len(train_dataset), seed=args.seed
         )
+    elif args.difficulty_aware_sampling:
+        geometry_dataset = YoloDetectionDataset(args.dataset_root, "train")
+        boxes, sizes = [], []
+        for index in train_dataset.indices:
+            _, target = geometry_dataset[index]
+            boxes.append(target["boxes"])
+            sizes.append(target["original_size"])
+        difficulty_flags = compute_image_difficulty_flags(
+            boxes, sizes,
+            small_area_threshold=args.small_area_threshold,
+            crowded_object_count=args.crowded_object_count,
+        )
+        image_weights = build_difficulty_aware_image_weights(
+            difficulty_flags, difficulty_multiplier=args.difficulty_multiplier
+        )
+        simulated_indices = list(build_difficulty_aware_sampler(
+            image_weights, num_samples=len(train_dataset), seed=args.seed
+        ))
+        sampling_report = {
+            "policy": "WeightedRandomSampler",
+            "weight_inputs": ["normalized_box_area", "object_count"],
+            "semantic_class_ids_used": False,
+            "image_weight_rule": (
+                f"{args.difficulty_multiplier} if any box has normalized area < "
+                f"{args.small_area_threshold} or image has >= {args.crowded_object_count} "
+                "objects; otherwise 1.0; maximum/presence aggregation"
+            ),
+            "small_area_threshold": args.small_area_threshold,
+            "crowded_object_count": args.crowded_object_count,
+            "difficulty_multiplier": args.difficulty_multiplier,
+            "replacement": True,
+            "num_samples": len(train_dataset),
+            "seed": args.seed,
+            **difficulty_sampling_diagnostics(difficulty_flags, simulated_indices),
+        }
+        if (
+            sampling_report["unique_image_percent"] < 50.0
+            or sampling_report["maximum_draws_for_one_image"] > 15
+        ):
+            raise RuntimeError(f"Difficulty-aware sampling exposure is unexpectedly extreme: {sampling_report}")
+        train_sampler = build_difficulty_aware_sampler(
+            image_weights, num_samples=len(train_dataset), seed=args.seed
+        )
+    sampler_active = args.class_aware_sampling or args.difficulty_aware_sampling
     train_loader = DataLoader(
         train_dataset,
         batch_size=args.batch_size,
-        shuffle=not args.class_aware_sampling,
+        shuffle=not sampler_active,
         sampler=train_sampler,
         num_workers=args.num_workers,
         collate_fn=detection_collate_fn,
@@ -351,30 +412,53 @@ def main() -> int:
                 "reference_value": "shuffle",
                 "experiment_value": "WeightedRandomSampler",
             }
-            if args.class_aware_sampling
+            if sampler_active
             else (
                 {"variable": "image_size", "reference_value": 512, "experiment_value": args.image_size}
                 if args.comparison_target else None
             )
         ),
+        "secondary_comparison": (
+            "faster_rcnn_class_aware_sampling_01"
+            if args.difficulty_aware_sampling else None
+        ),
         "train_sampling": {
             "baseline": "shuffle",
-            "experiment": "WeightedRandomSampler" if args.class_aware_sampling else "shuffle",
+            "experiment": "WeightedRandomSampler" if sampler_active else "shuffle",
             "weak_classes": args.weak_class_names if args.class_aware_sampling else [],
             "weak_class_ids": weak_class_ids if args.class_aware_sampling else [],
             "weak_multiplier": args.weak_multiplier if args.class_aware_sampling else None,
-            "image_weight_aggregation": "max/presence-based" if args.class_aware_sampling else None,
-            "replacement": bool(args.class_aware_sampling),
+            "difficulty_definition": ({
+                "small_object": f"normalized box area < {args.small_area_threshold}",
+                "crowded_scene": f">= {args.crowded_object_count} annotated objects",
+                "semantic_class_used": False,
+            } if args.difficulty_aware_sampling else None),
+            "difficulty_multiplier": args.difficulty_multiplier if args.difficulty_aware_sampling else None,
+            "image_weight_aggregation": "max/presence-based" if sampler_active else None,
+            "replacement": bool(sampler_active),
             "num_samples": len(train_dataset),
-            "shuffle": not args.class_aware_sampling,
+            "shuffle": not sampler_active,
         },
     }
     write_json(config_path, configuration)
     if sampling_report is not None:
         write_json(reports_dir / "sampling_analysis.json", sampling_report)
-        focus = set(args.weak_class_names) | {"Gorilla", "Dog", "Wolf", "Rhino", "Lion"}
-        lines = [
-            "CLASS-AWARE SAMPLING SIMULATION",
+        if args.difficulty_aware_sampling:
+            lines = [
+                "DIFFICULTY-AWARE SAMPLING SIMULATION",
+                "Weights use only normalized box area and object count; semantic class IDs are not used.",
+                f"raw: total={sampling_report['total_usable_images']} small={sampling_report['images_containing_small_objects']} crowded={sampling_report['crowded_images']} both={sampling_report['images_both_small_and_crowded']} ordinary={sampling_report['ordinary_images']}",
+                f"draws={sampling_report['epoch_draws']} unique={sampling_report['unique_images_sampled']} repeated={sampling_report['repeated_image_draws']} unique_percent={sampling_report['unique_image_percent']:.2f} max_single_image={sampling_report['maximum_draws_for_one_image']}",
+                f"small draws={sampling_report['sampled_draws_containing_small_object_percent']:.2f}% crowded draws={sampling_report['sampled_draws_crowded_percent']:.2f}%",
+                "",
+                "Group | raw images | sampled occurrences | exposure multiplier",
+            ]
+            for name, item in sampling_report["groups"].items():
+                lines.append(f"{name} | {item['raw_image_count']} | {item['sampled_occurrences']} | {item['exposure_multiplier']:.3f}")
+        else:
+            focus = set(args.weak_class_names) | {"Gorilla", "Dog", "Wolf", "Rhino", "Lion"}
+            lines = [
+                "CLASS-AWARE SAMPLING SIMULATION",
             f"draws={sampling_report['epoch_draws']} unique={sampling_report['unique_images_sampled']} "
             f"repeated={sampling_report['repeated_image_draws']} max_single_image={sampling_report['maximum_draws_for_one_image']}",
             f"weak-class draws={sampling_report['weak_class_image_draws']} "
@@ -382,13 +466,13 @@ def main() -> int:
             "",
             "Class | raw objects | raw images | sampled image occurrences | exposure multiplier",
         ]
-        for item in sampling_report["classes"]:
-            if item["class_name"] in focus:
-                lines.append(
-                    f"{item['class_name']} | {item['raw_train_object_count']} | "
-                    f"{item['raw_train_image_count']} | {item['sampled_image_occurrences']} | "
-                    f"{item['exposure_multiplier']:.3f}"
-                )
+            for item in sampling_report["classes"]:
+                if item["class_name"] in focus:
+                    lines.append(
+                        f"{item['class_name']} | {item['raw_train_object_count']} | "
+                        f"{item['raw_train_image_count']} | {item['sampled_image_occurrences']} | "
+                        f"{item['exposure_multiplier']:.3f}"
+                    )
         (reports_dir / "sampling_analysis.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
     model = build_faster_rcnn(
         num_classes=21,
@@ -472,6 +556,12 @@ def main() -> int:
             ),
             "optimizer_step_performed": False,
             "test_split_constructed": False,
+            "sampler_active": sampler_active,
+            "sampler_draws": sampling_report["epoch_draws"] if sampling_report else None,
+            "sampler_draw_count_matches_train_length": (
+                sampling_report["epoch_draws"] == len(train_dataset)
+                if sampling_report else None
+            ),
             "raw_train_valid_sha256": raw_hash_before,
             "sampling": sampling_report,
         }
