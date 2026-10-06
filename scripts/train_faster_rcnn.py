@@ -27,9 +27,12 @@ if str(SRC_ROOT) not in sys.path:
 from animal_detection.data import (
     TorchvisionDetectionDataset,
     YoloDetectionDataset,
+    build_class_aware_image_weights,
+    build_class_aware_sampler,
     detection_collate_fn,
     get_eval_transforms,
     get_train_transforms,
+    sampling_diagnostics,
 )
 from animal_detection.data.label_mapping import ANIMAL_CLASS_NAMES
 from animal_detection.engine import evaluate_map, train_one_epoch
@@ -172,6 +175,17 @@ def main() -> int:
         help="Validate configuration/model/GPU forward pass without training.",
     )
     parser.add_argument(
+        "--class-aware-sampling",
+        action="store_true",
+        help="Use the controlled presence-based weak-class WeightedRandomSampler.",
+    )
+    parser.add_argument(
+        "--weak-class-names",
+        nargs="+",
+        default=["Panda", "Monkeys", "Goat", "Camel"],
+    )
+    parser.add_argument("--weak-multiplier", type=float, default=2.0)
+    parser.add_argument(
         "--exclusions-manifest", type=Path,
         default=PROJECT_ROOT / "data" / "manifests" / "excluded_samples.json",
     )
@@ -203,6 +217,11 @@ def main() -> int:
         parser.error("Baseline runs must use the complete usable train and valid splits")
     if args.step_size < 1 or not 0 < args.gamma < 1:
         parser.error("step-size must be positive and gamma must be in (0, 1)")
+    if args.weak_multiplier < 1.0:
+        parser.error("weak-multiplier must be at least 1.0")
+    unknown_weak = sorted(set(args.weak_class_names) - set(ANIMAL_CLASS_NAMES))
+    if unknown_weak:
+        parser.error(f"Unknown weak class names: {unknown_weak}")
 
     device = torch.device(args.device)
     if device.type == "cuda" and not torch.cuda.is_available():
@@ -240,10 +259,55 @@ def main() -> int:
     if (len(train_base), len(train_dataset), len(valid_base), len(valid_dataset)) != (1400, 1399, 300, 299):
         parser.error("Unexpected train/valid counts after applying exclusions")
     generator = torch.Generator().manual_seed(args.seed)
+    train_sampler = None
+    sampling_report = None
+    weak_class_ids = [ANIMAL_CLASS_NAMES.index(name) for name in args.weak_class_names]
+    if args.class_aware_sampling:
+        label_dataset = YoloDetectionDataset(args.dataset_root, "train")
+        image_labels = [
+            label_dataset[index][1]["labels"].tolist()
+            for index in train_dataset.indices
+        ]
+        image_weights = build_class_aware_image_weights(
+            image_labels,
+            weak_class_ids=weak_class_ids,
+            weak_multiplier=args.weak_multiplier,
+        )
+        simulation_sampler = build_class_aware_sampler(
+            image_weights, num_samples=len(train_dataset), seed=args.seed
+        )
+        simulated_indices = list(simulation_sampler)
+        sampling_report = {
+            "policy": "WeightedRandomSampler",
+            "image_weight_rule": "2.0 if any weak class is present; otherwise 1.0; maximum/presence aggregation",
+            "weak_classes": args.weak_class_names,
+            "weak_class_ids": weak_class_ids,
+            "weak_multiplier": args.weak_multiplier,
+            "replacement": True,
+            "num_samples": len(train_dataset),
+            "seed": args.seed,
+            **sampling_diagnostics(
+                image_labels,
+                simulated_indices,
+                weak_class_ids=weak_class_ids,
+                class_names=ANIMAL_CLASS_NAMES,
+            ),
+        }
+        unique_fraction = sampling_report["unique_images_sampled"] / len(train_dataset)
+        if (
+            unique_fraction < 0.50
+            or sampling_report["maximum_draws_for_one_image"] > 15
+            or sampling_report["weak_class_draw_percent"] > 80.0
+        ):
+            raise RuntimeError(f"Class-aware sampling exposure is unexpectedly extreme: {sampling_report}")
+        train_sampler = build_class_aware_sampler(
+            image_weights, num_samples=len(train_dataset), seed=args.seed
+        )
     train_loader = DataLoader(
         train_dataset,
         batch_size=args.batch_size,
-        shuffle=True,
+        shuffle=not args.class_aware_sampling,
+        sampler=train_sampler,
         num_workers=args.num_workers,
         collate_fn=detection_collate_fn,
         generator=generator,
@@ -282,11 +346,50 @@ def main() -> int:
         },
         "raw_train_valid_sha256_before": raw_hash_before,
         "controlled_change": (
-            {"variable": "image_size", "reference_value": 512, "experiment_value": args.image_size}
-            if args.comparison_target else None
+            {
+                "variable": "train_sampling_policy",
+                "reference_value": "shuffle",
+                "experiment_value": "WeightedRandomSampler",
+            }
+            if args.class_aware_sampling
+            else (
+                {"variable": "image_size", "reference_value": 512, "experiment_value": args.image_size}
+                if args.comparison_target else None
+            )
         ),
+        "train_sampling": {
+            "baseline": "shuffle",
+            "experiment": "WeightedRandomSampler" if args.class_aware_sampling else "shuffle",
+            "weak_classes": args.weak_class_names if args.class_aware_sampling else [],
+            "weak_class_ids": weak_class_ids if args.class_aware_sampling else [],
+            "weak_multiplier": args.weak_multiplier if args.class_aware_sampling else None,
+            "image_weight_aggregation": "max/presence-based" if args.class_aware_sampling else None,
+            "replacement": bool(args.class_aware_sampling),
+            "num_samples": len(train_dataset),
+            "shuffle": not args.class_aware_sampling,
+        },
     }
     write_json(config_path, configuration)
+    if sampling_report is not None:
+        write_json(reports_dir / "sampling_analysis.json", sampling_report)
+        focus = set(args.weak_class_names) | {"Gorilla", "Dog", "Wolf", "Rhino", "Lion"}
+        lines = [
+            "CLASS-AWARE SAMPLING SIMULATION",
+            f"draws={sampling_report['epoch_draws']} unique={sampling_report['unique_images_sampled']} "
+            f"repeated={sampling_report['repeated_image_draws']} max_single_image={sampling_report['maximum_draws_for_one_image']}",
+            f"weak-class draws={sampling_report['weak_class_image_draws']} "
+            f"({sampling_report['weak_class_draw_percent']:.2f}%)",
+            "",
+            "Class | raw objects | raw images | sampled image occurrences | exposure multiplier",
+        ]
+        for item in sampling_report["classes"]:
+            if item["class_name"] in focus:
+                lines.append(
+                    f"{item['class_name']} | {item['raw_train_object_count']} | "
+                    f"{item['raw_train_image_count']} | {item['sampled_image_occurrences']} | "
+                    f"{item['exposure_multiplier']:.3f}"
+                )
+        (reports_dir / "sampling_analysis.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
     model = build_faster_rcnn(
         num_classes=21,
         pretrained=True,
@@ -370,6 +473,7 @@ def main() -> int:
             "optimizer_step_performed": False,
             "test_split_constructed": False,
             "raw_train_valid_sha256": raw_hash_before,
+            "sampling": sampling_report,
         }
         write_json(reports_dir / "preflight.json", preflight)
         print(json.dumps(preflight, indent=2), flush=True)

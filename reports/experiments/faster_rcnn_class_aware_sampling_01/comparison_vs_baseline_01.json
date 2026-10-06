@@ -1,0 +1,326 @@
+{
+  "baseline_experiment": "faster_rcnn_baseline_01",
+  "candidate_experiment": "faster_rcnn_class_aware_sampling_01",
+  "controlled_change": {
+    "variable": "train_sampling_policy",
+    "reference_value": "shuffle",
+    "experiment_value": "WeightedRandomSampler"
+  },
+  "overall": {
+    "best_epoch": {
+      "baseline": 9.0,
+      "candidate": 10.0,
+      "delta": 1.0
+    },
+    "map": {
+      "baseline": 0.575484573841095,
+      "candidate": 0.5763913989067078,
+      "delta": 0.000906825065612793
+    },
+    "map_50": {
+      "baseline": 0.8256866335868835,
+      "candidate": 0.8308320045471191,
+      "delta": 0.005145370960235596
+    },
+    "map_75": {
+      "baseline": 0.6530308127403259,
+      "candidate": 0.6445570588111877,
+      "delta": -0.008473753929138184
+    },
+    "mar_100": {
+      "baseline": 0.6874443292617798,
+      "candidate": 0.6882959008216858,
+      "delta": 0.0008515715599060059
+    },
+    "precision_score_050": {
+      "baseline": 0.7524038461538461,
+      "candidate": 0.7363636363636363,
+      "delta": -0.016040209790209814
+    },
+    "recall_score_050": {
+      "baseline": 0.7597087378640777,
+      "candidate": 0.7864077669902912,
+      "delta": 0.02669902912621358
+    },
+    "class_confusion_count": {
+      "baseline": 57.0,
+      "candidate": 66.0,
+      "delta": 9.0
+    },
+    "localization_error_count": {
+      "baseline": 22.0,
+      "candidate": 29.0,
+      "delta": 7.0
+    },
+    "mean_matched_iou": {
+      "baseline": 0.8477820036274942,
+      "candidate": 0.8455322398158983,
+      "delta": -0.0022497638115959173
+    },
+    "median_matched_iou": {
+      "baseline": 0.8762711802774049,
+      "candidate": 0.8776126712126322,
+      "delta": 0.0013414909352272852
+    },
+    "mean_epoch_runtime_seconds": {
+      "baseline": 412.30078167000175,
+      "candidate": 386.224150559993,
+      "delta": -26.076631110008748
+    },
+    "total_runtime_seconds": {
+      "baseline": 4139.927599599992,
+      "candidate": 3877.9762298999703,
+      "delta": -261.95136970002204
+    },
+    "peak_gpu_allocated_mib": {
+      "baseline": 737.2314453125,
+      "candidate": 738.8564453125,
+      "delta": 1.625
+    },
+    "peak_gpu_reserved_mib": {
+      "baseline": 888.0,
+      "candidate": 896.0,
+      "delta": 8.0
+    },
+    "small_recall": {
+      "baseline": 0.3815789473684211,
+      "candidate": 0.4605263157894737,
+      "delta": 0.0789473684210526
+    },
+    "medium_recall": {
+      "baseline": 0.7744360902255639,
+      "candidate": 0.7894736842105263,
+      "delta": 0.015037593984962405
+    },
+    "large_recall": {
+      "baseline": 0.8916256157635468,
+      "candidate": 0.9064039408866995,
+      "delta": 0.014778325123152691
+    },
+    "one_object_recall": {
+      "baseline": 0.8708333333333333,
+      "candidate": 0.8833333333333333,
+      "delta": 0.012499999999999956
+    },
+    "two_three_object_recall": {
+      "baseline": 0.7142857142857143,
+      "candidate": 0.780952380952381,
+      "delta": 0.06666666666666665
+    },
+    "four_plus_object_recall": {
+      "baseline": 0.43283582089552236,
+      "candidate": 0.44776119402985076,
+      "delta": 0.014925373134328401
+    }
+  },
+  "class_ap": [
+    {
+      "class_name": "Buffalo",
+      "ap": {
+        "baseline": 0.5053696036338806,
+        "candidate": 0.48127639293670654,
+        "delta": -0.024093210697174072
+      }
+    },
+    {
+      "class_name": "Camel",
+      "ap": {
+        "baseline": 0.39166679978370667,
+        "candidate": 0.5184170007705688,
+        "delta": 0.12675020098686218
+      }
+    },
+    {
+      "class_name": "Cat",
+      "ap": {
+        "baseline": 0.6697329878807068,
+        "candidate": 0.6438530087471008,
+        "delta": -0.025879979133605957
+      }
+    },
+    {
+      "class_name": "Cheetah",
+      "ap": {
+        "baseline": 0.4731729030609131,
+        "candidate": 0.5673940181732178,
+        "delta": 0.09422111511230469
+      }
+    },
+    {
+      "class_name": "Cow",
+      "ap": {
+        "baseline": 0.55455082654953,
+        "candidate": 0.6132552027702332,
+        "delta": 0.058704376220703125
+      }
+    },
+    {
+      "class_name": "Deer",
+      "ap": {
+        "baseline": 0.6246606707572937,
+        "candidate": 0.5920212864875793,
+        "delta": -0.032639384269714355
+      }
+    },
+    {
+      "class_name": "Dog",
+      "ap": {
+        "baseline": 0.6918909549713135,
+        "candidate": 0.6642919182777405,
+        "delta": -0.027599036693572998
+      }
+    },
+    {
+      "class_name": "Elephant",
+      "ap": {
+        "baseline": 0.5720221400260925,
+        "candidate": 0.5876812934875488,
+        "delta": 0.0156591534614563
+      }
+    },
+    {
+      "class_name": "Goat",
+      "ap": {
+        "baseline": 0.4486537277698517,
+        "candidate": 0.4896900951862335,
+        "delta": 0.041036367416381836
+      }
+    },
+    {
+      "class_name": "Gorilla",
+      "ap": {
+        "baseline": 0.5842525362968445,
+        "candidate": 0.584954559803009,
+        "delta": 0.0007020235061645508
+      }
+    },
+    {
+      "class_name": "Hippo",
+      "ap": {
+        "baseline": 0.5748568177223206,
+        "candidate": 0.5942782163619995,
+        "delta": 0.019421398639678955
+      }
+    },
+    {
+      "class_name": "Horse",
+      "ap": {
+        "baseline": 0.6940047144889832,
+        "candidate": 0.7240630388259888,
+        "delta": 0.030058324337005615
+      }
+    },
+    {
+      "class_name": "Lion",
+      "ap": {
+        "baseline": 0.7586583495140076,
+        "candidate": 0.723293662071228,
+        "delta": -0.03536468744277954
+      }
+    },
+    {
+      "class_name": "Monkeys",
+      "ap": {
+        "baseline": 0.4066896438598633,
+        "candidate": 0.4062694311141968,
+        "delta": -0.0004202127456665039
+      }
+    },
+    {
+      "class_name": "Panda",
+      "ap": {
+        "baseline": 0.2846958041191101,
+        "candidate": 0.2988130748271942,
+        "delta": 0.014117270708084106
+      }
+    },
+    {
+      "class_name": "Rat",
+      "ap": {
+        "baseline": 0.6009458303451538,
+        "candidate": 0.5511239767074585,
+        "delta": -0.04982185363769531
+      }
+    },
+    {
+      "class_name": "Rhino",
+      "ap": {
+        "baseline": 0.7670333385467529,
+        "candidate": 0.7174654006958008,
+        "delta": -0.04956793785095215
+      }
+    },
+    {
+      "class_name": "Tiger",
+      "ap": {
+        "baseline": 0.6266261339187622,
+        "candidate": 0.560982882976532,
+        "delta": -0.06564325094223022
+      }
+    },
+    {
+      "class_name": "Wolf",
+      "ap": {
+        "baseline": 0.8007975816726685,
+        "candidate": 0.718758761882782,
+        "delta": -0.08203881978988647
+      }
+    },
+    {
+      "class_name": "Zebra",
+      "ap": {
+        "baseline": 0.47940996289253235,
+        "candidate": 0.4899445176124573,
+        "delta": 0.010534554719924927
+      }
+    }
+  ],
+  "target_confusion_pairs": {
+    "Monkeys_to_Gorilla": {
+      "baseline": 7.0,
+      "candidate": 5.0,
+      "delta": -2.0
+    },
+    "Gorilla_to_Monkeys": {
+      "baseline": 5.0,
+      "candidate": 4.0,
+      "delta": -1.0
+    },
+    "Goat_to_Camel": {
+      "baseline": 3.0,
+      "candidate": 1.0,
+      "delta": -2.0
+    },
+    "Goat_to_Deer": {
+      "baseline": 3.0,
+      "candidate": 2.0,
+      "delta": -1.0
+    }
+  },
+  "confidence": {
+    "true_positive": {
+      "mean": {
+        "baseline": 0.9139670223092881,
+        "candidate": 0.915329713696315,
+        "delta": 0.0013626913870269375
+      },
+      "median": {
+        "baseline": 0.9739459156990051,
+        "candidate": 0.9732706844806671,
+        "delta": -0.0006752312183380127
+      }
+    },
+    "false_positive": {
+      "mean": {
+        "baseline": 0.7229686066942308,
+        "candidate": 0.7158014286181023,
+        "delta": -0.007167178076128544
+      },
+      "median": {
+        "baseline": 0.6865424513816833,
+        "candidate": 0.6946626603603363,
+        "delta": 0.008120208978652954
+      }
+    }
+  }
+}

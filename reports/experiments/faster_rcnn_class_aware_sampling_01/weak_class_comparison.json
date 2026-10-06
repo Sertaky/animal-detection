@@ -1,0 +1,284 @@
+{
+  "Panda": {
+    "ap": {
+      "baseline": 0.2846958041191101,
+      "candidate": 0.2988130748271942,
+      "delta": 0.014117270708084106
+    },
+    "gt_objects": {
+      "baseline": 36.0,
+      "candidate": 36.0,
+      "delta": 0.0
+    },
+    "tp": {
+      "baseline": 16.0,
+      "candidate": 17.0,
+      "delta": 1.0
+    },
+    "fp": {
+      "baseline": 4.0,
+      "candidate": 4.0,
+      "delta": 0.0
+    },
+    "fn": {
+      "baseline": 20.0,
+      "candidate": 19.0,
+      "delta": -1.0
+    },
+    "precision": {
+      "baseline": 0.8,
+      "candidate": 0.8095238095238095,
+      "delta": 0.00952380952380949
+    },
+    "recall": {
+      "baseline": 0.4444444444444444,
+      "candidate": 0.4722222222222222,
+      "delta": 0.02777777777777779
+    },
+    "mean_matched_iou": {
+      "baseline": 0.8248363622367262,
+      "candidate": 0.8123601341968341,
+      "delta": -0.012476228039892123
+    },
+    "class_confusion_count": {
+      "baseline": 0.0,
+      "candidate": 0.0,
+      "delta": 0.0
+    },
+    "localization_error_count": {
+      "baseline": 3.0,
+      "candidate": 2.0,
+      "delta": -1.0
+    },
+    "small_object_diagnostic": {
+      "gt_objects": {
+        "baseline": 18.0,
+        "candidate": 18.0,
+        "delta": 0.0
+      },
+      "tp": {
+        "baseline": 1.0,
+        "candidate": 0.0,
+        "delta": -1.0
+      },
+      "fn": {
+        "baseline": 17.0,
+        "candidate": 18.0,
+        "delta": 1.0
+      },
+      "recall": {
+        "baseline": 0.05555555555555555,
+        "candidate": 0.0,
+        "delta": -0.05555555555555555
+      }
+    }
+  },
+  "Monkeys": {
+    "ap": {
+      "baseline": 0.4066896438598633,
+      "candidate": 0.4062694311141968,
+      "delta": -0.0004202127456665039
+    },
+    "gt_objects": {
+      "baseline": 19.0,
+      "candidate": 19.0,
+      "delta": 0.0
+    },
+    "tp": {
+      "baseline": 12.0,
+      "candidate": 13.0,
+      "delta": 1.0
+    },
+    "fp": {
+      "baseline": 12.0,
+      "candidate": 14.0,
+      "delta": 2.0
+    },
+    "fn": {
+      "baseline": 7.0,
+      "candidate": 6.0,
+      "delta": -1.0
+    },
+    "precision": {
+      "baseline": 0.5,
+      "candidate": 0.48148148148148145,
+      "delta": -0.018518518518518545
+    },
+    "recall": {
+      "baseline": 0.631578947368421,
+      "candidate": 0.6842105263157895,
+      "delta": 0.052631578947368474
+    },
+    "mean_matched_iou": {
+      "baseline": 0.8176299741646974,
+      "candidate": 0.8131767591260591,
+      "delta": -0.00445321503863827
+    },
+    "class_confusion_count": {
+      "baseline": 7.0,
+      "candidate": 5.0,
+      "delta": -2.0
+    },
+    "localization_error_count": {
+      "baseline": 1.0,
+      "candidate": 2.0,
+      "delta": 1.0
+    }
+  },
+  "Gorilla": {
+    "ap": {
+      "baseline": 0.5842525362968445,
+      "candidate": 0.584954559803009,
+      "delta": 0.0007020235061645508
+    },
+    "gt_objects": {
+      "baseline": 17.0,
+      "candidate": 17.0,
+      "delta": 0.0
+    },
+    "tp": {
+      "baseline": 14.0,
+      "candidate": 15.0,
+      "delta": 1.0
+    },
+    "fp": {
+      "baseline": 13.0,
+      "candidate": 11.0,
+      "delta": -2.0
+    },
+    "fn": {
+      "baseline": 3.0,
+      "candidate": 2.0,
+      "delta": -1.0
+    },
+    "precision": {
+      "baseline": 0.5185185185185185,
+      "candidate": 0.5769230769230769,
+      "delta": 0.05840455840455838
+    },
+    "recall": {
+      "baseline": 0.8235294117647058,
+      "candidate": 0.8823529411764706,
+      "delta": 0.05882352941176472
+    },
+    "mean_matched_iou": {
+      "baseline": 0.8852904905027206,
+      "candidate": 0.8762531195104925,
+      "delta": -0.009037370992228122
+    },
+    "class_confusion_count": {
+      "baseline": 6.0,
+      "candidate": 5.0,
+      "delta": -1.0
+    },
+    "localization_error_count": {
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    }
+  },
+  "Goat": {
+    "ap": {
+      "baseline": 0.4486537277698517,
+      "candidate": 0.4896900951862335,
+      "delta": 0.041036367416381836
+    },
+    "gt_objects": {
+      "baseline": 22.0,
+      "candidate": 22.0,
+      "delta": 0.0
+    },
+    "tp": {
+      "baseline": 12.0,
+      "candidate": 16.0,
+      "delta": 4.0
+    },
+    "fp": {
+      "baseline": 6.0,
+      "candidate": 5.0,
+      "delta": -1.0
+    },
+    "fn": {
+      "baseline": 10.0,
+      "candidate": 6.0,
+      "delta": -4.0
+    },
+    "precision": {
+      "baseline": 0.6666666666666666,
+      "candidate": 0.7619047619047619,
+      "delta": 0.09523809523809523
+    },
+    "recall": {
+      "baseline": 0.5454545454545454,
+      "candidate": 0.7272727272727273,
+      "delta": 0.18181818181818188
+    },
+    "mean_matched_iou": {
+      "baseline": 0.8553062360738077,
+      "candidate": 0.8233475383132862,
+      "delta": -0.031958697760521515
+    },
+    "class_confusion_count": {
+      "baseline": 9.0,
+      "candidate": 6.0,
+      "delta": -3.0
+    },
+    "localization_error_count": {
+      "baseline": 0.0,
+      "candidate": 0.0,
+      "delta": 0.0
+    }
+  },
+  "Camel": {
+    "ap": {
+      "baseline": 0.39166679978370667,
+      "candidate": 0.5184170007705688,
+      "delta": 0.12675020098686218
+    },
+    "gt_objects": {
+      "baseline": 20.0,
+      "candidate": 20.0,
+      "delta": 0.0
+    },
+    "tp": {
+      "baseline": 13.0,
+      "candidate": 14.0,
+      "delta": 1.0
+    },
+    "fp": {
+      "baseline": 13.0,
+      "candidate": 12.0,
+      "delta": -1.0
+    },
+    "fn": {
+      "baseline": 7.0,
+      "candidate": 6.0,
+      "delta": -1.0
+    },
+    "precision": {
+      "baseline": 0.5,
+      "candidate": 0.5384615384615384,
+      "delta": 0.038461538461538436
+    },
+    "recall": {
+      "baseline": 0.65,
+      "candidate": 0.7,
+      "delta": 0.04999999999999993
+    },
+    "mean_matched_iou": {
+      "baseline": 0.815310754793354,
+      "candidate": 0.8682219693167346,
+      "delta": 0.052911214523380545
+    },
+    "class_confusion_count": {
+      "baseline": 2.0,
+      "candidate": 3.0,
+      "delta": 1.0
+    },
+    "localization_error_count": {
+      "baseline": 4.0,
+      "candidate": 4.0,
+      "delta": 0.0
+    }
+  }
+}

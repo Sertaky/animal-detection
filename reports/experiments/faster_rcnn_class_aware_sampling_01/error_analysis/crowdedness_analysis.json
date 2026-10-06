@@ -1,0 +1,35 @@
+{
+  "group_definition": "Number of annotated ground-truth objects per usable validation image.",
+  "groups": {
+    "1": {
+      "images": 240,
+      "gt_objects": 240,
+      "tp": 212,
+      "fp": 78,
+      "fn": 28,
+      "precision": 0.7310344827586207,
+      "recall": 0.8833333333333333,
+      "mean_detections_per_image": 1.2083333333333333
+    },
+    "2-3": {
+      "images": 48,
+      "gt_objects": 105,
+      "tp": 82,
+      "fp": 21,
+      "fn": 23,
+      "precision": 0.7961165048543689,
+      "recall": 0.780952380952381,
+      "mean_detections_per_image": 2.1458333333333335
+    },
+    "4+": {
+      "images": 11,
+      "gt_objects": 67,
+      "tp": 30,
+      "fp": 17,
+      "fn": 37,
+      "precision": 0.6382978723404256,
+      "recall": 0.44776119402985076,
+      "mean_detections_per_image": 4.2727272727272725
+    }
+  }
+}

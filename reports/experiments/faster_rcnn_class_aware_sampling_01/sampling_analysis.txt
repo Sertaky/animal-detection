@@ -1,0 +1,14 @@
+CLASS-AWARE SAMPLING SIMULATION
+draws=1399 unique=873 repeated=526 max_single_image=8
+weak-class draws=446 (31.88%)
+
+Class | raw objects | raw images | sampled image occurrences | exposure multiplier
+Camel | 100 | 70 | 120 | 1.714
+Dog | 83 | 70 | 64 | 0.914
+Goat | 101 | 70 | 103 | 1.471
+Gorilla | 84 | 70 | 62 | 0.886
+Lion | 81 | 70 | 46 | 0.657
+Monkeys | 91 | 70 | 121 | 1.729
+Panda | 81 | 70 | 102 | 1.457
+Rhino | 98 | 70 | 48 | 0.686
+Wolf | 74 | 70 | 76 | 1.086

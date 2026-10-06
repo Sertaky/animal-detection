@@ -1,0 +1,14 @@
+SAMPLING EFFECT SUMMARY
+
+1. Weak exposure: Panda 1.457x, Monkeys 1.729x, Goat 1.471x, Camel 1.714x in the fixed-seed simulation.
+2. Panda AP improved: Yes (+0.014117).
+3. Panda diagnostic recall improved: Yes (+0.027778); small-object recall delta -0.055556.
+4. Monkeys AP improved: No (-0.000420).
+5. Monkeys/Gorilla confusion: Monkeys->Gorilla 7->5; Gorilla->Monkeys 5->4.
+6. Goat AP improved: Yes (+0.041036).
+7. Camel AP improved: Yes (+0.126750).
+8. Overall mAP improved: Yes (+0.000907).
+9. Strong reference AP deltas: Dog -0.027599, Wolf -0.082039, Rhino -0.049568, Lion -0.035365.
+10. Overall assessment: mixed. Aggregate mAP changed only marginally; weak-class gains must be weighed against reference-class AP losses and diagnostic error changes.
+
+No test metrics were used.

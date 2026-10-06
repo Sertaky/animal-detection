@@ -241,3 +241,35 @@ See [the audit summary](reports/class_data_audit/summary.txt),
 [the review-only suspicious sample queue](reports/class_data_audit/suspicious_samples.json),
 and the visual indexes under `reports/class_data_audit/`. No raw files, labels,
 splits, or exclusions were changed, and no test data or training was used.
+
+## Experiment 03: Class-Aware Sampling
+
+Experiment 03 tests one controlled change from Baseline 01: shuffled one-pass
+training is replaced by a seeded `WeightedRandomSampler`. An image receives
+weight 2.0 when it contains Panda, Monkeys, Goat, or Camel and weight 1.0
+otherwise. Presence uses a maximum rule, so multiple weak classes do not stack.
+Sampling uses replacement for exactly 1,399 draws per epoch. Architecture,
+COCO initialization, 512x512 transforms, augmentation, optimizer, scheduler,
+seed, epoch count, exclusions, and validation/model-selection policy remain
+unchanged.
+
+The fixed-seed simulation sampled 873 unique images, produced 526 repeated
+draws, and drew any single image at most eight times. Weak-class-containing
+images represented 31.88% of draws. Exposure was 1.457x for Panda, 1.729x for
+Monkeys, 1.471x for Goat, and 1.714x for Camel.
+
+The best checkpoint was epoch 10: validation mAP=0.576391, mAP@0.50=0.830832,
+mAP@0.75=0.644557, and mAR@100=0.688296. Versus Baseline 01, overall mAP
+changed only +0.000907. Camel AP improved +0.126750, Goat +0.041036, Panda
++0.014117, Gorilla +0.000702, and Monkeys -0.000420. All four reference
+classes declined: Dog -0.027599, Wolf -0.082039, Rhino -0.049568, and Lion
+-0.035365. Diagnostic recall improved, and the selected Monkeys/Gorilla and
+Goat/Camel/Deer confusion pairs decreased, but precision, mAP@0.75, mean
+matched IoU, total class-confusion errors, and localization-error count worsened.
+
+Conclusion: the 2x class-aware policy produced useful Camel/Goat gains but is
+not a clear overall improvement because aggregate AP was effectively flat and
+strong-class degradation was consistent. No test metrics were used. See the
+[sampling-effect summary](reports/experiments/faster_rcnn_class_aware_sampling_01/sampling_effect_summary.txt),
+[weak-class comparison](reports/experiments/faster_rcnn_class_aware_sampling_01/weak_class_comparison.json),
+and [overall comparison](reports/experiments/faster_rcnn_class_aware_sampling_01/comparison_vs_baseline_01.json).

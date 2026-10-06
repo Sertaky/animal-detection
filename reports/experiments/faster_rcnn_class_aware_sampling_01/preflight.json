@@ -1,0 +1,220 @@
+{
+  "passed": true,
+  "device": "cuda",
+  "train_base_samples": 1400,
+  "train_usable_samples": 1399,
+  "valid_base_samples": 300,
+  "valid_usable_samples": 299,
+  "excluded_samples": 2,
+  "image_shape": [
+    3,
+    512,
+    512
+  ],
+  "target_box_count": 1,
+  "losses": {
+    "loss_classifier": 3.321187973022461,
+    "loss_box_reg": 0.18527601659297943,
+    "loss_objectness": 3.831869253190234e-05,
+    "loss_rpn_box_reg": 0.0007929627900011837
+  },
+  "finite_losses": true,
+  "total_parameters": 41396536,
+  "trainable_parameters": 41396536,
+  "all_parameters_trainable": true,
+  "reference_parameter_count": 41396536,
+  "parameter_count_matches_reference": true,
+  "gpu_peak_allocated_mib": 286.583984375,
+  "gpu_peak_reserved_mib": 346.0,
+  "optimizer_step_performed": false,
+  "test_split_constructed": false,
+  "raw_train_valid_sha256": "220afb919499324d4a232ad3f81ebed96ba2f9d0d8e78dde84c9dd332eac859f",
+  "sampling": {
+    "policy": "WeightedRandomSampler",
+    "image_weight_rule": "2.0 if any weak class is present; otherwise 1.0; maximum/presence aggregation",
+    "weak_classes": [
+      "Panda",
+      "Monkeys",
+      "Goat",
+      "Camel"
+    ],
+    "weak_class_ids": [
+      14,
+      13,
+      8,
+      1
+    ],
+    "weak_multiplier": 2.0,
+    "replacement": true,
+    "num_samples": 1399,
+    "seed": 42,
+    "epoch_draws": 1399,
+    "unique_images_sampled": 873,
+    "repeated_image_draws": 526,
+    "maximum_draws_for_one_image": 8,
+    "weak_class_image_draws": 446,
+    "weak_class_draw_percent": 31.879914224446033,
+    "classes": [
+      {
+        "class_id": 0,
+        "class_name": "Buffalo",
+        "raw_train_object_count": 91,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 60,
+        "exposure_multiplier": 0.8571428571428571
+      },
+      {
+        "class_id": 1,
+        "class_name": "Camel",
+        "raw_train_object_count": 100,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 120,
+        "exposure_multiplier": 1.7142857142857142
+      },
+      {
+        "class_id": 2,
+        "class_name": "Cat",
+        "raw_train_object_count": 84,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 60,
+        "exposure_multiplier": 0.8571428571428571
+      },
+      {
+        "class_id": 3,
+        "class_name": "Cheetah",
+        "raw_train_object_count": 103,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 57,
+        "exposure_multiplier": 0.8142857142857143
+      },
+      {
+        "class_id": 4,
+        "class_name": "Cow",
+        "raw_train_object_count": 89,
+        "raw_train_image_count": 69,
+        "sampled_image_occurrences": 55,
+        "exposure_multiplier": 0.7971014492753623
+      },
+      {
+        "class_id": 5,
+        "class_name": "Deer",
+        "raw_train_object_count": 83,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 67,
+        "exposure_multiplier": 0.9571428571428572
+      },
+      {
+        "class_id": 6,
+        "class_name": "Dog",
+        "raw_train_object_count": 83,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 64,
+        "exposure_multiplier": 0.9142857142857143
+      },
+      {
+        "class_id": 7,
+        "class_name": "Elephant",
+        "raw_train_object_count": 103,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 70,
+        "exposure_multiplier": 1.0
+      },
+      {
+        "class_id": 8,
+        "class_name": "Goat",
+        "raw_train_object_count": 101,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 103,
+        "exposure_multiplier": 1.4714285714285715
+      },
+      {
+        "class_id": 9,
+        "class_name": "Gorilla",
+        "raw_train_object_count": 84,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 62,
+        "exposure_multiplier": 0.8857142857142857
+      },
+      {
+        "class_id": 10,
+        "class_name": "Hippo",
+        "raw_train_object_count": 102,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 54,
+        "exposure_multiplier": 0.7714285714285715
+      },
+      {
+        "class_id": 11,
+        "class_name": "Horse",
+        "raw_train_object_count": 89,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 58,
+        "exposure_multiplier": 0.8285714285714286
+      },
+      {
+        "class_id": 12,
+        "class_name": "Lion",
+        "raw_train_object_count": 81,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 46,
+        "exposure_multiplier": 0.6571428571428571
+      },
+      {
+        "class_id": 13,
+        "class_name": "Monkeys",
+        "raw_train_object_count": 91,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 121,
+        "exposure_multiplier": 1.7285714285714286
+      },
+      {
+        "class_id": 14,
+        "class_name": "Panda",
+        "raw_train_object_count": 81,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 102,
+        "exposure_multiplier": 1.457142857142857
+      },
+      {
+        "class_id": 15,
+        "class_name": "Rat",
+        "raw_train_object_count": 117,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 61,
+        "exposure_multiplier": 0.8714285714285714
+      },
+      {
+        "class_id": 16,
+        "class_name": "Rhino",
+        "raw_train_object_count": 98,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 48,
+        "exposure_multiplier": 0.6857142857142857
+      },
+      {
+        "class_id": 17,
+        "class_name": "Tiger",
+        "raw_train_object_count": 75,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 65,
+        "exposure_multiplier": 0.9285714285714286
+      },
+      {
+        "class_id": 18,
+        "class_name": "Wolf",
+        "raw_train_object_count": 74,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 76,
+        "exposure_multiplier": 1.0857142857142856
+      },
+      {
+        "class_id": 19,
+        "class_name": "Zebra",
+        "raw_train_object_count": 160,
+        "raw_train_image_count": 70,
+        "sampled_image_occurrences": 50,
+        "exposure_multiplier": 0.7142857142857143
+      }
+    ]
+  }
+}

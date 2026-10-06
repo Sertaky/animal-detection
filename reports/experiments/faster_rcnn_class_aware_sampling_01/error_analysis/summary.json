@@ -1,0 +1,40 @@
+{
+  "checkpoint_epoch": 10,
+  "validation_images": 299,
+  "inference_runtime_seconds": 37.38266800000565,
+  "raw_predictions": 1246,
+  "score_threshold": 0.5,
+  "iou_threshold": 0.5,
+  "localization_floor": 0.1,
+  "ground_truth_objects": 412,
+  "true_positives": 324,
+  "false_positives": 116,
+  "false_negatives": 88,
+  "precision": 0.7363636363636363,
+  "recall": 0.7864077669902912,
+  "false_positive_categories": {
+    "class_confusion": 66,
+    "localization": 29,
+    "background": 9,
+    "duplicate": 1,
+    "other_overlap": 11
+  },
+  "matching_note": "These are score-0.50, IoU-0.50 diagnostic one-to-one counts. The FP categories are local explanations, not official COCO metric types. An unmatched prediction may overlap a GT that is also counted as a false negative.",
+  "visualization_counts": {
+    "strongest_true_positives": 3,
+    "high_confidence_false_positives": 3,
+    "missed_objects": 3,
+    "localization": 3,
+    "class_confusion": 3,
+    "duplicate": 1,
+    "crowded_scenes": 3,
+    "low_ap_panda": 3,
+    "low_ap_camel": 3,
+    "low_ap_monkeys": 3,
+    "low_ap_goat": 3
+  },
+  "valid_raw_sha256_before": "005765ab254a4a6c5e7c354e8803ea6a2918ca8e9215f65a5cfcccf16b6de749",
+  "valid_raw_sha256_after": "005765ab254a4a6c5e7c354e8803ea6a2918ca8e9215f65a5cfcccf16b6de749",
+  "test_split_constructed": false,
+  "optimizer_used": false
+}
