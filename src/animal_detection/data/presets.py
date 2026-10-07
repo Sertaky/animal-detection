@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .transforms import Compose, RandomHorizontalFlip, Resize, ToTensor
+from .transforms import Compose, RandomHorizontalFlip, RandomScaleJitter512, Resize, ToTensor
 
 DEFAULT_IMAGE_SIZE = (640, 640)
 
@@ -25,3 +25,14 @@ def get_train_transforms(
 def get_eval_transforms(size: tuple[int, int] = DEFAULT_IMAGE_SIZE) -> Compose:
     """Deterministically resize and tensorize an evaluation sample."""
     return Compose([Resize(size), ToTensor()])
+
+
+def get_scale_jitter_train_transforms(
+    *, horizontal_flip_probability: float = 0.5,
+) -> Compose:
+    """Use the fixed Experiment 05 scale-jitter policy before flip/tensorization."""
+    return Compose([
+        RandomScaleJitter512(scale_factors=(0.8, 1.0, 1.2), output_size=(512, 512)),
+        RandomHorizontalFlip(horizontal_flip_probability),
+        ToTensor(),
+    ])

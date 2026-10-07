@@ -308,3 +308,38 @@ recall targets and came with lower overall AP. No test metrics were used. See th
 [difficulty-effect report](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/difficulty_sampling_effect.txt),
 [baseline comparison](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/comparison_vs_baseline_01.json),
 and [class-aware comparison](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/comparison_vs_class_aware_sampling_01.txt).
+
+## Experiment 05: Scale Jitter
+
+Experiment 05 tests whether changing apparent object scale during training improves
+small-object robustness without repeated-image sampling. It changes only the train
+geometric transform: `RandomScaleJitter512` uniformly selects 0.8, 1.0, or 1.2,
+using half-up integer rounding to produce 410x410, 512x512, or 614x614 images.
+The 0.8 branch uses random zero-filled placement on a 512x512 canvas; the 1.2
+branch uses a random 512x512 crop with box clipping; 1.0 is the baseline resize.
+Horizontal flip remains 0.5. Validation and every model/optimization/split setting
+remain identical to Baseline 01, with standard shuffled one-pass training.
+
+The seed-42 simulation assigned 458/478/463 images to scales 0.8/1.0/1.2.
+Training boxes shifted from 289/696/904 small/medium/large to 314/715/859.
+Of 1,889 boxes, 468 were clipped, one was completely removed, and no transformed
+image became empty. Boundary-touch frequency rose from 27.26% to 34.11%.
+Faster R-CNN retained internal `min_size=(512,)` and `max_size=512`; its input
+batch stayed 512x512, while a verified real box changed normalized area from
+0.2912 to 0.4541 to 0.6531 across the three branches.
+
+The best checkpoint was epoch 10: validation mAP=0.576239, mAP@0.50=0.820633,
+mAP@0.75=0.621193, and mAR@100=0.698096. Versus Baseline 01, small-object recall
+improved from 0.381579 to 0.460526 and 4+-object recall from 0.432836 to 0.447761.
+Overall mAP was effectively flat (+0.000754), while mAP@0.75 fell 0.031838,
+precision fell 0.021369, localization errors rose from 22 to 31, and background
+false positives doubled from 8 to 16. Strong reference AP was mixed rather than
+stable: Dog and Wolf improved, while Rhino and Lion declined.
+
+Conclusion: scale jitter is useful evidence for targeted small/crowded recall, but
+is not a clear general replacement for Baseline 01 because its negligible mAP gain
+does not offset weaker localization-sensitive AP, precision, and error counts.
+Baseline 01 remains the best general configuration. No test metrics were used.
+See the [effect report](reports/experiments/faster_rcnn_scale_jitter_01/scale_jitter_effect.txt),
+[baseline comparison](reports/experiments/faster_rcnn_scale_jitter_01/comparison_vs_baseline_01.json),
+and [cross-experiment comparison](reports/experiments/faster_rcnn_scale_jitter_01/comparison_with_previous_experiments.txt).

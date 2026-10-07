@@ -2,7 +2,7 @@
 
 from .collate import detection_collate_fn
 from .label_mapping import dataset_label_to_model_label, model_label_to_dataset_label
-from .presets import get_eval_transforms, get_train_transforms
+from .presets import get_eval_transforms, get_scale_jitter_train_transforms, get_train_transforms
 from .sampling import (
     build_class_aware_image_weights,
     build_class_aware_sampler,
@@ -13,7 +13,7 @@ from .sampling import (
     sampling_diagnostics,
 )
 from .target_adapter import TorchvisionDetectionDataset, adapt_target_for_torchvision
-from .transforms import Compose, RandomHorizontalFlip, Resize, ToTensor
+from .transforms import Compose, RandomHorizontalFlip, RandomScaleJitter512, Resize, ToTensor
 from .validation import (
     TargetValidationError,
     validate_dataset_target,
@@ -25,6 +25,7 @@ from .yolo_detection_dataset import YoloDetectionDataset
 __all__ = [
     "Compose",
     "RandomHorizontalFlip",
+    "RandomScaleJitter512",
     "Resize",
     "TargetValidationError",
     "ToTensor",
@@ -40,6 +41,7 @@ __all__ = [
     "detection_collate_fn",
     "difficulty_sampling_diagnostics",
     "get_eval_transforms",
+    "get_scale_jitter_train_transforms",
     "get_train_transforms",
     "model_label_to_dataset_label",
     "sampling_diagnostics",

@@ -1,0 +1,96 @@
+{
+  "split": "train",
+  "test_split_constructed": false,
+  "seed": 42,
+  "usable_training_images": 1399,
+  "policy": {
+    "scale_factors": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "output_size": [
+      512,
+      512
+    ],
+    "scaled_sizes": {
+      "0.8": [
+        410,
+        410
+      ],
+      "1.0": [
+        512,
+        512
+      ],
+      "1.2": [
+        614,
+        614
+      ]
+    },
+    "rounding_rule": "floor(output_dimension * scale + 0.5)",
+    "padding": "random placement, zero fill",
+    "crop": "random 512x512 crop"
+  },
+  "scale_assignments": {
+    "1.2": 463,
+    "0.8": 458,
+    "1.0": 478
+  },
+  "objects": {
+    "before": 1889,
+    "after": 1888
+  },
+  "size_bins": {
+    "before": {
+      "large": 904,
+      "medium": 696,
+      "small": 289
+    },
+    "after": {
+      "large": 859,
+      "medium": 715,
+      "small": 314
+    }
+  },
+  "boxes_clipped": 468,
+  "boxes_completely_removed": 1,
+  "images_becoming_zero_object": 0,
+  "mean_objects_per_image": {
+    "before": 1.3502501786990708,
+    "after": 1.3495353824160115
+  },
+  "boundary_touch": {
+    "before_count": 515,
+    "after_count": 644,
+    "before_fraction": 0.2726310217046056,
+    "after_fraction": 0.3411016949152542
+  },
+  "safety": {
+    "maximum_removed_object_fraction": 0.05,
+    "maximum_zero_object_image_fraction": 0.01,
+    "invalid_coordinate_samples": 0,
+    "label_box_mismatch_samples": 0,
+    "nonfinite_coordinate_samples": 0,
+    "removed_object_fraction": 0.0005293806246691371,
+    "zero_object_image_fraction": 0.0,
+    "passed": true
+  },
+  "visualizations": [
+    "augmentation_visualizations\\scale_1p2_01_buffalo-1-_jpg.rf.51d6a1b2c76c6a43e4e03e2363f3c5ca.jpg",
+    "augmentation_visualizations\\cropped_partial_01_buffalo-1-_jpg.rf.51d6a1b2c76c6a43e4e03e2363f3c5ca.jpg",
+    "augmentation_visualizations\\scale_1p2_02_buffalo-101-_jpg.rf.7f7ae7b96466f69b839fae5f4349be62.jpg",
+    "augmentation_visualizations\\scale_0p8_01_buffalo-102-_jpg.rf.1cfb7d5384bba37f1349565b69433530.jpg",
+    "augmentation_visualizations\\scale_0p8_02_buffalo-103-_jpg.rf.100ab07777ba45d1a245551899eecdff.jpg",
+    "augmentation_visualizations\\scale_1p2_03_buffalo-105-_jpg.rf.247ac948097d4827575d8a4cc80bd345.jpg",
+    "augmentation_visualizations\\scale_1p0_01_buffalo-106-_jpg.rf.fa58b53b678065cd73f1ded11c55df68.jpg",
+    "augmentation_visualizations\\scale_0p8_03_buffalo-107-_jpg.rf.25717705249b7ac060f6efa6c92cf116.jpg",
+    "augmentation_visualizations\\scale_1p0_02_buffalo-112-_jpg.rf.68842b4683001b003c5d3081d1e6e0de.jpg",
+    "augmentation_visualizations\\small_object_01_buffalo-115-_jpg.rf.3e3ff22fea1e5a8683a44350678f450e.jpg",
+    "augmentation_visualizations\\crowded_01_buffalo-115-_jpg.rf.3e3ff22fea1e5a8683a44350678f450e.jpg",
+    "augmentation_visualizations\\scale_1p0_03_buffalo-116-_jpg.rf.0f522dd60cf2492057c66ad59a5c7ff9.jpg",
+    "augmentation_visualizations\\small_object_02_buffalo-3-_jpg.rf.66ce7544e6756c292bf25ef8e49d09f6.jpg",
+    "augmentation_visualizations\\small_object_03_buffalo-63-_jpg.rf.85b3f12db008c0a9b22dc5aab2c57337.jpg",
+    "augmentation_visualizations\\crowded_02_buffalo-63-_jpg.rf.85b3f12db008c0a9b22dc5aab2c57337.jpg",
+    "augmentation_visualizations\\crowded_03_camel-106-_jpg.rf.9840642c1b8082d14b5d510374073b18.jpg"
+  ]
+}

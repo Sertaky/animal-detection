@@ -2,8 +2,12 @@ from __future__ import annotations
 
 import torch
 from PIL import Image
+from unittest.mock import patch
+import random
 
-from animal_detection.data import Compose, RandomHorizontalFlip, Resize, ToTensor
+from animal_detection.data import (
+    Compose, RandomHorizontalFlip, RandomScaleJitter512, Resize, ToTensor,
+)
 
 
 def target_with_boxes(boxes: list[list[float]], labels: list[int]) -> dict:
@@ -81,3 +85,114 @@ def test_compose_applies_transforms_in_declared_order() -> None:
     image = Image.new("RGB", (10, 10))
     Compose([Recorder("resize"), Recorder("flip"), Recorder("tensor")])(image, {})
     assert calls == ["resize", "flip", "tensor"]
+
+
+def jitter_target(boxes: list[list[float]], labels: list[int]) -> dict:
+    return {
+        "boxes": torch.tensor(boxes, dtype=torch.float32).reshape(-1, 4),
+        "labels": torch.tensor(labels, dtype=torch.int64),
+        "original_size": torch.tensor([100, 100], dtype=torch.int64),
+        "size": torch.tensor([100, 100], dtype=torch.int64),
+    }
+
+
+def test_scale_one_matches_fixed_resize_512() -> None:
+    image = Image.new("RGB", (100, 100), color="white")
+    target = jitter_target([[10, 20, 30, 40]], [2])
+    jitter_image, jittered, metadata = RandomScaleJitter512().apply_with_parameters(
+        image, target, scale_factor=1.0, offset_x=0, offset_y=0
+    )
+    resize_image, resized = Resize((512, 512))(image, target)
+    assert jitter_image.size == resize_image.size == (512, 512)
+    torch.testing.assert_close(jittered["boxes"], resized["boxes"])
+    assert metadata["operation"] == "resize"
+
+
+def test_scale_point_eight_pads_and_shifts_boxes() -> None:
+    image = Image.new("RGB", (100, 100), color="white")
+    output, target, metadata = RandomScaleJitter512().apply_with_parameters(
+        image, jitter_target([[10, 20, 30, 40]], [2]),
+        scale_factor=0.8, offset_x=7, offset_y=11,
+    )
+    assert metadata["size_after_scaling"] == [410, 410]
+    assert output.size == (512, 512)
+    torch.testing.assert_close(
+        target["boxes"], torch.tensor([[48.0, 93.0, 130.0, 175.0]])
+    )
+
+
+def test_scale_one_point_two_crops_shifts_and_clips() -> None:
+    image = Image.new("RGB", (100, 100), color="white")
+    output, target, metadata = RandomScaleJitter512().apply_with_parameters(
+        image, jitter_target([[10, 20, 90, 100]], [4]),
+        scale_factor=1.2, offset_x=50, offset_y=80,
+    )
+    assert metadata["size_after_scaling"] == [614, 614]
+    assert output.size == (512, 512)
+    torch.testing.assert_close(
+        target["boxes"], torch.tensor([[11.4, 42.8, 502.6, 512.0]]), atol=1e-4, rtol=1e-5
+    )
+    assert metadata["boxes_clipped"] == 1
+
+
+def test_crop_removes_only_fully_invisible_boxes_and_keeps_labels_aligned() -> None:
+    image = Image.new("RGB", (100, 100), color="white")
+    _, target, metadata = RandomScaleJitter512().apply_with_parameters(
+        image,
+        jitter_target([[0, 0, 10, 10], [10, 0, 30, 30]], [3, 8]),
+        scale_factor=1.2, offset_x=102, offset_y=0,
+    )
+    assert metadata["boxes_removed"] == 1
+    assert target["boxes"].shape == (1, 4)
+    assert target["labels"].tolist() == [8]
+    assert target["boxes"][0, 0] == 0
+    assert target["boxes"][0, 2] > 0
+
+
+def test_crop_can_return_correct_empty_target_shapes() -> None:
+    image = Image.new("RGB", (100, 100), color="white")
+    _, target, metadata = RandomScaleJitter512().apply_with_parameters(
+        image, jitter_target([[0, 0, 10, 10]], [3]),
+        scale_factor=1.2, offset_x=102, offset_y=102,
+    )
+    assert metadata["boxes_removed"] == 1
+    assert target["boxes"].shape == (0, 4)
+    assert target["boxes"].dtype == torch.float32
+    assert target["labels"].shape == (0,)
+    assert target["labels"].dtype == torch.int64
+
+
+def test_flip_still_aligns_after_scale_jitter() -> None:
+    image = Image.new("RGB", (100, 100), color="white")
+    jitter = RandomScaleJitter512()
+    image, target, _ = jitter.apply_with_parameters(
+        image, jitter_target([[10, 20, 30, 40]], [2]),
+        scale_factor=0.8, offset_x=7, offset_y=11,
+    )
+    _, target = RandomHorizontalFlip(p=1.0)(image, target)
+    torch.testing.assert_close(
+        target["boxes"], torch.tensor([[382.0, 93.0, 464.0, 175.0]])
+    )
+
+
+def test_scale_selection_uses_only_declared_factors() -> None:
+    transform = RandomScaleJitter512()
+    image = Image.new("RGB", (100, 100), color="white")
+    target = jitter_target([], [])
+    with patch("animal_detection.data.transforms.random.choice", return_value=1.0) as choice:
+        transform(image, target)
+    assert choice.call_args.args[0] == (0.8, 1.0, 1.2)
+
+
+def test_scale_jitter_is_deterministic_with_fixed_seed_and_non_mutating() -> None:
+    transform = RandomScaleJitter512()
+    image = Image.new("RGB", (100, 100), color="white")
+    target = jitter_target([[10, 20, 30, 40]], [2])
+    original_boxes = target["boxes"].clone()
+    random.seed(42)
+    first_image, first = transform(image, target)
+    random.seed(42)
+    second_image, second = transform(image, target)
+    assert first_image.tobytes() == second_image.tobytes()
+    torch.testing.assert_close(first["boxes"], second["boxes"])
+    torch.testing.assert_close(target["boxes"], original_boxes)

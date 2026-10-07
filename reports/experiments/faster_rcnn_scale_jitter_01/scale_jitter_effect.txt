@@ -1,0 +1,17 @@
+SCALE-JITTER EFFECT
+
+1. Scale use: 0.8=458, 1.0=478, 1.2=463.
+2. Size bins small/medium/large: 289/696/904 -> 314/715/859.
+3. Boxes clipped: 468.
+4. Boxes removed: 1.
+5. Zero-object transformed samples: 0.
+6. Small recall delta: +0.078947.
+7. Medium/large recall deltas: +0.007519/-0.009852.
+8. Four-plus-object recall delta: +0.014925.
+9. Overall mAP delta: +0.000754.
+10. mAP75 delta: -0.031838.
+11. Localization error delta: +9; mean matched IoU delta +0.001464.
+12. Strong reference AP deltas: Dog +0.026525, Wolf +0.052457, Rhino -0.029887, Lion -0.046670; stable within +/-0.02: False.
+13. Overall beneficial: False. Targeted recall improved, but aggregate mAP was effectively flat while mAP75, precision, localization errors, background FPs, and strong-class stability worsened; Baseline 01 remains the better general configuration.
+
+No test metrics were used.

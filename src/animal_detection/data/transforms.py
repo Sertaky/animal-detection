@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import random
+import math
 from collections.abc import Callable, Sequence
 from typing import Any
 
@@ -129,3 +130,145 @@ class Resize:
             [new_height, new_width], dtype=torch.int64, device=boxes.device
         )
         return resized_image, updated
+
+
+class RandomScaleJitter512:
+    """Resize to a sampled scale, then randomly pad or crop to a fixed canvas.
+
+    Scaled dimensions use deterministic half-up rounding:
+    ``floor(output_dimension * scale + 0.5)``. Random choices use Python's
+    process-wide ``random`` module so the project's existing seed controls scale,
+    crop, and padding decisions.
+    """
+
+    def __init__(
+        self,
+        scale_factors: Sequence[float] = (0.8, 1.0, 1.2),
+        output_size: tuple[int, int] = (512, 512),
+    ) -> None:
+        if not scale_factors or any(factor <= 0 for factor in scale_factors):
+            raise ValueError("scale_factors must contain positive values")
+        if len(output_size) != 2 or any(value <= 0 for value in output_size):
+            raise ValueError("output_size must contain two positive dimensions")
+        self.scale_factors = tuple(float(factor) for factor in scale_factors)
+        self.output_size = tuple(int(value) for value in output_size)
+
+    def scaled_size(self, scale_factor: float) -> tuple[int, int]:
+        height, width = self.output_size
+        return (
+            math.floor(height * scale_factor + 0.5),
+            math.floor(width * scale_factor + 0.5),
+        )
+
+    def __call__(
+        self, image: Image.Image, target: DetectionTarget
+    ) -> tuple[Image.Image, DetectionTarget]:
+        scale_factor = random.choice(self.scale_factors)
+        scaled_height, scaled_width = self.scaled_size(scale_factor)
+        output_height, output_width = self.output_size
+        offset_x = random.randint(0, abs(output_width - scaled_width))
+        offset_y = random.randint(0, abs(output_height - scaled_height))
+        transformed_image, transformed_target, _ = self.apply_with_parameters(
+            image, target, scale_factor=scale_factor,
+            offset_x=offset_x, offset_y=offset_y,
+        )
+        return transformed_image, transformed_target
+
+    def apply_with_parameters(
+        self,
+        image: Image.Image,
+        target: DetectionTarget,
+        *,
+        scale_factor: float,
+        offset_x: int,
+        offset_y: int,
+    ) -> tuple[Image.Image, DetectionTarget, dict[str, Any]]:
+        """Apply explicit scale/offset parameters and return diagnostic metadata."""
+        if not isinstance(image, Image.Image):
+            raise TypeError("RandomScaleJitter512 expects a Pillow image before ToTensor")
+        if scale_factor not in self.scale_factors:
+            raise ValueError(f"scale_factor must be one of {self.scale_factors}")
+        boxes_value = target.get("boxes")
+        labels_value = target.get("labels")
+        if not isinstance(boxes_value, Tensor) or not isinstance(labels_value, Tensor):
+            raise TypeError("target boxes and labels must be tensors")
+        boxes = boxes_value.clone().to(dtype=torch.float32)
+        labels = labels_value.clone()
+        if boxes.shape != (labels.shape[0], 4):
+            raise ValueError("boxes must have shape (N,4) aligned with labels")
+
+        old_height, old_width = _image_size(image)
+        scaled_height, scaled_width = self.scaled_size(scale_factor)
+        output_height, output_width = self.output_size
+        max_x = abs(output_width - scaled_width)
+        max_y = abs(output_height - scaled_height)
+        if not 0 <= offset_x <= max_x or not 0 <= offset_y <= max_y:
+            raise ValueError("offset is outside the valid padding/crop range")
+
+        resized = image.resize((scaled_width, scaled_height), Image.Resampling.BILINEAR)
+        if boxes.numel():
+            boxes[:, [0, 2]] = boxes[:, [0, 2]] * (scaled_width / old_width)
+            boxes[:, [1, 3]] = boxes[:, [1, 3]] * (scaled_height / old_height)
+
+        clipped_mask = torch.zeros((boxes.shape[0],), dtype=torch.bool)
+        if scaled_width < output_width or scaled_height < output_height:
+            canvas = Image.new(image.mode, (output_width, output_height), color=0)
+            canvas.paste(resized, (offset_x, offset_y))
+            boxes[:, [0, 2]] = boxes[:, [0, 2]] + offset_x
+            boxes[:, [1, 3]] = boxes[:, [1, 3]] + offset_y
+            operation = "padding"
+            output_image = canvas
+        elif scaled_width > output_width or scaled_height > output_height:
+            before_clip = boxes.clone()
+            boxes[:, [0, 2]] = boxes[:, [0, 2]] - offset_x
+            boxes[:, [1, 3]] = boxes[:, [1, 3]] - offset_y
+            boxes[:, [0, 2]] = boxes[:, [0, 2]].clamp(0, output_width)
+            boxes[:, [1, 3]] = boxes[:, [1, 3]].clamp(0, output_height)
+            shifted_unclipped = before_clip.clone()
+            shifted_unclipped[:, [0, 2]] -= offset_x
+            shifted_unclipped[:, [1, 3]] -= offset_y
+            clipped_mask = torch.any(boxes != shifted_unclipped, dim=1)
+            output_image = resized.crop(
+                (offset_x, offset_y, offset_x + output_width, offset_y + output_height)
+            )
+            operation = "crop"
+        else:
+            if offset_x or offset_y:
+                raise ValueError("scale 1.0 requires zero offsets")
+            output_image = resized
+            operation = "resize"
+
+        keep = (boxes[:, 2] > boxes[:, 0]) & (boxes[:, 3] > boxes[:, 1])
+        updated = dict(target)
+        updated["boxes"] = boxes[keep].reshape(-1, 4).to(dtype=torch.float32)
+        updated["labels"] = labels[keep].reshape(-1).to(dtype=torch.int64)
+        for key in ("area", "iscrowd"):
+            value = target.get(key)
+            if isinstance(value, Tensor) and value.ndim >= 1 and value.shape[0] == keep.shape[0]:
+                updated[key] = value.clone()[keep]
+        if "area" in updated:
+            kept_boxes = updated["boxes"]
+            updated["area"] = (
+                (kept_boxes[:, 2] - kept_boxes[:, 0])
+                * (kept_boxes[:, 3] - kept_boxes[:, 1])
+            ).to(dtype=torch.float32)
+        updated["size"] = torch.tensor(
+            [output_height, output_width], dtype=torch.int64, device=boxes.device
+        )
+        metadata = {
+            "scale_factor": scale_factor,
+            "rounding_rule": "floor(output_dimension * scale + 0.5)",
+            "size_before": [old_height, old_width],
+            "size_after_scaling": [scaled_height, scaled_width],
+            "final_canvas_size": [output_height, output_width],
+            "operation": operation,
+            "offset_x": offset_x,
+            "offset_y": offset_y,
+            "boxes_before": boxes_value.tolist(),
+            "boxes_after": updated["boxes"].tolist(),
+            "objects_before": int(boxes_value.shape[0]),
+            "objects_after": int(updated["boxes"].shape[0]),
+            "boxes_clipped": int(clipped_mask.sum()),
+            "boxes_removed": int((~keep).sum()),
+        }
+        return output_image, updated, metadata

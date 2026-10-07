@@ -26,6 +26,8 @@ if str(SRC_ROOT) not in sys.path:
 
 from animal_detection.data import (
     TorchvisionDetectionDataset,
+    RandomScaleJitter512,
+    ToTensor,
     YoloDetectionDataset,
     build_class_aware_image_weights,
     build_class_aware_sampler,
@@ -34,6 +36,7 @@ from animal_detection.data import (
     compute_image_difficulty_flags,
     detection_collate_fn,
     get_eval_transforms,
+    get_scale_jitter_train_transforms,
     get_train_transforms,
     difficulty_sampling_diagnostics,
     sampling_diagnostics,
@@ -197,6 +200,10 @@ def main() -> int:
     parser.add_argument("--crowded-object-count", type=int, default=4)
     parser.add_argument("--difficulty-multiplier", type=float, default=2.0)
     parser.add_argument(
+        "--scale-jitter", action="store_true",
+        help="Replace fixed train resize with the controlled RandomScaleJitter512 policy.",
+    )
+    parser.add_argument(
         "--exclusions-manifest", type=Path,
         default=PROJECT_ROOT / "data" / "manifests" / "excluded_samples.json",
     )
@@ -232,6 +239,10 @@ def main() -> int:
         parser.error("weak-multiplier must be at least 1.0")
     if args.class_aware_sampling and args.difficulty_aware_sampling:
         parser.error("Class-aware and difficulty-aware sampling cannot be combined")
+    if args.scale_jitter and (args.class_aware_sampling or args.difficulty_aware_sampling):
+        parser.error("Scale jitter cannot be combined with a non-baseline sampling policy")
+    if args.scale_jitter and args.image_size != 512:
+        parser.error("The controlled scale-jitter policy requires image-size 512")
     if not 0.0 < args.small_area_threshold <= 1.0:
         parser.error("small-area-threshold must be in (0, 1]")
     if args.crowded_object_count < 1 or args.difficulty_multiplier < 1.0:
@@ -264,7 +275,10 @@ def main() -> int:
     train_base = YoloDetectionDataset(
         args.dataset_root,
         "train",
-        transforms=get_train_transforms(size=size),
+        transforms=(
+            get_scale_jitter_train_transforms(horizontal_flip_probability=0.5)
+            if args.scale_jitter else get_train_transforms(size=size)
+        ),
     )
     valid_base = YoloDetectionDataset(
         args.dataset_root,
@@ -391,7 +405,10 @@ def main() -> int:
         "trainable_backbone_layers": 5,
         "optimizer": "SGD",
         "scheduler": {"type": "StepLR", "step_size": args.step_size, "gamma": args.gamma},
-        "train_transforms": [f"Resize({args.image_size},{args.image_size})", "RandomHorizontalFlip(p=0.5)", "ToTensor"],
+        "train_transforms": (
+            ["RandomScaleJitter512(scale_factors=(0.8,1.0,1.2),output_size=(512,512))", "RandomHorizontalFlip(p=0.5)", "ToTensor"]
+            if args.scale_jitter else [f"Resize({args.image_size},{args.image_size})", "RandomHorizontalFlip(p=0.5)", "ToTensor"]
+        ),
         "valid_transforms": [f"Resize({args.image_size},{args.image_size})", "ToTensor"],
         "precision": "FP32",
         "train_usable_samples": len(train_dataset),
@@ -408,6 +425,12 @@ def main() -> int:
         "raw_train_valid_sha256_before": raw_hash_before,
         "controlled_change": (
             {
+                "variable": "train_geometric_transform",
+                "reference_value": "Resize(512,512)",
+                "experiment_value": "RandomScaleJitter512",
+            }
+            if args.scale_jitter else
+            {
                 "variable": "train_sampling_policy",
                 "reference_value": "shuffle",
                 "experiment_value": "WeightedRandomSampler",
@@ -422,6 +445,15 @@ def main() -> int:
             "faster_rcnn_class_aware_sampling_01"
             if args.difficulty_aware_sampling else None
         ),
+        "scale_jitter": ({
+            "scale_factors": [0.8, 1.0, 1.2],
+            "scaled_sizes": {"0.8": [410, 410], "1.0": [512, 512], "1.2": [614, 614]},
+            "rounding_rule": "floor(output_dimension * scale + 0.5)",
+            "output_canvas": [512, 512],
+            "padding": "random placement, zero fill",
+            "crop": "random 512x512 crop",
+            "horizontal_flip_probability": 0.5,
+        } if args.scale_jitter else None),
         "train_sampling": {
             "baseline": "shuffle",
             "experiment": "WeightedRandomSampler" if sampler_active else "shuffle",
@@ -513,6 +545,10 @@ def main() -> int:
         "total_parameters": total_parameters,
         "trainable_parameters": trainable_parameters,
         "reference_parameter_count": reference_parameters,
+        "model_internal_transform": {
+            "min_size": list(model.transform.min_size),
+            "max_size": model.transform.max_size,
+        },
     })
     write_json(config_path, configuration)
 
@@ -531,6 +567,57 @@ def main() -> int:
         loss_values = {name: float(value.detach().cpu()) for name, value in losses.items()}
         if not loss_values or not all(np.isfinite(value) for value in loss_values.values()):
             raise RuntimeError(f"Preflight produced non-finite losses: {loss_values}")
+        internal_input_verification = None
+        if args.scale_jitter:
+            geometry_dataset = YoloDetectionDataset(args.dataset_root, "train")
+            jitter = RandomScaleJitter512((0.8, 1.0, 1.2), (512, 512))
+            selected = None
+            for geometry_index in train_dataset.indices:
+                candidate_image, candidate_target = geometry_dataset[geometry_index]
+                if not candidate_target["boxes"].shape[0]:
+                    continue
+                _, _, candidate_meta = jitter.apply_with_parameters(
+                    candidate_image, candidate_target, scale_factor=1.2,
+                    offset_x=51, offset_y=51,
+                )
+                if candidate_meta["boxes_clipped"] == 0:
+                    selected = (geometry_index, candidate_image, candidate_target)
+                    break
+            if selected is None:
+                raise RuntimeError("Could not find an unclipped sample for scale verification")
+            geometry_index, source_image, source_target = selected
+            branches = []
+            for factor, offset in ((0.8, 51), (1.0, 0), (1.2, 51)):
+                branch_image, branch_target, metadata = jitter.apply_with_parameters(
+                    source_image, source_target, scale_factor=factor,
+                    offset_x=offset, offset_y=offset,
+                )
+                tensor, _ = ToTensor()(branch_image, branch_target)
+                transformed_list, _ = model.transform(
+                    [tensor.to(device)],
+                    [{"boxes": branch_target["boxes"].to(device), "labels": branch_target["labels"].to(device)}],
+                )
+                first_box = branch_target["boxes"][0]
+                normalized_area = float(
+                    (first_box[2] - first_box[0]) * (first_box[3] - first_box[1]) / (512 * 512)
+                )
+                branches.append({
+                    **metadata,
+                    "external_tensor_shape": list(tensor.shape),
+                    "batched_tensor_shape_before_backbone": list(transformed_list.tensors.shape),
+                    "first_box_normalized_area_on_canvas": normalized_area,
+                })
+            areas = [branch["first_box_normalized_area_on_canvas"] for branch in branches]
+            if not areas[0] < areas[1] < areas[2]:
+                raise RuntimeError(f"Scale jitter did not change relative object scale: {areas}")
+            internal_input_verification = {
+                "dataset_index": geometry_index,
+                "image_path": str(geometry_dataset.image_paths[geometry_index]),
+                "model_transform_min_size": list(model.transform.min_size),
+                "model_transform_max_size": model.transform.max_size,
+                "relative_scale_changes": True,
+                "branches": branches,
+            }
         preflight = {
             "passed": True,
             "device": str(device),
@@ -564,6 +651,9 @@ def main() -> int:
             ),
             "raw_train_valid_sha256": raw_hash_before,
             "sampling": sampling_report,
+            "standard_shuffle": not sampler_active,
+            "weighted_random_sampler_used": sampler_active,
+            "model_internal_input_verification": internal_input_verification,
         }
         write_json(reports_dir / "preflight.json", preflight)
         print(json.dumps(preflight, indent=2), flush=True)

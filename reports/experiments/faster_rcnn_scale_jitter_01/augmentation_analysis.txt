@@ -1,0 +1,12 @@
+SCALE-JITTER AUGMENTATION ANALYSIS
+
+Weights/classes are not used; this is a deterministic train-only transform simulation.
+Scale assignments: 0.8=458, 1.0=478, 1.2=463
+Objects before/after: 1889/1888
+Size bins before: small=289 medium=696 large=904
+Size bins after: small=314 medium=715 large=859
+Clipped=468 removed=1 zero-object images=0
+Mean objects/image: 1.350250 -> 1.349535
+Boundary touch: 515/1889 (27.26%) -> 644/1888 (34.11%)
+Safety passed: True
+Test split constructed: false

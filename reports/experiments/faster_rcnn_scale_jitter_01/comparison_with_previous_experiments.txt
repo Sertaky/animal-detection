@@ -1,0 +1,12 @@
+COMPARISON WITH PREVIOUS EXPERIMENTS
+
+Experiment | mAP | mAP50 | mAP75 | mAR100 | small recall | 4+ recall | precision | recall
+Baseline 01 | 0.575485 | 0.825687 | 0.653031 | 0.687444 | 0.381579 | 0.432836 | 0.752404 | 0.759709
+Experiment 02 (640) | 0.560321 | 0.809025 | 0.630468 | 0.684877 | 0.447368 | 0.492537 | 0.740047 | 0.766990
+Experiment 03 (class-aware) | 0.576391 | 0.830832 | 0.644557 | 0.688296 | 0.460526 | 0.447761 | 0.736364 | 0.786408
+Experiment 04 (difficulty-aware) | 0.564713 | 0.828431 | 0.628207 | 0.673316 | 0.381579 | 0.388060 | 0.750000 | 0.750000
+Experiment 05 (scale jitter) | 0.576239 | 0.820633 | 0.621193 | 0.698096 | 0.460526 | 0.447761 | 0.731034 | 0.771845
+
+Assessment uses all listed metrics, not a single-metric rank.
+Baseline 01 remains the best general configuration: Experiment 05 improves targeted recall but its effectively flat mAP, lower mAP75/precision, and increased localization/background errors prevent it from being a clear replacement.
+No test metrics were used.
