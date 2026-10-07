@@ -29,6 +29,16 @@ Several alternatives improved targeted metrics, but the original 512×512 baseli
 
 ## Dataset
 
+### Dataset source
+
+This project uses the [Multi-Class Animal Detection dataset on Kaggle](https://www.kaggle.com/datasets/notaashman/multiclass-animal-detection).
+
+The raw dataset is intentionally not included in this repository. Download it from Kaggle and extract it into the repository root as:
+
+```text
+Multi-Class Animal Detection.v1-yolov8/
+```
+
 | Split | Raw images | Used | Annotated objects | Role |
 |---|---:|---:|---:|---|
 | Train | 1,400 | 1,399 | 1,889 | Optimization |
