@@ -1,6 +1,6 @@
 # Multi-Class Animal Detection with Faster R-CNN
 
-A portfolio-grade computer-vision project covering dataset auditing, custom PyTorch detection pipelines, Faster R-CNN fine-tuning, controlled experimentation, error analysis, one-time held-out evaluation, and inference benchmarking.
+An end-to-end PyTorch object-detection project spanning audited data, Faster R-CNN fine-tuning, controlled experiments, held-out evaluation, and inference benchmarking.
 
 **Selected model:** Faster R-CNN ResNet50-FPN with COCO V1 pretrained weights
 
@@ -23,7 +23,7 @@ A portfolio-grade computer-vision project covering dataset auditing, custom PyTo
 
 ## Project Overview
 
-The goal is to detect and classify 20 animal categories in natural and curated imagery. The work goes beyond a single training run: it audits annotation quality, implements a model-safe dataset layer, tests focused hypotheses one variable at a time, analyzes failure modes, locks model selection using validation data, evaluates the held-out test set once, and measures deployment-relevant latency.
+The goal is to detect and classify 20 animal categories in natural and curated imagery. The engineering focus is evidence-driven model development: a validated data layer, one-variable experiments, explicit failure analysis, validation-only model selection, one locked held-out evaluation, and practical latency measurement.
 
 Several alternatives improved targeted metrics, but the original 512×512 baseline remained the best-balanced detector once aggregate AP, localization, class balance, compute, and error behavior were considered together.
 
@@ -150,6 +150,8 @@ Small objects remain substantially harder than medium and large objects, and rec
 
 ![Representative held-out test errors](reports/readme/failure_examples.png)
 
+*Representative cases connect the aggregate error counts to small/crowded misses, box-localization errors, and semantic confusion.*
+
 Full diagnostics and exact example paths are under [`reports/final_evaluation/error_analysis/`](reports/final_evaluation/error_analysis/).
 
 ## Controlled Experiments
@@ -159,21 +161,23 @@ Each experiment changed one primary variable while retaining the architecture, p
 | Experiment | Changed variable | mAP | mAP75 | Small recall | 4+ recall | Decision |
 |---|---|---:|---:|---:|---:|---|
 | Baseline 01 | Standard 512 training | 0.5755 | **0.6530** | 0.3816 | 0.4328 | **Selected** |
-| Experiment 02 | 640 resolution | 0.5603 | 0.6305 | 0.4474 | **0.4925** | Rejected |
-| Experiment 03 | Class-aware sampling | **0.5764** | 0.6446 | **0.4605** | 0.4478 | Rejected |
-| Experiment 04 | Difficulty-aware sampling | 0.5647 | 0.6282 | 0.3816 | 0.3881 | Rejected |
-| Experiment 05 | Scale jitter | 0.5762 | 0.6212 | **0.4605** | 0.4478 | Rejected |
+| Experiment 02 | 640 resolution | 0.5603 | 0.6305 | 0.4474 | **0.4925** | Not selected |
+| Experiment 03 | Class-aware sampling | **0.5764** | 0.6446 | **0.4605** | 0.4478 | Not selected |
+| Experiment 04 | Difficulty-aware sampling | 0.5647 | 0.6282 | 0.3816 | 0.3881 | Not selected |
+| Experiment 05 | Scale jitter | 0.5762 | 0.6212 | **0.4605** | 0.4478 | Not selected |
 
 ![Validation mAP across controlled experiments](reports/readme/experiment_map_comparison.png)
 
 ![Small-object and crowded-scene recall trade-offs](reports/readme/experiment_recall_tradeoff.png)
+
+*The alternatives moved targeted recall in different directions, but none offered a better overall balance than the selected baseline.*
 
 - **640 resolution** improved difficult-case recall but reduced overall AP and increased runtime and memory.
 - **Class-aware sampling** helped Camel and Goat and improved recall, but weakened strong-class balance.
 - **Difficulty-aware sampling** showed that repeated exposure to difficult images alone did not solve the difficult validation cases.
 - **Scale jitter** improved small/crowded recall, but localization-sensitive AP and precision declined.
 
-The original 512 baseline remained the best-balanced detector. The rejected configurations are useful hypothesis tests: they expose trade-offs and prevent model selection from becoming a search for any isolated metric gain.
+The original 512 baseline remained the best-balanced detector. The alternatives not selected are useful hypothesis tests: they expose trade-offs and prevent model selection from becoming a search for any isolated metric gain.
 
 Experiment details: [baseline](reports/experiments/faster_rcnn_baseline_01/summary.json), [640 comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison_vs_baseline_01.txt), [class-aware comparison](reports/experiments/faster_rcnn_class_aware_sampling_01/comparison_vs_baseline_01.txt), [difficulty-aware comparison](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/comparison_vs_baseline_01.txt), and [scale-jitter comparison](reports/experiments/faster_rcnn_scale_jitter_01/comparison_vs_baseline_01.txt).
 
