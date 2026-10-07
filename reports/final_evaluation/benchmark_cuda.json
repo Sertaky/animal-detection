@@ -1,0 +1,50 @@
+{
+  "checkpoint": "G:\\animal-detection\\checkpoints\\faster_rcnn_baseline_01\\best.pt",
+  "checkpoint_sha256": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+  "checkpoint_epoch": 9,
+  "device": "cuda",
+  "device_name": "NVIDIA GeForce RTX 3050 4GB Laptop GPU",
+  "split": "test",
+  "image_size": [
+    512,
+    512
+  ],
+  "batch_size": 1,
+  "representative_model_only_images": 10,
+  "model_loading_included": false,
+  "model_only_definition": "Preprocessed 3x512x512 tensors are already on the target device; timing includes the full torchvision detector call and its postprocessing.",
+  "end_to_end_definition": "Timing includes image decode, RGB conversion, annotation parse, Resize(512,512), ToTensor, device transfer, detector call, and detector postprocessing; it excludes model loading.",
+  "cuda_timing_synchronization": true,
+  "model_only": {
+    "warmup_iterations": 20,
+    "timed_iterations": 100,
+    "batch_size": 1,
+    "mean_latency_ms": 92.33874200843275,
+    "median_latency_ms": 92.06450002966449,
+    "p95_latency_ms": 95.7302000198979,
+    "images_per_second": 10.829690531290495,
+    "min_latency_ms": 88.16449996083975,
+    "max_latency_ms": 100.88410007301718,
+    "peak_cuda_allocated_bytes": 337361408,
+    "peak_cuda_reserved_bytes": 492830720,
+    "peak_cuda_allocated_mib": 321.73291015625,
+    "peak_cuda_reserved_mib": 470.0
+  },
+  "end_to_end": {
+    "warmup_iterations": 20,
+    "timed_iterations": 100,
+    "batch_size": 1,
+    "mean_latency_ms": 102.10052999667823,
+    "median_latency_ms": 102.17559995362535,
+    "p95_latency_ms": 106.27288495888934,
+    "images_per_second": 9.794268453185643,
+    "min_latency_ms": 97.46329998597503,
+    "max_latency_ms": 108.67029998917133,
+    "peak_cuda_allocated_bytes": 340376064,
+    "peak_cuda_reserved_bytes": 599785472,
+    "peak_cuda_allocated_mib": 324.60791015625,
+    "peak_cuda_reserved_mib": 572.0
+  },
+  "training_occurred": false,
+  "optimizer_constructed": false
+}

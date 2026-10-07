@@ -1,0 +1,12 @@
+INFERENCE BENCHMARK (CUDA)
+Device: NVIDIA GeForce RTX 3050 4GB Laptop GPU
+Checkpoint: G:\animal-detection\checkpoints\faster_rcnn_baseline_01\best.pt
+SHA-256: 890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f
+Split: test; preprocessing: Resize(512,512) + ToTensor; batch size: 1
+Warmup: 20; timed iterations: 100; model loading excluded
+CUDA synchronization surrounds each timed call.
+
+Model only: mean=92.339 ms, median=92.065 ms, p95=95.730 ms, throughput=10.830 images/s
+Model only: peak allocated=321.733 MiB, peak reserved=470.000 MiB
+End to end: mean=102.101 ms, median=102.176 ms, p95=106.273 ms, throughput=9.794 images/s
+End to end: peak allocated=324.608 MiB, peak reserved=572.000 MiB

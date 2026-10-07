@@ -1,0 +1,58 @@
+{
+  "lock_date": "2026-10-07",
+  "lock_state": "recorded_before_held_out_test_evaluation",
+  "selected_experiment": "faster_rcnn_baseline_01",
+  "selected_checkpoint": "checkpoints/faster_rcnn_baseline_01/best.pt",
+  "selected_checkpoint_sha256": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+  "selected_checkpoint_size_bytes": 331733579,
+  "selected_epoch": 9,
+  "selection_metric": "validation mAP@0.50:0.95",
+  "validation_metrics": {
+    "map": 0.575484573841095,
+    "map_50": 0.8256866335868835,
+    "map_75": 0.6530308127403259,
+    "mar_100": 0.6874443292617798
+  },
+  "rejected_experiments": [
+    {
+      "experiment": "faster_rcnn_resolution_640_01",
+      "changed_variable": "input resolution 640x640",
+      "best_epoch": 9,
+      "validation_map": 0.5603212118148804,
+      "validation_map_50": 0.809025228023529,
+      "validation_map_75": 0.6304676532745361,
+      "decision": "rejected as a replacement because it worsened the balanced validation result, localization, runtime, and memory"
+    },
+    {
+      "experiment": "faster_rcnn_class_aware_sampling_01",
+      "changed_variable": "class-aware weighted sampling",
+      "best_epoch": 10,
+      "validation_map": 0.5763913989067078,
+      "validation_map_50": 0.8308320045471191,
+      "validation_map_75": 0.6445570588111877,
+      "validation_mar_100": 0.6882959008216858,
+      "decision": "rejected as a replacement because the effectively flat aggregate result came with strong-class regressions"
+    },
+    {
+      "experiment": "faster_rcnn_difficulty_aware_sampling_01",
+      "changed_variable": "difficulty-aware weighted sampling",
+      "best_epoch": 10,
+      "validation_map": 0.5647130012512207,
+      "validation_map_50": 0.828430712223053,
+      "validation_map_75": 0.6282066106796265,
+      "validation_mar_100": 0.6733155250549316,
+      "decision": "rejected as a replacement because overall mAP and crowded recall worsened"
+    },
+    {
+      "experiment": "faster_rcnn_scale_jitter_01",
+      "changed_variable": "training geometric scale jitter",
+      "best_epoch": 10,
+      "validation_map": 0.5762386918067932,
+      "validation_map_50": 0.8206326365470886,
+      "validation_map_75": 0.6211930513381958,
+      "validation_mar_100": 0.6980962157249451,
+      "decision": "rejected as a replacement because the small aggregate gain did not outweigh poorer mAP50, mAP75, small recall, and crowded recall"
+    }
+  ],
+  "held_out_policy": "The held-out test set will not be used for model selection or further tuning. No checkpoint or threshold will be changed after observing test results."
+}

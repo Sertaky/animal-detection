@@ -1,0 +1,45 @@
+{
+  "method": "fixed normalized area",
+  "proposed_fixed_bin_counts": {
+    "small": 65,
+    "medium": 126,
+    "large": 197
+  },
+  "area_distribution": {
+    "count": 388,
+    "mean": 0.41895955345085967,
+    "median": 0.40537966948526505,
+    "q1": 0.16350557430269042,
+    "q3": 0.6357673972175695,
+    "min": 0.006413574302568392,
+    "max": 1.0
+  },
+  "boundaries": {
+    "small_lt": 0.1,
+    "medium_lt": 0.4,
+    "large_gte": 0.4
+  },
+  "groups": {
+    "small": {
+      "gt_objects": 65,
+      "tp": 28,
+      "fn": 37,
+      "recall": 0.4307692307692308,
+      "mean_matched_iou": 0.7739275632616743
+    },
+    "medium": {
+      "gt_objects": 126,
+      "tp": 111,
+      "fn": 15,
+      "recall": 0.8809523809523809,
+      "mean_matched_iou": 0.8256186277901205
+    },
+    "large": {
+      "gt_objects": 197,
+      "tp": 175,
+      "fn": 22,
+      "recall": 0.8883248730964467,
+      "mean_matched_iou": 0.8772822572920012
+    }
+  }
+}

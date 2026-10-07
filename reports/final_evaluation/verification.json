@@ -1,0 +1,21 @@
+{
+  "full_pytest": {
+    "command": "pytest -q",
+    "passed": 75,
+    "failed": 0,
+    "runtime_seconds": 8.85
+  },
+  "branch": "main",
+  "staged_files": 0,
+  "training_occurred": false,
+  "optimizer_step_executed": false,
+  "held_out_metric_passes": 1,
+  "post_test_model_selection": false,
+  "post_test_threshold_tuning": false,
+  "checkpoint_ignored_by_git": true,
+  "raw_dataset_sha256_final": "3621eb3f3d9f759787ce339d66a98212814643563d6db2fa0dd9b3c8afb23c57",
+  "test_sha256_final": "ed196911c6b60fcfed76b7f5fb43f448e0b758264ef4202fa6d57b255c7acfe7",
+  "checkpoint_sha256_final": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+  "exclusion_manifest_sha256_final": "7e4e3f49e39bca45ec1e715c113cb2a548b623210f119406f413d9b83b7aea30",
+  "integrity_result": "all recorded before/after/final hashes match"
+}

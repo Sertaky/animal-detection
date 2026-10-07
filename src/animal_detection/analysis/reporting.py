@@ -118,6 +118,8 @@ def aggregate(
     validation_metrics: dict[str, Any],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     images = cache["images"]
+    split_name = str(cache.get("split", "valid"))
+    split_label = "validation" if split_name == "valid" else split_name
     rows = diagnostic_rows(images, score_threshold, iou_threshold)
     gt_count = sum(len(image["ground_truth"]) for image in images)
     tp = sum(row["match"]["true_positives"] for row in rows)
@@ -286,7 +288,7 @@ def aggregate(
         },
     }
     crowd_report = {
-        "group_definition": "Number of annotated ground-truth objects per usable validation image.",
+        "group_definition": f"Number of annotated ground-truth objects per usable {split_label} image.",
         "groups": {
             group: {
                 **{key: crowd_samples[group][key] for key in ("images", "gt_objects", "tp", "fp", "fn")},
@@ -303,7 +305,8 @@ def aggregate(
     }
     summary = {
         "checkpoint_epoch": cache["checkpoint_epoch"],
-        "validation_images": len(images),
+        "split": split_name,
+        f"{split_label}_images": len(images),
         "inference_runtime_seconds": cache["inference_runtime_seconds"],
         "raw_predictions": cache["raw_prediction_count"],
         "score_threshold": score_threshold,
@@ -358,6 +361,8 @@ def generate_reports(
         write_json(report_dir / name, value)
     write_json(report_dir / "visualizations.json", visualization_manifest)
     summary = reports["summary.json"]
+    split_name = str(cache.get("split", "valid"))
+    split_label = "validation" if split_name == "valid" else split_name
     classes = reports["class_diagnostics.json"]["classes"]
     size = reports["object_size_analysis.json"]["groups"]
     crowd = reports["crowdedness_analysis.json"]["groups"]
@@ -399,8 +404,8 @@ def generate_reports(
             "class-focused sampling/augmentation comparison; its AP and diagnostic recall are below the overall values."
         )
     lines = [
-        f"VALIDATION ERROR ANALYSIS: {experiment_name} (diagnostic, not COCO AP)",
-        f"Checkpoint epoch {summary['checkpoint_epoch']}; {summary['validation_images']} usable validation images; "
+        f"{split_label.upper()} ERROR ANALYSIS: {experiment_name} (diagnostic, not COCO AP)",
+        f"Checkpoint epoch {summary['checkpoint_epoch']}; {summary[f'{split_label}_images']} usable {split_label} images; "
         f"score threshold {score_threshold:.2f}; IoU threshold {iou_threshold:.2f}.",
         f"GT={summary['ground_truth_objects']}, TP={summary['true_positives']}, "
         f"FP={summary['false_positives']}, FN={summary['false_negatives']}; "
@@ -416,7 +421,7 @@ def generate_reports(
         f"4. Matched boxes at IoU 0.50 to <0.75: {loc['matched_050_to_lt_075']} "
         f"({loc['matched_050_to_lt_075_fraction']:.1%} of TP); "
         f"validation mAP50 minus mAP75={loc['validation_map_50_minus_map_75']:.3f}.",
-        "5. Lowest existing validation AP classes: "
+        f"5. Lowest existing {split_label} AP classes: "
         + ", ".join(f"{item['class_name']} {item['baseline_validation_ap']:.3f}" for item in weak) + ".",
         "6. Size-group recalls: "
         + ", ".join(f"{name}={item['recall']:.3f} (n={item['gt_objects']})" for name, item in size.items()) + ".",

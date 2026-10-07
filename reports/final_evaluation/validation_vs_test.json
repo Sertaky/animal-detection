@@ -1,0 +1,219 @@
+{
+  "selected_model": "faster_rcnn_baseline_01",
+  "selection_basis": "validation only; comparison is descriptive and does not alter selection",
+  "metrics": {
+    "map": {
+      "validation": 0.575484573841095,
+      "test": 0.6206613183021545,
+      "delta_test_minus_validation": 0.04517674446105957
+    },
+    "map_50": {
+      "validation": 0.8256866335868835,
+      "test": 0.8774680495262146,
+      "delta_test_minus_validation": 0.051781415939331055
+    },
+    "map_75": {
+      "validation": 0.6530308127403259,
+      "test": 0.7092469930648804,
+      "delta_test_minus_validation": 0.05621618032455444
+    },
+    "mar_100": {
+      "validation": 0.6874443292617798,
+      "test": 0.7092012763023376,
+      "delta_test_minus_validation": 0.02175694704055786
+    },
+    "diagnostic_precision": {
+      "validation": 0.7524038461538461,
+      "test": 0.8071979434447301,
+      "delta_test_minus_validation": 0.054794097290883914
+    },
+    "diagnostic_recall": {
+      "validation": 0.7597087378640777,
+      "test": 0.8092783505154639,
+      "delta_test_minus_validation": 0.04956961265138626
+    },
+    "small_recall": {
+      "validation": 0.3815789473684211,
+      "test": 0.4307692307692308,
+      "delta_test_minus_validation": 0.04919028340080972
+    },
+    "medium_recall": {
+      "validation": 0.7744360902255639,
+      "test": 0.8809523809523809,
+      "delta_test_minus_validation": 0.10651629072681701
+    },
+    "large_recall": {
+      "validation": 0.8916256157635468,
+      "test": 0.8883248730964467,
+      "delta_test_minus_validation": -0.0033007426671001205
+    },
+    "1_object_recall": {
+      "validation": 0.8708333333333333,
+      "test": 0.8714859437751004,
+      "delta_test_minus_validation": 0.0006526104417670098
+    },
+    "2-3_object_recall": {
+      "validation": 0.7142857142857143,
+      "test": 0.8021978021978022,
+      "delta_test_minus_validation": 0.08791208791208793
+    },
+    "4+_object_recall": {
+      "validation": 0.43283582089552236,
+      "test": 0.5,
+      "delta_test_minus_validation": 0.06716417910447764
+    },
+    "mean_matched_iou": {
+      "validation": 0.8477820036274942,
+      "test": 0.8498026575864026,
+      "delta_test_minus_validation": 0.0020206539589083805
+    },
+    "median_matched_iou": {
+      "validation": 0.8762711802774049,
+      "test": 0.8745189151554649,
+      "delta_test_minus_validation": -0.0017522651219400442
+    }
+  },
+  "per_class_ap": [
+    {
+      "model_label": 1,
+      "class_name": "Buffalo",
+      "validation_ap": 0.5053696036338806,
+      "test_ap": 0.8117947578430176,
+      "delta_test_minus_validation": 0.30642515420913696
+    },
+    {
+      "model_label": 2,
+      "class_name": "Camel",
+      "validation_ap": 0.39166679978370667,
+      "test_ap": 0.3951268792152405,
+      "delta_test_minus_validation": 0.0034600794315338135
+    },
+    {
+      "model_label": 3,
+      "class_name": "Cat",
+      "validation_ap": 0.6697329878807068,
+      "test_ap": 0.7251490950584412,
+      "delta_test_minus_validation": 0.055416107177734375
+    },
+    {
+      "model_label": 4,
+      "class_name": "Cheetah",
+      "validation_ap": 0.4731729030609131,
+      "test_ap": 0.6919474005699158,
+      "delta_test_minus_validation": 0.21877449750900269
+    },
+    {
+      "model_label": 5,
+      "class_name": "Cow",
+      "validation_ap": 0.55455082654953,
+      "test_ap": 0.6376109719276428,
+      "delta_test_minus_validation": 0.08306014537811279
+    },
+    {
+      "model_label": 6,
+      "class_name": "Deer",
+      "validation_ap": 0.6246606707572937,
+      "test_ap": 0.5958758592605591,
+      "delta_test_minus_validation": -0.02878481149673462
+    },
+    {
+      "model_label": 7,
+      "class_name": "Dog",
+      "validation_ap": 0.6918909549713135,
+      "test_ap": 0.43778324127197266,
+      "delta_test_minus_validation": -0.2541077136993408
+    },
+    {
+      "model_label": 8,
+      "class_name": "Elephant",
+      "validation_ap": 0.5720221400260925,
+      "test_ap": 0.7403721809387207,
+      "delta_test_minus_validation": 0.16835004091262817
+    },
+    {
+      "model_label": 9,
+      "class_name": "Goat",
+      "validation_ap": 0.4486537277698517,
+      "test_ap": 0.4641699194908142,
+      "delta_test_minus_validation": 0.015516191720962524
+    },
+    {
+      "model_label": 10,
+      "class_name": "Gorilla",
+      "validation_ap": 0.5842525362968445,
+      "test_ap": 0.6735802292823792,
+      "delta_test_minus_validation": 0.08932769298553467
+    },
+    {
+      "model_label": 11,
+      "class_name": "Hippo",
+      "validation_ap": 0.5748568177223206,
+      "test_ap": 0.621269941329956,
+      "delta_test_minus_validation": 0.0464131236076355
+    },
+    {
+      "model_label": 12,
+      "class_name": "Horse",
+      "validation_ap": 0.6940047144889832,
+      "test_ap": 0.586092472076416,
+      "delta_test_minus_validation": -0.10791224241256714
+    },
+    {
+      "model_label": 13,
+      "class_name": "Lion",
+      "validation_ap": 0.7586583495140076,
+      "test_ap": 0.6259600520133972,
+      "delta_test_minus_validation": -0.13269829750061035
+    },
+    {
+      "model_label": 14,
+      "class_name": "Monkeys",
+      "validation_ap": 0.4066896438598633,
+      "test_ap": 0.3819870054721832,
+      "delta_test_minus_validation": -0.024702638387680054
+    },
+    {
+      "model_label": 15,
+      "class_name": "Panda",
+      "validation_ap": 0.2846958041191101,
+      "test_ap": 0.6671915650367737,
+      "delta_test_minus_validation": 0.3824957609176636
+    },
+    {
+      "model_label": 16,
+      "class_name": "Rat",
+      "validation_ap": 0.6009458303451538,
+      "test_ap": 0.5878955125808716,
+      "delta_test_minus_validation": -0.013050317764282227
+    },
+    {
+      "model_label": 17,
+      "class_name": "Rhino",
+      "validation_ap": 0.7670333385467529,
+      "test_ap": 0.8148617148399353,
+      "delta_test_minus_validation": 0.04782837629318237
+    },
+    {
+      "model_label": 18,
+      "class_name": "Tiger",
+      "validation_ap": 0.6266261339187622,
+      "test_ap": 0.6271862983703613,
+      "delta_test_minus_validation": 0.0005601644515991211
+    },
+    {
+      "model_label": 19,
+      "class_name": "Wolf",
+      "validation_ap": 0.8007975816726685,
+      "test_ap": 0.8035516142845154,
+      "delta_test_minus_validation": 0.002754032611846924
+    },
+    {
+      "model_label": 20,
+      "class_name": "Zebra",
+      "validation_ap": 0.47940996289253235,
+      "test_ap": 0.5238201022148132,
+      "delta_test_minus_validation": 0.044410139322280884
+    }
+  ],
+  "interpretation_note": "Deltas are descriptive test-minus-validation differences; no statistical significance is claimed."
+}

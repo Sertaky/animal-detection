@@ -1,0 +1,19 @@
+FINAL VERIFICATION
+
+pytest -q: 75 passed, 0 failed in 8.85 seconds
+Branch: main
+Staged files: 0
+Training occurred: no
+Optimizer step executed: no
+Held-out metric passes: 1
+Post-test model selection: no
+Post-test threshold tuning: no
+Selected checkpoints ignored by Git: yes
+
+Final hashes:
+- raw dataset: 3621eb3f3d9f759787ce339d66a98212814643563d6db2fa0dd9b3c8afb23c57
+- held-out test: ed196911c6b60fcfed76b7f5fb43f448e0b758264ef4202fa6d57b255c7acfe7
+- selected checkpoint: 890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f
+- exclusion manifest: 7e4e3f49e39bca45ec1e715c113cb2a548b623210f119406f413d9b83b7aea30
+
+All recorded before/after/final hashes match.

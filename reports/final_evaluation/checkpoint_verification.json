@@ -1,0 +1,22 @@
+{
+  "checkpoint": "G:\\animal-detection\\checkpoints\\faster_rcnn_baseline_01\\best.pt",
+  "exists": true,
+  "loaded_successfully": true,
+  "sha256": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+  "size_bytes": 331733579,
+  "architecture": "Faster R-CNN ResNet50-FPN",
+  "pretrained_weights": "FasterRCNN_ResNet50_FPN_Weights.COCO_V1",
+  "num_model_classes": 21,
+  "class_mapping_unchanged": true,
+  "selected_epoch": 9,
+  "model_eval": true,
+  "torch_no_grad": true,
+  "optimizer_or_training_step": false,
+  "internal_transform_min_size": [
+    512
+  ],
+  "internal_transform_max_size": 512,
+  "device": "cuda",
+  "evaluation_peak_cuda_allocated_bytes": 309968896,
+  "evaluation_peak_cuda_reserved_bytes": 562036736
+}

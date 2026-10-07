@@ -1,0 +1,8 @@
+{
+  "locked_before_test": true,
+  "held_out_metrics_run_count": 1,
+  "test_used_for_model_selection": false,
+  "post_test_checkpoint_change": false,
+  "post_test_threshold_change": false,
+  "comparison": "Deltas are descriptive test-minus-validation differences; no statistical significance is claimed."
+}

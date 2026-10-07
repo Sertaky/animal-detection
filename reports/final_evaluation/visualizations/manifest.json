@@ -1,0 +1,37 @@
+{
+  "high_confidence_correct_detections": [
+    "reports/final_evaluation/visualizations/high_confidence_correct_detections_01_horse-66-_jpg.rf.6e1670a6be8aa01b03b410409_56e4c61b.jpg",
+    "reports/final_evaluation/visualizations/high_confidence_correct_detections_02_gorilla-192-_jpeg.rf.b1c0caed27a472a436dc3_2f56205c.jpg",
+    "reports/final_evaluation/visualizations/high_confidence_correct_detections_03_panda-59-_jpg.rf.8c8ac1f53672ead35b0fa820d_7ecaa330.jpg"
+  ],
+  "false_positives": [
+    "reports/final_evaluation/visualizations/false_positives_01_Monkey-181-_jpeg.rf.90014eb443dae41267a8a7_69ca08c9.jpg",
+    "reports/final_evaluation/visualizations/false_positives_02_cow-50-_jpg.rf.1683e7562c028451c048c6bafb1_6088d3f2.jpg",
+    "reports/final_evaluation/visualizations/false_positives_03_camel-139-_jpg.rf.adb32f909cb3807d18b8f1eb_f347cee8.jpg"
+  ],
+  "false_negatives": [
+    "reports/final_evaluation/visualizations/false_negatives_01_dog-39-_jpg.rf.fd4055542a11f4fe19b9d2684c6_60f25115.jpg",
+    "reports/final_evaluation/visualizations/false_negatives_02_Monkey-176-_jpeg.rf.2a21dc12a512131efb3382_795b117c.jpg",
+    "reports/final_evaluation/visualizations/false_negatives_03_dog-18-_jpg.rf.440afac81e003136ad98cd711b4_6e5793ec.jpg"
+  ],
+  "localization_errors": [
+    "reports/final_evaluation/visualizations/localization_errors_01_cow-50-_jpg.rf.1683e7562c028451c048c6bafb1_6088d3f2.jpg",
+    "reports/final_evaluation/visualizations/localization_errors_02_camel-139-_jpg.rf.adb32f909cb3807d18b8f1eb_f347cee8.jpg",
+    "reports/final_evaluation/visualizations/localization_errors_03_horse-27-_jpg.rf.32720670fc107ae6637996840_1f02487e.jpg"
+  ],
+  "class_confusions": [
+    "reports/final_evaluation/visualizations/class_confusions_01_Monkey-181-_jpeg.rf.90014eb443dae41267a8a7_69ca08c9.jpg",
+    "reports/final_evaluation/visualizations/class_confusions_02_rhino-93-_jpg.rf.1f12f0be939aa997fd3e4ad92_47b0aabb.jpg",
+    "reports/final_evaluation/visualizations/class_confusions_03_cat-11-_jpeg.rf.fc3dea0c7c35b095b146cf4fae_bdb698fc.jpg"
+  ],
+  "small_object_cases": [
+    "reports/final_evaluation/visualizations/small_object_cases_01_dog-39-_jpg.rf.fd4055542a11f4fe19b9d2684c6_60f25115.jpg",
+    "reports/final_evaluation/visualizations/small_object_cases_02_Monkey-176-_jpeg.rf.2a21dc12a512131efb3382_795b117c.jpg",
+    "reports/final_evaluation/visualizations/small_object_cases_03_dog-18-_jpg.rf.440afac81e003136ad98cd711b4_6e5793ec.jpg"
+  ],
+  "crowded_scenes": [
+    "reports/final_evaluation/visualizations/crowded_scenes_01_Monkey-176-_jpeg.rf.2a21dc12a512131efb3382_795b117c.jpg",
+    "reports/final_evaluation/visualizations/crowded_scenes_02_Zebra-Valid-329-_jpeg.rf.9b082f5d2ec8aeace_19857de1.jpg",
+    "reports/final_evaluation/visualizations/crowded_scenes_03_dog-39-_jpg.rf.fd4055542a11f4fe19b9d2684c6_60f25115.jpg"
+  ]
+}

@@ -1,0 +1,26 @@
+FINAL MODEL-SELECTION LOCK
+
+Lock date: 2026-10-07
+Lock state: recorded before held-out test evaluation
+
+Selected experiment: faster_rcnn_baseline_01
+Selected checkpoint: checkpoints/faster_rcnn_baseline_01/best.pt
+Checkpoint SHA-256: 890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f
+Checkpoint size: 331,733,579 bytes
+Selected epoch: 9
+Selection metric: validation mAP@0.50:0.95
+
+Locked validation metrics:
+- mAP@0.50:0.95: 0.575485
+- mAP@0.50: 0.825687
+- mAP@0.75: 0.653031
+- mAR@100: 0.687444
+
+Rejected alternatives (validation evidence only):
+- Experiment 02, 640 resolution: best mAP 0.560321, mAP50 0.809025, mAP75 0.630468. Rejected because it worsened the balanced validation result, localization, runtime, and memory.
+- Experiment 03, class-aware sampling: best mAP 0.576391, mAP50 0.830832, mAP75 0.644557, mAR100 0.688296. Rejected because the effectively flat aggregate result came with strong-class regressions.
+- Experiment 04, difficulty-aware sampling: best mAP 0.564713, mAP50 0.828431, mAP75 0.628207, mAR100 0.673316. Rejected because overall mAP and crowded recall worsened.
+- Experiment 05, scale jitter: best mAP 0.576239, mAP50 0.820633, mAP75 0.621193, mAR100 0.698096. Rejected because the small aggregate gain did not outweigh poorer mAP50, mAP75, small recall, and crowded recall.
+
+The held-out test set will not be used for model selection or further tuning.
+No checkpoint or diagnostic threshold will be changed after test results are observed.

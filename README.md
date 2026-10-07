@@ -4,8 +4,9 @@ A standalone portfolio project for multi-class animal object detection using PyT
 
 ## Status
 
-Repository setup, dataset auditing, the first full baseline, and a controlled
-640x640 resolution comparison are complete. No test-set performance claim is made.
+The full development cycle is complete. Model selection was locked from validation
+results, and the selected baseline has been evaluated once on the held-out test
+split. No post-test checkpoint selection or threshold tuning was performed.
 
 ## Environment setup
 
@@ -343,3 +344,104 @@ Baseline 01 remains the best general configuration. No test metrics were used.
 See the [effect report](reports/experiments/faster_rcnn_scale_jitter_01/scale_jitter_effect.txt),
 [baseline comparison](reports/experiments/faster_rcnn_scale_jitter_01/comparison_vs_baseline_01.json),
 and [cross-experiment comparison](reports/experiments/faster_rcnn_scale_jitter_01/comparison_with_previous_experiments.txt).
+
+## Final Model and Held-out Test Results
+
+This project trains a 20-class animal detector from YOLO-format annotations while
+keeping raw images and labels immutable. The dataset contains 2,000 images across
+train, validation, and test splits. Training used 1,399 usable images, model
+selection used 299 usable validation images, and the final held-out evaluation
+used all 300 test images containing 388 annotated objects across all 20 classes.
+
+The selected model is `faster_rcnn_baseline_01`: Faster R-CNN ResNet50-FPN with
+COCO V1 initialization, a 21-output predictor (background plus 20 animals), and
+all 41,396,536 parameters fine-tuned. Inputs are resized to 512x512. Training used
+batch size 1 for 10 epochs in FP32 with SGD (LR 0.0025, momentum 0.9, weight decay
+0.0005), StepLR(step size 7, gamma 0.1), seed 42, and a 50% horizontal flip.
+
+The experimental path was deliberately validation-driven:
+
+1. Baseline 01 established the reference configuration and exposed weak
+   small-object and crowded-scene recall.
+2. Experiment 02 tested 640x640 resolution; targeted recall improved, but overall
+   AP, localization, runtime, and memory worsened.
+3. Experiment 03 tested class-aware sampling; some weak classes improved, but
+   aggregate AP was effectively flat and strong reference classes regressed.
+4. Experiment 04 tested difficulty-aware sampling; increased exposure did not
+   improve the intended recall targets and reduced overall AP.
+5. Experiment 05 tested scale jitter; small/crowded recall improved, but poorer
+   localization-sensitive AP and precision prevented it replacing the baseline.
+
+Baseline epoch 9 was therefore locked before test access. Its validation metrics
+were mAP 0.575485, mAP50 0.825687, mAP75 0.653031, and mAR100 0.687444. The one
+final held-out test evaluation produced:
+
+| Metric | Validation | Held-out test | Test - validation |
+|---|---:|---:|---:|
+| mAP@0.50:0.95 | 0.575485 | 0.620661 | +0.045177 |
+| mAP@0.50 | 0.825687 | 0.877468 | +0.051781 |
+| mAP@0.75 | 0.653031 | 0.709247 | +0.056216 |
+| mAR@100 | 0.687444 | 0.709201 | +0.021757 |
+
+At the validation-fixed diagnostic operating point (score 0.50, IoU 0.50), the
+test set yielded 314 TP, 75 FP, and 74 FN: precision 0.807198 and recall 0.809278.
+Small/medium/large recall was 0.430769/0.880952/0.888325. Recall for one-object,
+2-3-object, and 4+-object scenes was 0.871486/0.802198/0.500000. Class confusion
+was the largest false-positive category (42), followed by localization errors
+(21), background false positives (7), and duplicates (3). Mean/median matched
+IoU was 0.849803/0.874519. These diagnostic counts describe errors and do not
+replace COCO AP.
+
+The strongest test classes by AP were Rhino (0.814862), Buffalo (0.811795), and
+Wolf (0.803552). The weakest were Monkeys (0.381987), Camel (0.395127), and Dog
+(0.437783). Small objects, crowded scenes, and semantic confusions remain the
+main limitations. Validation-to-test differences are descriptive; no statistical
+significance is claimed.
+
+On an NVIDIA GeForce RTX 3050 4GB Laptop GPU, batch-1 model-only inference used
+20 warmup and 100 synchronized timed iterations: mean 92.339 ms, median 92.065 ms,
+p95 95.730 ms, and 10.830 images/s. End-to-end timing (decode, 512 preprocessing,
+device transfer, detector, and postprocessing) averaged 102.101 ms or 9.794
+images/s, with 324.608 MiB peak allocated and 572 MiB peak reserved CUDA memory.
+The optional CPU model-only benchmark (5 warmup, 20 timed) averaged 767.436 ms
+or 1.303 images/s. Model-loading time is excluded.
+
+The model-selection lock, integrity hashes, per-class results, comparisons,
+prediction cache, plots, benchmark methodology, and visual review index are in
+[`reports/final_evaluation/`](reports/final_evaluation/). The raw-data, test-data,
+checkpoint, and exclusion-manifest hashes were identical before and after final
+evaluation.
+
+### Final project structure
+
+```text
+src/animal_detection/                 Dataset, transforms, model, engine, analysis
+scripts/train_faster_rcnn.py          Reusable training entry point
+scripts/analyze_validation_errors.py  Validation diagnostics
+scripts/evaluate_final_test.py        Locked one-pass final test evaluation
+scripts/benchmark_inference.py        Reusable GPU/CPU inference benchmark
+tests/                                Unit and held-out discipline tests
+reports/experiments/                  Baseline and Experiments 02-05
+reports/final_evaluation/              Final test, benchmark, plots, visualizations
+checkpoints/                           Model checkpoints (Git-ignored)
+Multi-Class Animal Detection.v1-yolov8/ Raw dataset (Git-ignored, immutable)
+```
+
+### Reproduction commands
+
+Training and validation experiments can be reproduced with the fixed experiment
+arguments documented in each report configuration. For the selected baseline:
+
+```powershell
+python scripts/train_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --experiment-name faster_rcnn_baseline_01 --image-size 512 --epochs 10 --batch-size 1 --lr 0.0025 --momentum 0.9 --weight-decay 0.0005 --step-size 7 --gamma 0.1 --seed 42
+```
+
+The final evaluator intentionally refuses to overwrite an existing held-out
+prediction cache. In a fresh reproducibility run, create and review the selection
+lock first, then run:
+
+```powershell
+python scripts/evaluate_final_test.py --checkpoint checkpoints/faster_rcnn_baseline_01/best.pt --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --device cuda
+python scripts/benchmark_inference.py --checkpoint checkpoints/faster_rcnn_baseline_01/best.pt --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split test --device cuda --warmup 20 --iterations 100 --output-dir reports/final_evaluation
+pytest -q
+```

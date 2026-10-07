@@ -26,6 +26,17 @@ def _best_score(row: dict[str, Any], category: str) -> float | None:
     elif category == "crowded_scenes":
         count = len(row["image"]["ground_truth"])
         return float(count) if count >= 4 else None
+    elif category == "small_object_cases":
+        height, width = row["image"]["transformed_size"]
+        small_indices = []
+        for index, gt in enumerate(row["image"]["ground_truth"]):
+            x1, y1, x2, y2 = gt["box"]
+            if (x2 - x1) * (y2 - y1) / (height * width) < 0.10:
+                small_indices.append(index)
+        if not small_indices:
+            return None
+        missed = len(set(small_indices) & set(row["match"]["false_negative_gt_indices"]))
+        return float(missed * 100 + len(small_indices))
     elif category.startswith("low_ap_"):
         label = ANIMAL_CLASS_NAMES.index(category.removeprefix("low_ap_").capitalize()) + 1
         gt_indices = [
@@ -106,6 +117,7 @@ def render_examples(
         "localization",
         "class_confusion",
         "duplicate",
+        "small_object_cases",
         "crowded_scenes",
         "low_ap_panda",
         "low_ap_camel",
@@ -122,8 +134,8 @@ def render_examples(
         eligible.sort(key=lambda item: (-item[0], item[1]))
         paths = []
         for rank, (_, image_id, row) in enumerate(eligible[:3], start=1):
-            if not image_id.startswith("valid/images/"):
-                raise ValueError(f"Non-validation image identifier in cache: {image_id}")
+            if not image_id.startswith(("valid/images/", "test/images/")):
+                raise ValueError(f"Unsupported image identifier in cache: {image_id}")
             tag = hashlib.sha256(image_id.encode("utf-8")).hexdigest()[:8]
             filename = f"{category}_{rank:02d}_{Path(image_id).stem[:42]}_{tag}.jpg"
             path = destination / filename

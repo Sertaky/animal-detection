@@ -1,0 +1,25 @@
+FINAL HELD-OUT EVALUATION SUMMARY
+
+Selection was locked before test access: faster_rcnn_baseline_01, epoch 9, checkpoints/faster_rcnn_baseline_01/best.pt.
+Validation selected the model; held-out test results did not alter the checkpoint, threshold, preprocessing, or configuration.
+
+Test set: 300 images, 300 annotation files, 388 objects, 0 zero-object images.
+COCO metrics: mAP=0.620661, mAP50=0.877468, mAP75=0.709247, mAR100=0.709201.
+Diagnostic @ score 0.50 / IoU 0.50: TP=314, FP=75, FN=74, precision=0.807198, recall=0.809278.
+Size recall: small=0.430769, medium=0.880952, large=0.888325.
+Scene recall: 1 object=0.871486, 2-3=0.802198, 4+=0.500000.
+FP categories: class confusion=42, localization=21, background=7, duplicate=3, other overlap=2.
+Matched IoU: mean=0.849803, median=0.874519.
+
+Strongest test AP: Rhino 0.814862, Buffalo 0.811795, Wolf 0.803552.
+Weakest test AP: Monkeys 0.381987, Camel 0.395127, Dog 0.437783.
+Top confusion directions: Camel -> Goat (3), Dog -> Goat (3), Cat -> Dog (2), Gorilla -> Monkeys (2), Lion -> Cow (2).
+
+GPU model-only (20 warmup, 100 timed): mean=92.339 ms, median=92.065 ms, p95=95.730 ms, 10.830 images/s.
+GPU end-to-end: mean=102.101 ms, median=102.176 ms, p95=106.273 ms, 9.794 images/s.
+GPU end-to-end peak memory: allocated=324.608 MiB, reserved=572.000 MiB.
+CPU model-only (5 warmup, 20 timed): mean=767.436 ms, median=755.776 ms, p95=891.436 ms, 1.303 images/s.
+
+Conclusion: aggregate held-out metrics exceeded validation metrics, but small objects, crowded scenes, and class confusion remain the main limitations. No statistical-significance claim is made.
+No training, optimizer step, post-test checkpoint selection, or post-test threshold tuning occurred.
+Full pytest: 75 passed, 0 failed in 8.85 seconds.

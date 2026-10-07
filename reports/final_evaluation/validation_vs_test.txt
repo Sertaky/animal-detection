@@ -1,0 +1,41 @@
+LOCKED BASELINE: VALIDATION VS HELD-OUT TEST
+Model selection used validation only. Test-minus-validation deltas are descriptive; no statistical significance is claimed.
+
+Metric                         Validation         Test        Delta
+-------------------------------------------------------------------
+map                              0.575485     0.620661    +0.045177
+map_50                           0.825687     0.877468    +0.051781
+map_75                           0.653031     0.709247    +0.056216
+mar_100                          0.687444     0.709201    +0.021757
+diagnostic_precision             0.752404     0.807198    +0.054794
+diagnostic_recall                0.759709     0.809278    +0.049570
+small_recall                     0.381579     0.430769    +0.049190
+medium_recall                    0.774436     0.880952    +0.106516
+large_recall                     0.891626     0.888325    -0.003301
+1_object_recall                  0.870833     0.871486    +0.000653
+2-3_object_recall                0.714286     0.802198    +0.087912
+4+_object_recall                 0.432836     0.500000    +0.067164
+mean_matched_iou                 0.847782     0.849803    +0.002021
+median_matched_iou               0.876271     0.874519    -0.001752
+
+Per-class AP (class-ID order):
+ 1 Buffalo    valid=0.505370 test=0.811795 delta=+0.306425
+ 2 Camel      valid=0.391667 test=0.395127 delta=+0.003460
+ 3 Cat        valid=0.669733 test=0.725149 delta=+0.055416
+ 4 Cheetah    valid=0.473173 test=0.691947 delta=+0.218774
+ 5 Cow        valid=0.554551 test=0.637611 delta=+0.083060
+ 6 Deer       valid=0.624661 test=0.595876 delta=-0.028785
+ 7 Dog        valid=0.691891 test=0.437783 delta=-0.254108
+ 8 Elephant   valid=0.572022 test=0.740372 delta=+0.168350
+ 9 Goat       valid=0.448654 test=0.464170 delta=+0.015516
+10 Gorilla    valid=0.584253 test=0.673580 delta=+0.089328
+11 Hippo      valid=0.574857 test=0.621270 delta=+0.046413
+12 Horse      valid=0.694005 test=0.586092 delta=-0.107912
+13 Lion       valid=0.758658 test=0.625960 delta=-0.132698
+14 Monkeys    valid=0.406690 test=0.381987 delta=-0.024703
+15 Panda      valid=0.284696 test=0.667192 delta=+0.382496
+16 Rat        valid=0.600946 test=0.587896 delta=-0.013050
+17 Rhino      valid=0.767033 test=0.814862 delta=+0.047828
+18 Tiger      valid=0.626626 test=0.627186 delta=+0.000560
+19 Wolf       valid=0.800798 test=0.803552 delta=+0.002754
+20 Zebra      valid=0.479410 test=0.523820 delta=+0.044410

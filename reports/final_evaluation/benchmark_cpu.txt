@@ -1,0 +1,10 @@
+INFERENCE BENCHMARK (CPU)
+Device: CPU
+Checkpoint: G:\animal-detection\checkpoints\faster_rcnn_baseline_01\best.pt
+SHA-256: 890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f
+Split: test; preprocessing: Resize(512,512) + ToTensor; batch size: 1
+Warmup: 5; timed iterations: 20; model loading excluded
+CPU wall-clock timing surrounds each call.
+
+Model only: mean=767.436 ms, median=755.776 ms, p95=891.436 ms, throughput=1.303 images/s
+End to end: mean=1011.148 ms, median=972.485 ms, p95=1275.954 ms, throughput=0.989 images/s

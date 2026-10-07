@@ -1,0 +1,536 @@
+{
+  "selected_model": "faster_rcnn_baseline_01",
+  "selected_checkpoint": "checkpoints/faster_rcnn_baseline_01/best.pt",
+  "selected_epoch": 9,
+  "selection_basis": "Highest balanced validation result selected and locked before held-out test access; test did not influence selection.",
+  "validation_metrics": {
+    "map": 0.575484573841095,
+    "map_50": 0.8256866335868835,
+    "map_75": 0.6530308127403259,
+    "mar_100": 0.6874443292617798
+  },
+  "test_metrics": {
+    "map": 0.6206613183021545,
+    "map_50": 0.8774680495262146,
+    "map_75": 0.7092469930648804,
+    "mar_100": 0.7092012763023376
+  },
+  "validation_to_test_deltas": {
+    "map": 0.04517674446105957,
+    "map_50": 0.051781415939331055,
+    "map_75": 0.05621618032455444,
+    "mar_100": 0.02175694704055786,
+    "diagnostic_precision": 0.054794097290883914,
+    "diagnostic_recall": 0.04956961265138626,
+    "small_recall": 0.04919028340080972,
+    "medium_recall": 0.10651629072681701,
+    "large_recall": -0.0033007426671001205,
+    "1_object_recall": 0.0006526104417670098,
+    "2-3_object_recall": 0.08791208791208793,
+    "4+_object_recall": 0.06716417910447764,
+    "mean_matched_iou": 0.0020206539589083805,
+    "median_matched_iou": -0.0017522651219400442
+  },
+  "test_dataset": {
+    "images": 300,
+    "annotation_files": 300,
+    "objects": 388,
+    "zero_object_images": 0
+  },
+  "diagnostic_operating_point": {
+    "score_threshold": 0.5,
+    "iou_threshold": 0.5
+  },
+  "diagnostic": {
+    "tp": 314,
+    "fp": 75,
+    "fn": 74,
+    "precision": 0.8071979434447301,
+    "recall": 0.8092783505154639,
+    "size_recall": {
+      "small": 0.4307692307692308,
+      "medium": 0.8809523809523809,
+      "large": 0.8883248730964467
+    },
+    "crowdedness_recall": {
+      "1": 0.8714859437751004,
+      "2-3": 0.8021978021978022,
+      "4+": 0.5
+    },
+    "false_positive_categories": {
+      "class_confusion": 42,
+      "localization": 21,
+      "background": 7,
+      "duplicate": 3,
+      "other_overlap": 2
+    },
+    "mean_matched_iou": 0.8498026575864026,
+    "median_matched_iou": 0.8745189151554649,
+    "tp_confidence": {
+      "count": 314,
+      "mean": 0.9256901830244976,
+      "median": 0.9751472771167755,
+      "q1": 0.912657767534256,
+      "q3": 0.9915192276239395,
+      "min": 0.5013359189033508,
+      "max": 0.9994955062866211
+    },
+    "fp_confidence": {
+      "count": 75,
+      "mean": 0.6861175878842671,
+      "median": 0.6626275777816772,
+      "q1": 0.5580940544605255,
+      "q3": 0.7893525660037994,
+      "min": 0.503720223903656,
+      "max": 0.9595515727996826
+    },
+    "top_confusions": [
+      {
+        "ground_truth_class": "Camel",
+        "predicted_class": "Goat",
+        "ground_truth_model_label": 2,
+        "predicted_model_label": 9,
+        "count": 3
+      },
+      {
+        "ground_truth_class": "Dog",
+        "predicted_class": "Goat",
+        "ground_truth_model_label": 7,
+        "predicted_model_label": 9,
+        "count": 3
+      },
+      {
+        "ground_truth_class": "Cat",
+        "predicted_class": "Dog",
+        "ground_truth_model_label": 3,
+        "predicted_model_label": 7,
+        "count": 2
+      },
+      {
+        "ground_truth_class": "Gorilla",
+        "predicted_class": "Monkeys",
+        "ground_truth_model_label": 10,
+        "predicted_model_label": 14,
+        "count": 2
+      },
+      {
+        "ground_truth_class": "Lion",
+        "predicted_class": "Cow",
+        "ground_truth_model_label": 13,
+        "predicted_model_label": 5,
+        "count": 2
+      },
+      {
+        "ground_truth_class": "Lion",
+        "predicted_class": "Wolf",
+        "ground_truth_model_label": 13,
+        "predicted_model_label": 19,
+        "count": 2
+      },
+      {
+        "ground_truth_class": "Monkeys",
+        "predicted_class": "Gorilla",
+        "ground_truth_model_label": 14,
+        "predicted_model_label": 10,
+        "count": 2
+      },
+      {
+        "ground_truth_class": "Rhino",
+        "predicted_class": "Elephant",
+        "ground_truth_model_label": 17,
+        "predicted_model_label": 8,
+        "count": 2
+      }
+    ]
+  },
+  "strongest_classes_by_test_ap": [
+    {
+      "model_label": 17,
+      "dataset_label": 16,
+      "class_name": "Rhino",
+      "gt_objects": 20,
+      "ap": 0.8148617148399353,
+      "tp": 19,
+      "fp": 3,
+      "fn": 1,
+      "precision": 0.8636363636363636,
+      "recall": 0.95,
+      "mean_matched_iou": 0.8988588722263705
+    },
+    {
+      "model_label": 1,
+      "dataset_label": 0,
+      "class_name": "Buffalo",
+      "gt_objects": 18,
+      "ap": 0.8117947578430176,
+      "tp": 18,
+      "fp": 2,
+      "fn": 0,
+      "precision": 0.9,
+      "recall": 1.0,
+      "mean_matched_iou": 0.9002625043361758
+    },
+    {
+      "model_label": 19,
+      "dataset_label": 18,
+      "class_name": "Wolf",
+      "gt_objects": 15,
+      "ap": 0.8035516142845154,
+      "tp": 14,
+      "fp": 4,
+      "fn": 1,
+      "precision": 0.7777777777777778,
+      "recall": 0.9333333333333333,
+      "mean_matched_iou": 0.9197386281356605
+    }
+  ],
+  "weakest_classes_by_test_ap": [
+    {
+      "model_label": 14,
+      "dataset_label": 13,
+      "class_name": "Monkeys",
+      "gt_objects": 24,
+      "ap": 0.3819870054721832,
+      "tp": 14,
+      "fp": 6,
+      "fn": 10,
+      "precision": 0.7,
+      "recall": 0.5833333333333334,
+      "mean_matched_iou": 0.788296256776805
+    },
+    {
+      "model_label": 2,
+      "dataset_label": 1,
+      "class_name": "Camel",
+      "gt_objects": 22,
+      "ap": 0.3951268792152405,
+      "tp": 13,
+      "fp": 11,
+      "fn": 9,
+      "precision": 0.5416666666666666,
+      "recall": 0.5909090909090909,
+      "mean_matched_iou": 0.8154598333153754
+    },
+    {
+      "model_label": 7,
+      "dataset_label": 6,
+      "class_name": "Dog",
+      "gt_objects": 26,
+      "ap": 0.43778324127197266,
+      "tp": 14,
+      "fp": 4,
+      "fn": 12,
+      "precision": 0.7777777777777778,
+      "recall": 0.5384615384615384,
+      "mean_matched_iou": 0.8573109172853698
+    }
+  ],
+  "major_remaining_error_modes": [
+    "Small-object recall remains much lower than medium/large recall.",
+    "Class confusion is the largest diagnostic false-positive category.",
+    "Scenes with four or more objects remain harder than one-object scenes."
+  ],
+  "gpu_benchmark": {
+    "checkpoint": "G:\\animal-detection\\checkpoints\\faster_rcnn_baseline_01\\best.pt",
+    "checkpoint_sha256": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+    "checkpoint_epoch": 9,
+    "device": "cuda",
+    "device_name": "NVIDIA GeForce RTX 3050 4GB Laptop GPU",
+    "split": "test",
+    "image_size": [
+      512,
+      512
+    ],
+    "batch_size": 1,
+    "representative_model_only_images": 10,
+    "model_loading_included": false,
+    "model_only_definition": "Preprocessed 3x512x512 tensors are already on the target device; timing includes the full torchvision detector call and its postprocessing.",
+    "end_to_end_definition": "Timing includes image decode, RGB conversion, annotation parse, Resize(512,512), ToTensor, device transfer, detector call, and detector postprocessing; it excludes model loading.",
+    "cuda_timing_synchronization": true,
+    "model_only": {
+      "warmup_iterations": 20,
+      "timed_iterations": 100,
+      "batch_size": 1,
+      "mean_latency_ms": 92.33874200843275,
+      "median_latency_ms": 92.06450002966449,
+      "p95_latency_ms": 95.7302000198979,
+      "images_per_second": 10.829690531290495,
+      "min_latency_ms": 88.16449996083975,
+      "max_latency_ms": 100.88410007301718,
+      "peak_cuda_allocated_bytes": 337361408,
+      "peak_cuda_reserved_bytes": 492830720,
+      "peak_cuda_allocated_mib": 321.73291015625,
+      "peak_cuda_reserved_mib": 470.0
+    },
+    "end_to_end": {
+      "warmup_iterations": 20,
+      "timed_iterations": 100,
+      "batch_size": 1,
+      "mean_latency_ms": 102.10052999667823,
+      "median_latency_ms": 102.17559995362535,
+      "p95_latency_ms": 106.27288495888934,
+      "images_per_second": 9.794268453185643,
+      "min_latency_ms": 97.46329998597503,
+      "max_latency_ms": 108.67029998917133,
+      "peak_cuda_allocated_bytes": 340376064,
+      "peak_cuda_reserved_bytes": 599785472,
+      "peak_cuda_allocated_mib": 324.60791015625,
+      "peak_cuda_reserved_mib": 572.0
+    },
+    "training_occurred": false,
+    "optimizer_constructed": false
+  },
+  "cpu_benchmark": {
+    "checkpoint": "G:\\animal-detection\\checkpoints\\faster_rcnn_baseline_01\\best.pt",
+    "checkpoint_sha256": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+    "checkpoint_epoch": 9,
+    "device": "cpu",
+    "device_name": "CPU",
+    "split": "test",
+    "image_size": [
+      512,
+      512
+    ],
+    "batch_size": 1,
+    "representative_model_only_images": 10,
+    "model_loading_included": false,
+    "model_only_definition": "Preprocessed 3x512x512 tensors are already on the target device; timing includes the full torchvision detector call and its postprocessing.",
+    "end_to_end_definition": "Timing includes image decode, RGB conversion, annotation parse, Resize(512,512), ToTensor, device transfer, detector call, and detector postprocessing; it excludes model loading.",
+    "cuda_timing_synchronization": false,
+    "model_only": {
+      "warmup_iterations": 5,
+      "timed_iterations": 20,
+      "batch_size": 1,
+      "mean_latency_ms": 767.4358799995389,
+      "median_latency_ms": 755.7763499789871,
+      "p95_latency_ms": 891.4358900336083,
+      "images_per_second": 1.3030404572699947,
+      "min_latency_ms": 637.9768999759108,
+      "max_latency_ms": 924.1821999894455
+    },
+    "end_to_end": {
+      "warmup_iterations": 5,
+      "timed_iterations": 20,
+      "batch_size": 1,
+      "mean_latency_ms": 1011.1480349965859,
+      "median_latency_ms": 972.4846000317484,
+      "p95_latency_ms": 1275.9535449848047,
+      "images_per_second": 0.9889748734994837,
+      "min_latency_ms": 875.7842999184504,
+      "max_latency_ms": 1616.8903999496251
+    },
+    "training_occurred": false,
+    "optimizer_constructed": false
+  },
+  "visualizations": {
+    "count": 21,
+    "categories": {
+      "high_confidence_correct_detections": [
+        "reports/final_evaluation/visualizations/high_confidence_correct_detections_01_horse-66-_jpg.rf.6e1670a6be8aa01b03b410409_56e4c61b.jpg",
+        "reports/final_evaluation/visualizations/high_confidence_correct_detections_02_gorilla-192-_jpeg.rf.b1c0caed27a472a436dc3_2f56205c.jpg",
+        "reports/final_evaluation/visualizations/high_confidence_correct_detections_03_panda-59-_jpg.rf.8c8ac1f53672ead35b0fa820d_7ecaa330.jpg"
+      ],
+      "false_positives": [
+        "reports/final_evaluation/visualizations/false_positives_01_Monkey-181-_jpeg.rf.90014eb443dae41267a8a7_69ca08c9.jpg",
+        "reports/final_evaluation/visualizations/false_positives_02_cow-50-_jpg.rf.1683e7562c028451c048c6bafb1_6088d3f2.jpg",
+        "reports/final_evaluation/visualizations/false_positives_03_camel-139-_jpg.rf.adb32f909cb3807d18b8f1eb_f347cee8.jpg"
+      ],
+      "false_negatives": [
+        "reports/final_evaluation/visualizations/false_negatives_01_dog-39-_jpg.rf.fd4055542a11f4fe19b9d2684c6_60f25115.jpg",
+        "reports/final_evaluation/visualizations/false_negatives_02_Monkey-176-_jpeg.rf.2a21dc12a512131efb3382_795b117c.jpg",
+        "reports/final_evaluation/visualizations/false_negatives_03_dog-18-_jpg.rf.440afac81e003136ad98cd711b4_6e5793ec.jpg"
+      ],
+      "localization_errors": [
+        "reports/final_evaluation/visualizations/localization_errors_01_cow-50-_jpg.rf.1683e7562c028451c048c6bafb1_6088d3f2.jpg",
+        "reports/final_evaluation/visualizations/localization_errors_02_camel-139-_jpg.rf.adb32f909cb3807d18b8f1eb_f347cee8.jpg",
+        "reports/final_evaluation/visualizations/localization_errors_03_horse-27-_jpg.rf.32720670fc107ae6637996840_1f02487e.jpg"
+      ],
+      "class_confusions": [
+        "reports/final_evaluation/visualizations/class_confusions_01_Monkey-181-_jpeg.rf.90014eb443dae41267a8a7_69ca08c9.jpg",
+        "reports/final_evaluation/visualizations/class_confusions_02_rhino-93-_jpg.rf.1f12f0be939aa997fd3e4ad92_47b0aabb.jpg",
+        "reports/final_evaluation/visualizations/class_confusions_03_cat-11-_jpeg.rf.fc3dea0c7c35b095b146cf4fae_bdb698fc.jpg"
+      ],
+      "small_object_cases": [
+        "reports/final_evaluation/visualizations/small_object_cases_01_dog-39-_jpg.rf.fd4055542a11f4fe19b9d2684c6_60f25115.jpg",
+        "reports/final_evaluation/visualizations/small_object_cases_02_Monkey-176-_jpeg.rf.2a21dc12a512131efb3382_795b117c.jpg",
+        "reports/final_evaluation/visualizations/small_object_cases_03_dog-18-_jpg.rf.440afac81e003136ad98cd711b4_6e5793ec.jpg"
+      ],
+      "crowded_scenes": [
+        "reports/final_evaluation/visualizations/crowded_scenes_01_Monkey-176-_jpeg.rf.2a21dc12a512131efb3382_795b117c.jpg",
+        "reports/final_evaluation/visualizations/crowded_scenes_02_Zebra-Valid-329-_jpeg.rf.9b082f5d2ec8aeace_19857de1.jpg",
+        "reports/final_evaluation/visualizations/crowded_scenes_03_dog-39-_jpg.rf.fd4055542a11f4fe19b9d2684c6_60f25115.jpg"
+      ]
+    }
+  },
+  "checkpoint_verification": {
+    "checkpoint": "G:\\animal-detection\\checkpoints\\faster_rcnn_baseline_01\\best.pt",
+    "exists": true,
+    "loaded_successfully": true,
+    "sha256": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+    "size_bytes": 331733579,
+    "architecture": "Faster R-CNN ResNet50-FPN",
+    "pretrained_weights": "FasterRCNN_ResNet50_FPN_Weights.COCO_V1",
+    "num_model_classes": 21,
+    "class_mapping_unchanged": true,
+    "selected_epoch": 9,
+    "model_eval": true,
+    "torch_no_grad": true,
+    "optimizer_or_training_step": false,
+    "internal_transform_min_size": [
+      512
+    ],
+    "internal_transform_max_size": 512,
+    "device": "cuda",
+    "evaluation_peak_cuda_allocated_bytes": 309968896,
+    "evaluation_peak_cuda_reserved_bytes": 562036736
+  },
+  "integrity": {
+    "raw_dataset_sha256_before": "3621eb3f3d9f759787ce339d66a98212814643563d6db2fa0dd9b3c8afb23c57",
+    "raw_dataset_sha256_after": "3621eb3f3d9f759787ce339d66a98212814643563d6db2fa0dd9b3c8afb23c57",
+    "raw_dataset_file_count": 4000,
+    "test_sha256_before": "ed196911c6b60fcfed76b7f5fb43f448e0b758264ef4202fa6d57b255c7acfe7",
+    "test_sha256_after": "ed196911c6b60fcfed76b7f5fb43f448e0b758264ef4202fa6d57b255c7acfe7",
+    "test_file_count": 600,
+    "test_image_count": 300,
+    "test_annotation_file_count": 300,
+    "test_object_count": 388,
+    "test_zero_object_count": 0,
+    "test_class_distribution": [
+      {
+        "model_label": 1,
+        "class_name": "Buffalo",
+        "objects": 18
+      },
+      {
+        "model_label": 2,
+        "class_name": "Camel",
+        "objects": 22
+      },
+      {
+        "model_label": 3,
+        "class_name": "Cat",
+        "objects": 16
+      },
+      {
+        "model_label": 4,
+        "class_name": "Cheetah",
+        "objects": 18
+      },
+      {
+        "model_label": 5,
+        "class_name": "Cow",
+        "objects": 19
+      },
+      {
+        "model_label": 6,
+        "class_name": "Deer",
+        "objects": 17
+      },
+      {
+        "model_label": 7,
+        "class_name": "Dog",
+        "objects": 26
+      },
+      {
+        "model_label": 8,
+        "class_name": "Elephant",
+        "objects": 20
+      },
+      {
+        "model_label": 9,
+        "class_name": "Goat",
+        "objects": 23
+      },
+      {
+        "model_label": 10,
+        "class_name": "Gorilla",
+        "objects": 17
+      },
+      {
+        "model_label": 11,
+        "class_name": "Hippo",
+        "objects": 20
+      },
+      {
+        "model_label": 12,
+        "class_name": "Horse",
+        "objects": 25
+      },
+      {
+        "model_label": 13,
+        "class_name": "Lion",
+        "objects": 16
+      },
+      {
+        "model_label": 14,
+        "class_name": "Monkeys",
+        "objects": 24
+      },
+      {
+        "model_label": 15,
+        "class_name": "Panda",
+        "objects": 15
+      },
+      {
+        "model_label": 16,
+        "class_name": "Rat",
+        "objects": 15
+      },
+      {
+        "model_label": 17,
+        "class_name": "Rhino",
+        "objects": 20
+      },
+      {
+        "model_label": 18,
+        "class_name": "Tiger",
+        "objects": 15
+      },
+      {
+        "model_label": 19,
+        "class_name": "Wolf",
+        "objects": 15
+      },
+      {
+        "model_label": 20,
+        "class_name": "Zebra",
+        "objects": 27
+      }
+    ],
+    "target_validation": "passed for all 300 transformed targets",
+    "checkpoint_sha256_before": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+    "checkpoint_sha256_after": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+    "checkpoint_size_bytes": 331733579,
+    "exclusion_manifest_sha256_before": "7e4e3f49e39bca45ec1e715c113cb2a548b623210f119406f413d9b83b7aea30",
+    "exclusion_manifest_sha256_after": "7e4e3f49e39bca45ec1e715c113cb2a548b623210f119406f413d9b83b7aea30",
+    "training_occurred": false,
+    "optimizer_constructed": false,
+    "optimizer_step_executed": false,
+    "model_eval": true,
+    "torch_no_grad": true
+  },
+  "verification": {
+    "full_pytest": {
+      "command": "pytest -q",
+      "passed": 75,
+      "failed": 0,
+      "runtime_seconds": 8.85
+    },
+    "branch": "main",
+    "staged_files": 0,
+    "training_occurred": false,
+    "optimizer_step_executed": false,
+    "held_out_metric_passes": 1,
+    "post_test_model_selection": false,
+    "post_test_threshold_tuning": false,
+    "checkpoint_ignored_by_git": true,
+    "raw_dataset_sha256_final": "3621eb3f3d9f759787ce339d66a98212814643563d6db2fa0dd9b3c8afb23c57",
+    "test_sha256_final": "ed196911c6b60fcfed76b7f5fb43f448e0b758264ef4202fa6d57b255c7acfe7",
+    "checkpoint_sha256_final": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+    "exclusion_manifest_sha256_final": "7e4e3f49e39bca45ec1e715c113cb2a548b623210f119406f413d9b83b7aea30",
+    "integrity_result": "all recorded before/after/final hashes match"
+  },
+  "conclusion": "The validation-selected baseline generalized at least as well on this held-out split for aggregate COCO metrics. Small-object and crowded-scene recall remain the principal limitations; no post-test model or threshold change was made.",
+  "test_used_for_selection_or_tuning": false,
+  "training_occurred": false
+}

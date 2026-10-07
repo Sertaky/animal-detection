@@ -1,0 +1,42 @@
+{
+  "checkpoint": "G:\\animal-detection\\checkpoints\\faster_rcnn_baseline_01\\best.pt",
+  "checkpoint_sha256": "890568ee1759b4941ea74d309f6dbc616f7bff52f963e53d2639613735b2447f",
+  "checkpoint_epoch": 9,
+  "device": "cpu",
+  "device_name": "CPU",
+  "split": "test",
+  "image_size": [
+    512,
+    512
+  ],
+  "batch_size": 1,
+  "representative_model_only_images": 10,
+  "model_loading_included": false,
+  "model_only_definition": "Preprocessed 3x512x512 tensors are already on the target device; timing includes the full torchvision detector call and its postprocessing.",
+  "end_to_end_definition": "Timing includes image decode, RGB conversion, annotation parse, Resize(512,512), ToTensor, device transfer, detector call, and detector postprocessing; it excludes model loading.",
+  "cuda_timing_synchronization": false,
+  "model_only": {
+    "warmup_iterations": 5,
+    "timed_iterations": 20,
+    "batch_size": 1,
+    "mean_latency_ms": 767.4358799995389,
+    "median_latency_ms": 755.7763499789871,
+    "p95_latency_ms": 891.4358900336083,
+    "images_per_second": 1.3030404572699947,
+    "min_latency_ms": 637.9768999759108,
+    "max_latency_ms": 924.1821999894455
+  },
+  "end_to_end": {
+    "warmup_iterations": 5,
+    "timed_iterations": 20,
+    "batch_size": 1,
+    "mean_latency_ms": 1011.1480349965859,
+    "median_latency_ms": 972.4846000317484,
+    "p95_latency_ms": 1275.9535449848047,
+    "images_per_second": 0.9889748734994837,
+    "min_latency_ms": 875.7842999184504,
+    "max_latency_ms": 1616.8903999496251
+  },
+  "training_occurred": false,
+  "optimizer_constructed": false
+}
