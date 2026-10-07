@@ -1,447 +1,303 @@
-# Animal Detection
+# Multi-Class Animal Detection with Faster R-CNN
 
-A standalone portfolio project for multi-class animal object detection using PyTorch.
+A portfolio-grade computer-vision project covering dataset auditing, custom PyTorch detection pipelines, Faster R-CNN fine-tuning, controlled experimentation, error analysis, one-time held-out evaluation, and inference benchmarking.
 
-## Status
+**Selected model:** Faster R-CNN ResNet50-FPN with COCO V1 pretrained weights
 
-The full development cycle is complete. Model selection was locked from validation
-results, and the selected baseline has been evaluated once on the held-out test
-split. No post-test checkpoint selection or threshold tuning was performed.
+**Selection rule:** validation mAP@0.50:0.95, locked before test evaluation
 
-## Environment setup
+| Final held-out test | Result |
+|---|---:|
+| mAP@0.50:0.95 | **0.6207** |
+| mAP@0.50 | **0.8775** |
+| mAP@0.75 | **0.7092** |
+| mAR@100 | **0.7092** |
+| Precision @ score/IoU 0.50/0.50 | **0.8072** |
+| Recall @ score/IoU 0.50/0.50 | **0.8093** |
 
-The project uses a dedicated Conda environment named `animal-detection` with Python 3.12. After environment creation, activate it with:
+**20 classes · 300 held-out test images · RTX 3050 benchmark · 10.8 model-only images/s**
 
-```powershell
-conda activate animal-detection
-```
+![Representative held-out test detections](reports/readme/final_detection_examples.png)
 
-`requirements.txt` records the exact verified package versions. The CUDA 13.0 PyTorch wheels use PyTorch's package index, so install with:
+*Ground truth is green, matched predictions are cyan, and retained errors are red. These examples come from the frozen final-test prediction cache; no inference was rerun for this montage.*
 
-```powershell
-python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu130
-```
+## Project Overview
 
-The environment sets `PYTHONNOUSERSITE=1` to prevent unrelated user-level Python packages from leaking into the project.
+The goal is to detect and classify 20 animal categories in natural and curated imagery. The work goes beyond a single training run: it audits annotation quality, implements a model-safe dataset layer, tests focused hypotheses one variable at a time, analyzes failure modes, locks model selection using validation data, evaluates the held-out test set once, and measures deployment-relevant latency.
 
-## Repository structure
+Several alternatives improved targeted metrics, but the original 512×512 baseline remained the best-balanced detector once aggregate AP, localization, class balance, compute, and error behavior were considered together.
+
+## Dataset
+
+| Split | Raw images | Used | Annotated objects | Role |
+|---|---:|---:|---:|---|
+| Train | 1,400 | 1,399 | 1,889 | Optimization |
+| Validation | 300 | 299 | 412 | Model selection and diagnostics |
+| Test | 300 | 300 | 388 | One-time final evaluation |
+| **Total** | **2,000** | — | **2,689** | **20 animal classes** |
+
+Annotations use normalized YOLO `class_id cx cy width height` rows. A custom PyTorch `Dataset` converts boxes to pixel `xyxy`, validates coordinates and labels, supports variable-length targets, and works with paired image/target transforms and a detection-specific collate function.
+
+The audit found two empty label files whose images visibly contain animals. Their annotations were never edited: the affected training and validation samples are handled through [`data/manifests/excluded_samples.json`](data/manifests/excluded_samples.json). Raw data remains immutable and Git-ignored.
+
+Detailed evidence: [dataset audit](reports/dataset_audit.json), [dataset tree](reports/dataset_tree.txt), and [annotation samples](reports/sample_annotations.txt).
+
+## Detection Architecture
 
 ```text
-data/manifests/                 Generated lightweight manifests
-data/processed/                 Generated processed data (ignored by Git)
-reports/annotation_samples/     Generated annotation previews
-scripts/                        Dataset inspection and visualization tools
-src/animal_detection/           Project Python package
-tests/                          Tests
-Multi-Class Animal Detection.v1-yolov8/  Raw dataset (ignored by Git)
+Input image
+    ↓
+ResNet-50 backbone
+    ↓
+Feature Pyramid Network (multi-scale features)
+    ↓
+Region Proposal Network (candidate objects)
+    ↓
+RoI Align (fixed-size proposal features)
+    ↓
+Classification head + box-regression head
+    ↓
+Non-maximum suppression
+    ↓
+Final boxes, classes, and confidence scores
 ```
 
-## Dataset policy
+The backbone extracts visual features; the FPN exposes them at several spatial scales. The RPN proposes likely object regions, RoI Align creates consistent proposal features, and the final heads jointly classify each region and refine its box. The task-specific predictor has 21 outputs: background plus 20 foreground classes.
 
-The raw dataset is expected at `Multi-Class Animal Detection.v1-yolov8/`. It is immutable: scripts only read its images, labels, and `data.yaml`. All generated reports and visualizations are written outside that directory.
+## Training Pipeline
 
-## Audit the dataset
-
-```powershell
-python scripts/inspect_dataset.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8"
+```text
+YOLO annotations
+      ↓
+Custom detection Dataset
+      ↓
+Annotation + target validation
+      ↓
+Paired image/box transforms
+      ↓
+DataLoader + detection collate
+      ↓
+Faster R-CNN forward pass
+      ↓
+Four-loss optimization
+      ↓
+COCO-style validation mAP
 ```
 
-## Visualize annotations
+Baseline training uses 512×512 inputs, batch size 1, 10 epochs, FP32, seed 42, and all 41,396,536 parameters trainable. SGD uses LR 0.0025, momentum 0.9, weight decay 0.0005, and `StepLR(step_size=7, gamma=0.1)`. Training applies resize plus horizontal flip (`p=0.5`); validation applies deterministic resize only.
 
-```powershell
-python scripts/visualize_annotations.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split train --num-samples 8 --seed 42
-```
+Faster R-CNN optimizes four complementary losses:
 
-## PyTorch Dataset Layer
+- **Classifier:** predicts the foreground class or background for each proposal.
+- **Box regression:** refines final object-box coordinates.
+- **Objectness:** teaches the RPN which anchors likely contain objects.
+- **RPN box regression:** refines proposals before RoI processing.
 
-`YoloDetectionDataset` reads the immutable YOLO annotations and converts normalized
-`class_id cx cy width height` boxes in memory to pixel `x1 y1 x2 y2` coordinates.
-Raw labels remain class IDs 0–19 at this stage; a future torchvision model adapter
-must explicitly handle any background-label offset instead of changing the dataset
-silently.
+## Final Results
 
-The dataset supports zero-object samples and detection transforms with an
-`image, target` call signature. `detection_collate_fn` keeps images and targets as
-sequences so samples with different object counts can share a DataLoader batch.
+The baseline checkpoint from epoch 9 was selected using validation mAP before the test split was constructed. The model, preprocessing, checkpoint, and diagnostic thresholds were not changed after observing test results.
 
-The cow and wolf samples identified by the audit have empty label files despite
-visibly containing animals. The raw parser continues to represent empty targets
-faithfully. Full training and validation exclude these two known bad annotations
-through `data/manifests/excluded_samples.json`; raw labels are never edited.
-
-Run a short DataLoader check with:
-
-```powershell
-python scripts/check_dataloader.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split train --batch-size 4 --num-workers 0
-```
-
-Install and run the development tests with:
-
-```powershell
-python -m pip install -r requirements-dev.txt --extra-index-url https://download.pytorch.org/whl/cu130
-pytest -q -m "not heldout"
-```
-
-## Model-Facing Targets and Detection Transforms
-
-Raw dataset labels remain unchanged at 0–19. Torchvision detector targets reserve
-label 0 for background and use foreground labels 1–20; this shift is performed
-explicitly by `adapt_target_for_torchvision`, never by `YoloDetectionDataset`.
-The adapter also adds `area` and `iscrowd` without mutating the dataset target.
-
-Paired transforms operate jointly on each image and target. Horizontal flips mirror
-pixel `xyxy` coordinates, while resize scales both coordinate axes and updates the
-current size metadata. The initial train preset uses 640×640 resize, a 50% horizontal
-flip, and tensor conversion. The evaluation preset uses only 640×640 resize and
-tensor conversion. No ImageNet normalization is applied because torchvision
-detection models generally normalize inputs internally.
-
-Verify the transform geometry numerically:
-
-```powershell
-python scripts/check_detection_transforms.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8"
-```
-
-Generate transformed samples for visual review before training:
-
-```powershell
-python scripts/visualize_transformed_samples.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split train --num-samples 8 --seed 42
-```
-
-## Faster R-CNN Integration
-
-The current detector integration uses torchvision Faster R-CNN with a ResNet50-FPN
-backbone. COCO detector weights initialize the pretrained network, after which the
-final predictor is replaced with 21 outputs: background label 0 plus 20 animal
-foreground classes. Dataset labels 0–19 are explicitly adapted to model labels
-1–20 before the forward pass.
-
-The earlier integration check performed one smoke-test optimization step and one
-inference pass without saving a checkpoint. The default smoke resolution was
-512×512 to provide a conservative
-FP32 baseline for the 4 GB RTX 3050; this is not a final training configuration.
-
-```powershell
-python scripts/check_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --batch-size 1 --num-workers 0
-```
-
-## Training and Validation
-
-The reusable engine optimizes only on the `train` split and computes COCO-style
-detection metrics only on the `valid` split. The training script does not construct
-the `test` split, and it is not used for model selection. Validation tracks mAP@0.50:0.95, mAP@0.50,
-mAP@0.75, mean recall, and class-wise AP where available through TorchMetrics.
-
-The earlier bounded pipeline check is recorded in `reports/training_history.json`
-with its checkpoint at `checkpoints/faster_rcnn_best.pt`.
-
-## First baseline experiment
-
-The baseline uses Faster R-CNN ResNet50-FPN initialized with COCO V1 detector
-weights and a new 21-class predictor (20 animals plus background). All parameters
-are fine-tuned in FP32 with 512×512 inputs, batch size 1, and 10 epochs.
-Training uses resize, 50% random horizontal flip, and tensor conversion;
-validation uses resize and tensor conversion only. SGD uses learning rate 0.0025,
-momentum 0.9, and weight decay 0.0005. StepLR decays the learning rate by 0.1
-after epoch 7. The history records the rate used during each epoch.
-
-The exclusion manifest removes one visibly annotated-missing cow image from the
-1,400 training images and one wolf image from the 300 validation images, leaving
-1,399 usable training images and 299 usable validation images. Selection uses
-highest validation mAP@0.50:0.95, then mAP@0.50 for an exact tie. The held-out
-test split is not part of training or selection.
-
-Baseline reports are under `reports/experiments/faster_rcnn_baseline_01/`.
-Ignored checkpoints are under `checkpoints/faster_rcnn_baseline_01/`.
-
-### FIRST BASELINE VALIDATION RESULTS
-
-After 10 full epochs, the best checkpoint was selected at epoch 9 by
-validation mAP@0.50:0.95 = 0.575485. At that epoch, validation mAP@0.50
-was 0.825687 and mAP@0.75 was 0.653031. These are validation results
-for the first baseline, not test performance or a final model claim.
-The complete epoch history, class-wise AP, configuration, summary, and
-two unsmoothed plots are in the baseline report directory above.
-
-## Baseline Validation Error Analysis
-
-The epoch-9 best checkpoint was analyzed once on all 299 usable validation
-images, with no random augmentation or weight updates. The primary diagnostic
-matching uses score threshold 0.50 and class-aware IoU threshold 0.50.
-At that operating point, 412 annotated objects yield 313 true positives,
-103 false positives, and 99 false negatives. These counts are diagnostic
-one-to-one matches, not COCO AP.
-
-Class confusion is the largest false-positive subtype (57). Small objects
-have 0.382 recall versus 0.892 for large objects; scenes with four or more
-objects have 0.433 recall versus 0.871 for one-object scenes. Panda has
-the lowest baseline AP and 16/36 objects matched at this operating point.
-The analysis does not use test results.
-
-See [the concise summary](reports/experiments/faster_rcnn_baseline_01/error_analysis/summary.txt),
-[structured diagnostics](reports/experiments/faster_rcnn_baseline_01/error_analysis/summary.json),
-and [visualization index](reports/experiments/faster_rcnn_baseline_01/error_analysis/visualizations.json).
-The cached validation predictions and detailed per-class, threshold,
-localization, confidence, size, crowdedness, and confusion reports are in the
-same `error_analysis/` directory.
-
-## Experiment 02: 640x640 resolution comparison
-
-`faster_rcnn_resolution_640_01` changes only the train and validation resize
-from 512x512 to 640x640. Architecture, COCO V1 initialization, 21 model
-classes, all-trainable parameters, batch size 1, 10-epoch schedule, SGD and
-StepLR settings, seed 42, transforms other than size, exclusion manifest,
-usable splits, and model-selection rule match Baseline 01. A GPU preflight
-confirmed a 3x640x640 tensor, finite training losses, no OOM, and the same
-41,396,536 trainable parameters before the full run.
-
-The best 640 checkpoint was epoch 9, with validation mAP = 0.560321,
-mAP@0.50 = 0.809025, mAP@0.75 = 0.630468, and mAR@100 = 0.684877.
-Relative to the 512 baseline, these changed by -0.015163, -0.016661,
--0.022563, and -0.002567 respectively. Mean epoch runtime increased from
-412.301 to 468.981 seconds (+13.7%), while peak allocated GPU memory increased
-from 737.231 to 934.290 MiB (+26.7%).
-
-At the fixed diagnostic score/IoU thresholds of 0.50/0.50, 640 improved
-small-object recall from 0.382 to 0.447 and 4+-object-scene recall from 0.433
-to 0.493. Overall diagnostic recall rose slightly from 0.760 to 0.767, but
-precision fell from 0.752 to 0.740, false positives rose from 103 to 111, and
-class-confusion events rose from 57 to 71. Tiger, Buffalo, and Cow had the
-largest class-AP gains; Wolf, Monkeys, and Rat had the largest declines.
-
-Conclusion: 640x640 is not an overall validation improvement for this fixed
-10-epoch setup. Its targeted small/crowded recall gains do not offset lower
-COCO-style AP, more diagnostic false positives, and higher runtime/memory cost.
-This is a validation-only experiment; no test-set claim is made.
-
-See [the structured comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison_vs_baseline_01.json),
-[the concise comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison_vs_baseline_01.txt),
-and the plots in `reports/experiments/faster_rcnn_resolution_640_01/`.
-
-## Class-Focused Data Audit
-
-Before designing a third experiment, a train/validation-only data audit compared
-the weak or confused Panda, Monkeys, Gorilla, Goat, and Camel classes with Dog,
-Wolf, Rhino, and Lion references; Deer was included for the Goat/Deer confusion
-context. The audit measures box geometry, fixed small/medium/large bins,
-boundary contact, crowdedness, and train/validation shifts, and includes manual
-review sheets without model predictions.
-
-The clearest issue is Panda validation difficulty and class consistency. Panda
-validation has 50.0% small objects and median normalized area 0.094 versus 0.535
-in train; 47.2% of its validation objects occur in images with four or more
-objects. Reviewed Panda samples also mix giant pandas and red pandas under one
-label. Goat and Camel have similar scale/crowding distributions, while Deer is
-larger and less crowded. Monkeys contains visually diverse primates, making
-some Gorilla confusion plausible, but reviewed examples did not establish
-systematic wrong labeling. Weak classes are not systematically more
-boundary-truncated than the stronger references.
-
-See [the audit summary](reports/class_data_audit/summary.txt),
-[structured class statistics](reports/class_data_audit/class_statistics.json),
-[the review-only suspicious sample queue](reports/class_data_audit/suspicious_samples.json),
-and the visual indexes under `reports/class_data_audit/`. No raw files, labels,
-splits, or exclusions were changed, and no test data or training was used.
-
-## Experiment 03: Class-Aware Sampling
-
-Experiment 03 tests one controlled change from Baseline 01: shuffled one-pass
-training is replaced by a seeded `WeightedRandomSampler`. An image receives
-weight 2.0 when it contains Panda, Monkeys, Goat, or Camel and weight 1.0
-otherwise. Presence uses a maximum rule, so multiple weak classes do not stack.
-Sampling uses replacement for exactly 1,399 draws per epoch. Architecture,
-COCO initialization, 512x512 transforms, augmentation, optimizer, scheduler,
-seed, epoch count, exclusions, and validation/model-selection policy remain
-unchanged.
-
-The fixed-seed simulation sampled 873 unique images, produced 526 repeated
-draws, and drew any single image at most eight times. Weak-class-containing
-images represented 31.88% of draws. Exposure was 1.457x for Panda, 1.729x for
-Monkeys, 1.471x for Goat, and 1.714x for Camel.
-
-The best checkpoint was epoch 10: validation mAP=0.576391, mAP@0.50=0.830832,
-mAP@0.75=0.644557, and mAR@100=0.688296. Versus Baseline 01, overall mAP
-changed only +0.000907. Camel AP improved +0.126750, Goat +0.041036, Panda
-+0.014117, Gorilla +0.000702, and Monkeys -0.000420. All four reference
-classes declined: Dog -0.027599, Wolf -0.082039, Rhino -0.049568, and Lion
--0.035365. Diagnostic recall improved, and the selected Monkeys/Gorilla and
-Goat/Camel/Deer confusion pairs decreased, but precision, mAP@0.75, mean
-matched IoU, total class-confusion errors, and localization-error count worsened.
-
-Conclusion: the 2x class-aware policy produced useful Camel/Goat gains but is
-not a clear overall improvement because aggregate AP was effectively flat and
-strong-class degradation was consistent. No test metrics were used. See the
-[sampling-effect summary](reports/experiments/faster_rcnn_class_aware_sampling_01/sampling_effect_summary.txt),
-[weak-class comparison](reports/experiments/faster_rcnn_class_aware_sampling_01/weak_class_comparison.json),
-and [overall comparison](reports/experiments/faster_rcnn_class_aware_sampling_01/comparison_vs_baseline_01.json).
-
-## Experiment 04: Difficulty-Aware Sampling
-
-Experiment 04 changes only the training sampling policy from Baseline 01.
-An image is considered difficult when it contains any box whose normalized area
-is strictly below 0.10, or when it contains at least four annotated objects.
-Such images receive weight 2.0; all other images receive weight 1.0. The two
-conditions use maximum/presence aggregation, so an image that is both small-object
-containing and crowded still receives weight 2.0. Sampling uses seeded replacement
-for exactly 1,399 draws per epoch and does not consult semantic class IDs.
-
-Architecture, COCO V1 initialization, all-trainable parameters, 512x512 inputs,
-batch size 1, transforms, augmentation, 10 epochs, SGD, LR and StepLR schedule,
-seed 42, exclusions, validation, and selection policy match Baseline 01. The raw
-training set contains 140 small-object images, 51 crowded images, 49 in both
-groups, and 1,257 ordinary images. The fixed-seed simulation yielded 255 small-
-object-image draws (1.821x exposure) and 86 crowded-image draws (1.686x), while
-retaining 859 unique images (61.40%) across 1,399 draws.
-
-The best checkpoint was epoch 10: validation mAP=0.564713, mAP@0.50=0.828431,
-mAP@0.75=0.628207, and mAR@100=0.673316. Versus Baseline 01, small-object recall
-was unchanged at 0.381579, while 4+-object-scene recall fell from 0.432836 to
-0.388060 (-0.044776). Overall mAP fell by 0.010772, precision at the fixed
-diagnostic threshold fell by 0.002404, class-confusion errors rose from 57 to 61,
-and localization errors rose from 22 to 24. All four strong reference classes
-lost AP. Compared with Experiment 03, difficulty-aware sampling also had lower
-mAP (-0.011678), small recall (-0.078947), and crowded recall (-0.059701), though
-its fixed-threshold precision was 0.013636 higher.
-
-Conclusion: the fixed 2x difficulty-aware policy was not beneficial. Increased
-exposure to the intended training images did not improve the primary difficulty
-recall targets and came with lower overall AP. No test metrics were used. See the
-[difficulty-effect report](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/difficulty_sampling_effect.txt),
-[baseline comparison](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/comparison_vs_baseline_01.json),
-and [class-aware comparison](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/comparison_vs_class_aware_sampling_01.txt).
-
-## Experiment 05: Scale Jitter
-
-Experiment 05 tests whether changing apparent object scale during training improves
-small-object robustness without repeated-image sampling. It changes only the train
-geometric transform: `RandomScaleJitter512` uniformly selects 0.8, 1.0, or 1.2,
-using half-up integer rounding to produce 410x410, 512x512, or 614x614 images.
-The 0.8 branch uses random zero-filled placement on a 512x512 canvas; the 1.2
-branch uses a random 512x512 crop with box clipping; 1.0 is the baseline resize.
-Horizontal flip remains 0.5. Validation and every model/optimization/split setting
-remain identical to Baseline 01, with standard shuffled one-pass training.
-
-The seed-42 simulation assigned 458/478/463 images to scales 0.8/1.0/1.2.
-Training boxes shifted from 289/696/904 small/medium/large to 314/715/859.
-Of 1,889 boxes, 468 were clipped, one was completely removed, and no transformed
-image became empty. Boundary-touch frequency rose from 27.26% to 34.11%.
-Faster R-CNN retained internal `min_size=(512,)` and `max_size=512`; its input
-batch stayed 512x512, while a verified real box changed normalized area from
-0.2912 to 0.4541 to 0.6531 across the three branches.
-
-The best checkpoint was epoch 10: validation mAP=0.576239, mAP@0.50=0.820633,
-mAP@0.75=0.621193, and mAR@100=0.698096. Versus Baseline 01, small-object recall
-improved from 0.381579 to 0.460526 and 4+-object recall from 0.432836 to 0.447761.
-Overall mAP was effectively flat (+0.000754), while mAP@0.75 fell 0.031838,
-precision fell 0.021369, localization errors rose from 22 to 31, and background
-false positives doubled from 8 to 16. Strong reference AP was mixed rather than
-stable: Dog and Wolf improved, while Rhino and Lion declined.
-
-Conclusion: scale jitter is useful evidence for targeted small/crowded recall, but
-is not a clear general replacement for Baseline 01 because its negligible mAP gain
-does not offset weaker localization-sensitive AP, precision, and error counts.
-Baseline 01 remains the best general configuration. No test metrics were used.
-See the [effect report](reports/experiments/faster_rcnn_scale_jitter_01/scale_jitter_effect.txt),
-[baseline comparison](reports/experiments/faster_rcnn_scale_jitter_01/comparison_vs_baseline_01.json),
-and [cross-experiment comparison](reports/experiments/faster_rcnn_scale_jitter_01/comparison_with_previous_experiments.txt).
-
-## Final Model and Held-out Test Results
-
-This project trains a 20-class animal detector from YOLO-format annotations while
-keeping raw images and labels immutable. The dataset contains 2,000 images across
-train, validation, and test splits. Training used 1,399 usable images, model
-selection used 299 usable validation images, and the final held-out evaluation
-used all 300 test images containing 388 annotated objects across all 20 classes.
-
-The selected model is `faster_rcnn_baseline_01`: Faster R-CNN ResNet50-FPN with
-COCO V1 initialization, a 21-output predictor (background plus 20 animals), and
-all 41,396,536 parameters fine-tuned. Inputs are resized to 512x512. Training used
-batch size 1 for 10 epochs in FP32 with SGD (LR 0.0025, momentum 0.9, weight decay
-0.0005), StepLR(step size 7, gamma 0.1), seed 42, and a 50% horizontal flip.
-
-The experimental path was deliberately validation-driven:
-
-1. Baseline 01 established the reference configuration and exposed weak
-   small-object and crowded-scene recall.
-2. Experiment 02 tested 640x640 resolution; targeted recall improved, but overall
-   AP, localization, runtime, and memory worsened.
-3. Experiment 03 tested class-aware sampling; some weak classes improved, but
-   aggregate AP was effectively flat and strong reference classes regressed.
-4. Experiment 04 tested difficulty-aware sampling; increased exposure did not
-   improve the intended recall targets and reduced overall AP.
-5. Experiment 05 tested scale jitter; small/crowded recall improved, but poorer
-   localization-sensitive AP and precision prevented it replacing the baseline.
-
-Baseline epoch 9 was therefore locked before test access. Its validation metrics
-were mAP 0.575485, mAP50 0.825687, mAP75 0.653031, and mAR100 0.687444. The one
-final held-out test evaluation produced:
-
-| Metric | Validation | Held-out test | Test - validation |
+| Metric | Validation | Held-out test | Test − validation |
 |---|---:|---:|---:|
-| mAP@0.50:0.95 | 0.575485 | 0.620661 | +0.045177 |
-| mAP@0.50 | 0.825687 | 0.877468 | +0.051781 |
-| mAP@0.75 | 0.653031 | 0.709247 | +0.056216 |
-| mAR@100 | 0.687444 | 0.709201 | +0.021757 |
+| mAP@0.50:0.95 | 0.5755 | **0.6207** | +0.0452 |
+| mAP@0.50 | 0.8257 | **0.8775** | +0.0518 |
+| mAP@0.75 | 0.6530 | **0.7092** | +0.0562 |
+| mAR@100 | 0.6874 | **0.7092** | +0.0218 |
 
-At the validation-fixed diagnostic operating point (score 0.50, IoU 0.50), the
-test set yielded 314 TP, 75 FP, and 74 FN: precision 0.807198 and recall 0.809278.
-Small/medium/large recall was 0.430769/0.880952/0.888325. Recall for one-object,
-2-3-object, and 4+-object scenes was 0.871486/0.802198/0.500000. Class confusion
-was the largest false-positive category (42), followed by localization errors
-(21), background false positives (7), and duplicates (3). Mean/median matched
-IoU was 0.849803/0.874519. These diagnostic counts describe errors and do not
-replace COCO AP.
+![Validation versus held-out test metrics](reports/final_evaluation/validation_vs_test_metrics.png)
 
-The strongest test classes by AP were Rhino (0.814862), Buffalo (0.811795), and
-Wolf (0.803552). The weakest were Monkeys (0.381987), Camel (0.395127), and Dog
-(0.437783). Small objects, crowded scenes, and semantic confusions remain the
-main limitations. Validation-to-test differences are descriptive; no statistical
-significance is claimed.
+Aggregate test metrics exceeded validation metrics. This is descriptive, not a statistical-significance claim, and it did not trigger further model selection or tuning.
 
-On an NVIDIA GeForce RTX 3050 4GB Laptop GPU, batch-1 model-only inference used
-20 warmup and 100 synchronized timed iterations: mean 92.339 ms, median 92.065 ms,
-p95 95.730 ms, and 10.830 images/s. End-to-end timing (decode, 512 preprocessing,
-device transfer, detector, and postprocessing) averaged 102.101 ms or 9.794
-images/s, with 324.608 MiB peak allocated and 572 MiB peak reserved CUDA memory.
-The optional CPU model-only benchmark (5 warmup, 20 timed) averaged 767.436 ms
-or 1.303 images/s. Model-loading time is excluded.
+### Per-class performance
 
-The model-selection lock, integrity hashes, per-class results, comparisons,
-prediction cache, plots, benchmark methodology, and visual review index are in
-[`reports/final_evaluation/`](reports/final_evaluation/). The raw-data, test-data,
-checkpoint, and exclusion-manifest hashes were identical before and after final
-evaluation.
+![Held-out test AP for all 20 classes](reports/final_evaluation/test_class_ap.png)
 
-### Final project structure
+| Group | Class | Test AP@0.50:0.95 |
+|---|---|---:|
+| Strongest | Rhino | 0.8149 |
+| Strongest | Buffalo | 0.8118 |
+| Strongest | Wolf | 0.8036 |
+| Weakest | Monkeys | 0.3820 |
+| Weakest | Camel | 0.3951 |
+| Weakest | Dog | 0.4378 |
+
+Class-level variation remains meaningful despite the strong aggregate result. Full class-ID-ordered metrics are available in [`per_class_test_metrics.csv`](reports/final_evaluation/per_class_test_metrics.csv).
+
+## Where the Detector Still Struggles
+
+Diagnostics use thresholds fixed during validation: score ≥ 0.50 and IoU ≥ 0.50. They describe one operating point and do not replace COCO AP.
+
+| Object size | Recall | Scene density | Recall |
+|---|---:|---|---:|
+| Small | **43.1%** | 1 object | **87.1%** |
+| Medium | 88.1% | 2–3 objects | 80.2% |
+| Large | 88.8% | 4+ objects | **50.0%** |
+
+| Diagnostic outcome | Count |
+|---|---:|
+| True positives | 314 |
+| False positives | 75 |
+| False negatives | 74 |
+| Class-confusion FP | 42 |
+| Localization FP | 21 |
+| Background FP | 7 |
+| Duplicate FP | 3 |
+| Other overlap | 2 |
+
+![Held-out test false-positive breakdown](reports/final_evaluation/error_breakdown.png)
+
+Small objects remain substantially harder than medium and large objects, and recall falls in scenes with four or more annotations. Class confusion is the largest false-positive source; localization is secondary. Matched detections are generally well aligned (mean IoU 0.8498, median 0.8745), while confidence separates TP and FP imperfectly: median confidence is 0.975 for TP and 0.663 for FP.
+
+![Representative held-out test errors](reports/readme/failure_examples.png)
+
+Full diagnostics and exact example paths are under [`reports/final_evaluation/error_analysis/`](reports/final_evaluation/error_analysis/).
+
+## Controlled Experiments
+
+Each experiment changed one primary variable while retaining the architecture, pretrained weights, optimizer, schedule, seed, exclusions, and validation discipline.
+
+| Experiment | Changed variable | mAP | mAP75 | Small recall | 4+ recall | Decision |
+|---|---|---:|---:|---:|---:|---|
+| Baseline 01 | Standard 512 training | 0.5755 | **0.6530** | 0.3816 | 0.4328 | **Selected** |
+| Experiment 02 | 640 resolution | 0.5603 | 0.6305 | 0.4474 | **0.4925** | Rejected |
+| Experiment 03 | Class-aware sampling | **0.5764** | 0.6446 | **0.4605** | 0.4478 | Rejected |
+| Experiment 04 | Difficulty-aware sampling | 0.5647 | 0.6282 | 0.3816 | 0.3881 | Rejected |
+| Experiment 05 | Scale jitter | 0.5762 | 0.6212 | **0.4605** | 0.4478 | Rejected |
+
+![Validation mAP across controlled experiments](reports/readme/experiment_map_comparison.png)
+
+![Small-object and crowded-scene recall trade-offs](reports/readme/experiment_recall_tradeoff.png)
+
+- **640 resolution** improved difficult-case recall but reduced overall AP and increased runtime and memory.
+- **Class-aware sampling** helped Camel and Goat and improved recall, but weakened strong-class balance.
+- **Difficulty-aware sampling** showed that repeated exposure to difficult images alone did not solve the difficult validation cases.
+- **Scale jitter** improved small/crowded recall, but localization-sensitive AP and precision declined.
+
+The original 512 baseline remained the best-balanced detector. The rejected configurations are useful hypothesis tests: they expose trade-offs and prevent model selection from becoming a search for any isolated metric gain.
+
+Experiment details: [baseline](reports/experiments/faster_rcnn_baseline_01/summary.json), [640 comparison](reports/experiments/faster_rcnn_resolution_640_01/comparison_vs_baseline_01.txt), [class-aware comparison](reports/experiments/faster_rcnn_class_aware_sampling_01/comparison_vs_baseline_01.txt), [difficulty-aware comparison](reports/experiments/faster_rcnn_difficulty_aware_sampling_01/comparison_vs_baseline_01.txt), and [scale-jitter comparison](reports/experiments/faster_rcnn_scale_jitter_01/comparison_vs_baseline_01.txt).
+
+## Inference Benchmark
+
+Batch-1 inference was measured using the selected checkpoint at 512×512. Model loading is excluded; CUDA timings are synchronized. GPU measurements use an NVIDIA GeForce RTX 3050 4GB Laptop GPU.
+
+| Device / pipeline | Mean latency | Median | p95 | Throughput |
+|---|---:|---:|---:|---:|
+| GPU model-only | **92.339 ms** | 92.065 ms | 95.730 ms | **10.830 img/s** |
+| GPU end-to-end | 102.101 ms | 102.176 ms | 106.273 ms | 9.794 img/s |
+| CPU model-only | 767.436 ms | 755.776 ms | 891.436 ms | 1.303 img/s |
+| CPU end-to-end | 1011.148 ms | 972.485 ms | 1275.954 ms | 0.989 img/s |
+
+![GPU and CPU inference latency](reports/readme/inference_benchmark.png)
+
+The synchronized GPU model-only benchmark used 20 warmup and 100 timed iterations. Peak model-only CUDA memory was 321.733 MiB allocated and 470 MiB reserved; end-to-end peak memory was 324.608 MiB allocated and 572 MiB reserved. Full methodology is in the [GPU](reports/final_evaluation/benchmark_cuda.txt) and [CPU](reports/final_evaluation/benchmark_cpu.txt) reports.
+
+## Engineering and Evaluation Discipline
+
+- Raw images and annotations are immutable and excluded from version control.
+- YOLO parsing, box geometry, target shapes, dtypes, and label ranges are validated explicitly.
+- Dataset IDs `0..19` map explicitly to torchvision foreground IDs `1..20`; background remains `0`.
+- Paired transforms update images, boxes, labels, area, and size metadata together.
+- Split handling, exclusions, sampling, and augmentation simulations are deterministic under seed 42.
+- Experiments record configuration, history, metrics, diagnostics, plots, and integrity hashes.
+- Checkpoint selection uses validation only; the test set was evaluated once after a written selection lock.
+- Before/after hashes confirm the raw dataset, test data, checkpoint, and exclusion manifest were unchanged.
+- The final full test suite contains 75 passing tests.
+
+See the [selection lock](reports/final_evaluation/model_selection_lock.txt), [integrity report](reports/final_evaluation/integrity.json), [verification report](reports/final_evaluation/verification.txt), and [final summary](reports/final_evaluation/final_summary.txt).
+
+## Project Structure
 
 ```text
-src/animal_detection/                 Dataset, transforms, model, engine, analysis
-scripts/train_faster_rcnn.py          Reusable training entry point
-scripts/analyze_validation_errors.py  Validation diagnostics
-scripts/evaluate_final_test.py        Locked one-pass final test evaluation
-scripts/benchmark_inference.py        Reusable GPU/CPU inference benchmark
-tests/                                Unit and held-out discipline tests
-reports/experiments/                  Baseline and Experiments 02-05
-reports/final_evaluation/              Final test, benchmark, plots, visualizations
-checkpoints/                           Model checkpoints (Git-ignored)
-Multi-Class Animal Detection.v1-yolov8/ Raw dataset (Git-ignored, immutable)
+animal-detection/
+├── data/
+│   └── manifests/              # reviewed exclusions
+├── src/animal_detection/
+│   ├── data/                   # datasets, adapters, transforms, validation
+│   ├── models/                 # Faster R-CNN construction
+│   ├── engine/                 # training and COCO-style evaluation
+│   ├── analysis/               # matching, diagnostics, visualizations
+│   └── utils/                  # shared utilities
+├── scripts/                    # audits, training, analysis, benchmarks
+├── reports/
+│   ├── experiments/            # baseline and controlled experiments
+│   ├── final_evaluation/       # locked held-out results
+│   └── readme/                 # README presentation assets
+├── tests/
+├── README.md
+└── requirements.txt
 ```
 
-### Reproduction commands
+## Reproduction
 
-Training and validation experiments can be reproduced with the fixed experiment
-arguments documented in each report configuration. For the selected baseline:
+### Environment
 
 ```powershell
-python scripts/train_faster_rcnn.py --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --experiment-name faster_rcnn_baseline_01 --image-size 512 --epochs 10 --batch-size 1 --lr 0.0025 --momentum 0.9 --weight-decay 0.0005 --step-size 7 --gamma 0.1 --seed 42
+conda create -n animal-detection python=3.12 -y
+conda activate animal-detection
+python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu130
+python -m pip install -r requirements-dev.txt --extra-index-url https://download.pytorch.org/whl/cu130
 ```
 
-The final evaluator intentionally refuses to overwrite an existing held-out
-prediction cache. In a fresh reproducibility run, create and review the selection
-lock first, then run:
+The dataset is expected at the repository-relative directory `Multi-Class Animal Detection.v1-yolov8/`.
+
+### Audit the immutable dataset
 
 ```powershell
-python scripts/evaluate_final_test.py --checkpoint checkpoints/faster_rcnn_baseline_01/best.pt --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --device cuda
-python scripts/benchmark_inference.py --checkpoint checkpoints/faster_rcnn_baseline_01/best.pt --dataset-root "G:\animal-detection\Multi-Class Animal Detection.v1-yolov8" --split test --device cuda --warmup 20 --iterations 100 --output-dir reports/final_evaluation
+python scripts/inspect_dataset.py --dataset-root "Multi-Class Animal Detection.v1-yolov8"
+```
+
+### Train the selected baseline configuration
+
+```powershell
+python scripts/train_faster_rcnn.py `
+  --dataset-root "Multi-Class Animal Detection.v1-yolov8" `
+  --experiment-name faster_rcnn_baseline_01 `
+  --image-size 512 --epochs 10 --batch-size 1 `
+  --lr 0.0025 --momentum 0.9 --weight-decay 0.0005 `
+  --step-size 7 --gamma 0.1 --seed 42
+```
+
+### Analyze validation errors
+
+```powershell
+python scripts/analyze_validation_errors.py `
+  --experiment-dir reports/experiments/faster_rcnn_baseline_01 `
+  --checkpoint checkpoints/faster_rcnn_baseline_01/best.pt `
+  --score-threshold 0.50 --iou-threshold 0.50 --device cuda
+```
+
+### Final held-out evaluation
+
+> **Methodology warning:** `scripts/evaluate_final_test.py` accesses the held-out test split. It must not be run during model development, checkpoint selection, threshold selection, or experiment tuning. In this project it was run only after the model-selection lock was written, and it intentionally refuses to overwrite the existing final prediction cache.
+
+For a fresh end-to-end reproduction after locking selection:
+
+```powershell
+python scripts/evaluate_final_test.py `
+  --checkpoint checkpoints/faster_rcnn_baseline_01/best.pt `
+  --dataset-root "Multi-Class Animal Detection.v1-yolov8" `
+  --device cuda
+```
+
+### Benchmark inference and verify tests
+
+```powershell
+python scripts/benchmark_inference.py `
+  --checkpoint checkpoints/faster_rcnn_baseline_01/best.pt `
+  --dataset-root "Multi-Class Animal Detection.v1-yolov8" `
+  --split test --device cuda --warmup 20 --iterations 100 `
+  --output-dir reports/final_evaluation
+
 pytest -q
 ```
+
+## Key Lessons and Limitations
+
+- Aggregate AP alone is insufficient: localization, class balance, scene density, latency, and memory changed the selection decision.
+- Small-object recall (43.1%) and crowded-scene recall (50.0%) remain the clearest technical limitations.
+- More pixels or more exposure to selected samples did not automatically produce a better-balanced detector.
+- Scale variation helped targeted recall but exposed a localization trade-off.
+- The dataset is modest, and no confidence intervals or repeated-seed study were performed; validation/test differences should be interpreted descriptively.
+
+The complete evidence trail remains under [`reports/`](reports/), while this README focuses on the decisions, results, and engineering practices most useful to reviewers.
